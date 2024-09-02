@@ -1,16 +1,10 @@
-
 #!name=油价查询面板
 #!desc=油价信息
-#!arguments=provname:四川
+#!arguments=provname:'四川'
 #!arguments-desc=provname:省份名
 
 [Panel]
 车辆限行Panel = script-name=油价, update-interval=3600
-
-
-
-
-
 
 
 油价=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/oil.js,argument=icon=car&color=#c932a9&provname={{{provname}}}
