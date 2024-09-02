@@ -1,0 +1,20 @@
+#!name=oilprice1
+#!desc=油价查询
+#!openUrl=
+#!author=GitHubWBB
+#!homepage=
+#!manual=
+#!icon=
+#!category=GitHubWBB
+#!system=ios
+#!arguments=city: 四川,cronexp: 30 7 * * * 
+#!arguments-desc=city: 省份名 \ncronexp: cron表达式
+
+
+[Panel]
+车辆限行Panel1 = script-name=oil, update-interval=3600
+
+[Script]
+# Panel
+
+oil = type=cron,script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js,cronexp={{{cronexp}}},wake-system=1,timeout=10,script-update-interval=0,enable=true,argument=city={{{city}}}

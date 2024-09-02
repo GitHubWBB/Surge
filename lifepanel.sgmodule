@@ -1,0 +1,19 @@
+#!name=生活指数
+#!desc=生活指数面板
+#!openUrl=
+#!author=GitHubWBB
+#!homepage=
+#!manual=
+#!icon=
+#!category=GitHubWBB
+#!system=ios
+#!arguments=
+#!arguments-desc=
+
+[Panel]
+生活指数Panel = script-name=生活指数, update-interval=3600
+
+[Script]
+# Panel
+
+生活指数=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/lifeindex.js,argument=icon=umbrella.fill&color=#4287f5
