@@ -8,7 +8,7 @@
 [Script]
 
 # Cron
-天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=city={{{city}}}
+天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=cityId={{{city}}}
 
 
 
