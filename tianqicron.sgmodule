@@ -1,0 +1,14 @@
+#!name=天气信息推送
+#!desc=每日推送信息
+#!arguments=cityId:101270101,cronexp:30 7-20/6 * * *
+#!arguments-desc=cityId:城市代码\ncronexp:cron表达式
+#!category=GitHubWBB
+
+
+
+
+[Script]
+
+
+# Cron
+天气 = type=cron,cronexp={{{cronexp}}},script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/tianqi.js,timeout=100,script-update-interval=3600,argument=icon=sun.max.fill&color=#ffc400&cityId={{{cityId}}}
