@@ -1,14 +1,14 @@
 #!name=天气信息
 #!desc=每日推送信息
-#!arguments=city:"101270101",cronexp:30 7-20/6 * * *
-#!arguments-desc=city:城市代码\ncronexp:cron表达式
+#!arguments=cityId:101270101,cronexp:30 7-20/6 * * *
+#!arguments-desc=cityId:城市代码\ncronexp:cron表达式
 
 
 
 [Script]
 
 # Cron
-天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=cityId={{{city}}}
+天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=cityId={{{cityId}}}
 
 
 
