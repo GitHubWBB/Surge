@@ -1,6 +1,6 @@
 #!name=天气信息
 #!desc=每日推送信息
-#!arguments=city:101270101,cronexp:30 7-20/6 * * *
+#!arguments=city:"101270101",cronexp:30 7-20/6 * * *
 #!arguments-desc=city:城市代码\ncronexp:cron表达式
 
 
