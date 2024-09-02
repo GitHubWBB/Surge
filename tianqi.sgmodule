@@ -7,6 +7,10 @@
 
 [Script]
 
+天气=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/tianqi.js,argument=icon=sun.max.fill&color=#ffc400&cityId=
+
+
+
 # Cron
 天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=cityId={{{cityId}}}
 
