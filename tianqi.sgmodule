@@ -1,13 +1,15 @@
-#!name=限行查询
-#!desc=车辆限行信息
-#!arguments=city:cd,loo:本地车,cartype:燃油车,cronexp:30 7 * * *
-#!arguments-desc=city:城市缩写如cd/bj\nloo:本地车/外地车\ncartype:燃油车\ncronexp:cron表达式
+#!name=天气信息
+#!desc=每日推送信息
+#!arguments=city:101270101,cronexp:30 7-20/6 * * *
+#!arguments-desc=city:城市代码\ncronexp:cron表达式
 
-[Panel]
-车辆限行Panel = script-name=xianxing, update-interval=3600
+
 
 [Script]
-# Panel
-xianxing = type=generic, script-path=https://raw.githubusercontent.com/Sliverkiss/GoodNight/master/Script/xianxing.js, timeout=60,argument=city={{{city}}}&loo={{{loo}}}&cartype={{{cartype}}}
+
 # Cron
-限行 = type=cron,cronexp={{{cronexp}}},script-path=https://raw.githubusercontent.com/Sliverkiss/GoodNight/master/Script/xianxing.js,timeout=100,script-update-interval=3600,argument=city={{{city}}}&loo={{{loo}}}&cartype={{{cartype}}}
+天气 = type=cron,cronexp={{{cronexp}}},script-path=https://whatshub.top/plugin/tianqi.js,timeout=100,script-update-interval=3600,argument=city={{{city}}}
+
+
+
+
