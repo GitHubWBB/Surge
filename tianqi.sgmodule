@@ -2,7 +2,7 @@
 #!desc=每日推送信息
 #!arguments=cityId:101270101,cronexp:30 7-20/6 * * *
 #!arguments-desc=cityId:城市代码\ncronexp:cron表达式
-
+#!category=GitHubWBB
 [Panel]
 车辆限行Panel = script-name=tianqi, update-interval=3600
 
