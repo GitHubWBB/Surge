@@ -2,6 +2,14 @@
 #!desc=车辆限行信息
 #!arguments=city:cd,loo:本地车,cartype:燃油车,cronexp:30 7 * * *
 #!arguments-desc=city:城市缩写如cd/bj\nloo:本地车/外地车\ncartype:燃油车\ncronexp:cron表达式
+#!openUrl=
+#!author=GitHubWBB
+#!homepage=
+#!manual=
+#!icon=
+#!category=GitHubWBB
+#!system=ios
+
 
 [Panel]
 车辆限行Panel = script-name=xianxing, update-interval=3600
