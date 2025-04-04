@@ -1,0 +1,15 @@
+#!name=IT之家签到
+#!desc=每日7:10
+#!icon=
+#!category=GitHubWBB
+#!system=ios
+
+
+[Panel]
+车辆限行Panel = script-name=xianxing, update-interval=3600
+
+[Script]
+# Panel
+xianxing = type=generic, script-path=https://raw.githubusercontent.com/Sliverkiss/GoodNight/master/Script/xianxing.js, timeout=60,argument=city={{{city}}}&loo={{{loo}}}&cartype={{{cartype}}}
+# Cron
+限行 = type=cron,cronexp={{{cronexp}}},script-path=https://raw.githubusercontent.com/Sliverkiss/GoodNight/master/Script/xianxing.js,timeout=100,script-update-interval=3600,argument=city={{{city}}}&loo={{{loo}}}&cartype={{{cartype}}}
