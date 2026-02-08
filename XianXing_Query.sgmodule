@@ -2,12 +2,9 @@
 #!desc=车辆限行信息查询，支持面板和定时通知。可自定义城市、车辆类型和通知时间。
 #!author=GitHubWBB & Manus
 #!icon=https://raw.githubusercontent.com/GitHubWBB/Loon/main/js/traffic_limit_icon_v2.png
-
-# 模块参数定义
 #!arguments=city:cd,loo:本地车,cartype:燃油车,cronexp:30 7 * * *
-
-# 参数说明，会显示在 Surge 的模块编辑界面
 #!arguments-desc=city: 城市拼音缩写 (如 cd/bj/sh)\nloo: 填写“本地车”或“外地车”\ncartype: 填写车辆类型 (如“燃油车”)\ncronexp: 定时推送的CRON表达式 (如 "30 7 * * *")
+#!category=GitHubWBB
 
 [Panel]
 # 面板定义，使用参数
