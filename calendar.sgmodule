@@ -1,14 +1,14 @@
 #!name=万年历及详细黄历 (增强版)
-#!desc=提供每日公历、农历、生肖、干支、节气、星座、月相、星宿、五行、节日、宜忌等详细信息。支持面板显示和定时通知，通知时间可在模块参数中修改。
+#!desc=提供每日公历、农历、生肖、干支、节气、星座、月相、星宿、五行、节日、宜忌等详细信息。
 #!arguments={ "cronexp": { "title": "定时通知时间", "desc": "Cron表达式，默认每天早上8点", "type": "string", "default": "0 8 * * *" } }
 
 [Script]
-# 面板显示：类型为 widget
+# 面板小组件
 CalendarPanel = type=widget,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js,update-interval=3600
 
-# 定时通知：时间通过参数 $cronexp 动态获取
+# 定时通知
 CalendarCron = type=cron,cronexp={{cronexp}},script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js,wake-system=1,timeout=60
 
 [Panel]
-# 在面板中定义小组件
-CalendarPanel = script=CalendarPanel,title="万年历",content="加载中...",icon=calendar.circle.fill,color=#333333
+# 在面板中引用小组件脚本
+CalendarPanel = script=CalendarPanel
