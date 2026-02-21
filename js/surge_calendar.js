@@ -1,9 +1,9 @@
 /**
- * Surge 脚本: 万年历及详细黄历 (增强版)
- * 适配: 支持面板(Widget)与定时通知(Cron)
+ * Surge 脚本: 万年历及详细黄历
+ * 适配: Widget(面板) 与 Cron(定时任务)
  */
 
-async function getCalendar() {
+async function main() {
     const now = new Date();
     const year = now.getFullYear();
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -12,6 +12,8 @@ async function getCalendar() {
 
     try {
         const response = await $http.get(url);
+        if (response.error) throw new Error(response.error);
+
         let data = response.body;
         let startIdx = data.indexOf('{');
         let endIdx = data.lastIndexOf('}');
@@ -38,27 +40,28 @@ async function getCalendar() {
             
             detail += `━━━━━━━━━━━━━━━\n✅ 宜: ${info.yi.join(' ')}\n❌ 忌: ${info.ji.join(' ')}`;
             
-            return { title, subTitle, detail };
+            const fullContent = subTitle + "\n" + detail;
+
+            // 针对定时任务环境发送通知
+            if (typeof <LaTex>$cronexp !== "undefined" || (typeof $</LaTex>script !== "undefined" && <LaTex>$script.type === "cron")) {
+                $</LaTex>notification.post(title, subTitle, detail);
+            }
+
+            // 针对面板环境返回对象
+            <LaTex>$done({
+                title: title,
+                content: fullContent,
+                icon: "calendar.circle.fill",
+                "icon-color": "#FF2D55"
+            });
         }
     } catch (e) {
-        return { title: "万年历", subTitle: "获取失败", detail: e.message };
+        $</LaTex>done({
+            title: "万年历",
+            content: "获取失败: " + e.message,
+            icon: "exclamationmark.triangle.fill"
+        });
     }
 }
 
-(async () => {
-    const res = await getCalendar();
-    
-    if (typeof $widget !== 'undefined') {
-        // 面板模式：必须通过 $done 返回一个对象
-        $done({
-            title: res.title,
-            content: res.subTitle + '\n' + res.detail,
-            icon: "calendar.circle.fill",
-            "icon-color": "#FF2D55"
-        });
-    } else {
-        // 定时通知模式
-        <LaTex>$notification.post(res.title, res.subTitle, res.detail);
-        $</LaTex>done();
-    }
-})();
+main();
