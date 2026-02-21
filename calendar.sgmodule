@@ -1,14 +1,17 @@
-#!name=万年历及详细黄历 (Widget版)
-#!desc=提供每日公历、农历、生肖、干支、节气、星座、月相、星宿、五行、节日、宜忌等详细信息。支持面板显示和定时通知。
-#!arguments={ "cronexp": { "title": "定时通知时间", "desc": "Cron表达式，默认每天早上8点", "type": "string", "default": "0 8 * * *" } }
-
-[Script]
-# 小组件模式：直接定义为 widget 类型
-CalendarWidget = type=widget,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js,update-interval=3600
-
-# 定时通知：时间通过参数动态获取
-CalendarCron = type=cron,cronexp={{cronexp}},script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js,wake-system=1,timeout=60
+#!name=万年历及详细黄历 (Surge版)
+#!desc=提供每日公历、农历、生肖、干支、节气、星座、月相、星宿、五行、节日、宜忌等详细信息。支持面板和定时通知。
+#!author=Manus
+#!arguments=cronexp:0 8 * * *
+#!arguments-desc=cronexp: 定时推送的CRON表达式 (如 "0 8 * * *" )
+#!category=工具
 
 [Panel]
-# 在面板中直接引用上面定义好的 widget 脚本
-CalendarWidget = script=CalendarWidget
+# 面板定义，引用脚本名称
+万年历 = script-name=calendar-panel, update-interval=3600
+
+[Script]
+# 面板脚本：使用 type=generic，配合三大括号占位符
+calendar-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js, argument=cronexp={{{cronexp}}}
+
+# 定时任务脚本：使用 type=cron，配合三大括号占位符
+calendar-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/surge_calendar.js, argument=cronexp={{{cronexp}}}
