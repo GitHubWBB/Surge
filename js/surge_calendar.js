@@ -1,6 +1,6 @@
 /**
  * Surge 脚本: 万年历及详细黄历
- * 适配: Widget(面板) 与 Cron(定时任务)
+ * 适配: 面板(Panel) 与 定时任务(Cron)
  */
 
 async function main() {
@@ -8,10 +8,10 @@ async function main() {
     const year = now.getFullYear();
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
     const day = now.getDate();
-    const url = `https://www.rili.com.cn/rili/json/pc_wnl/<LaTex>${year}/$</LaTex>{month}.js`;
+    const url = `https://www.rili.com.cn/rili/json/pc_wnl/${year}/${month}.js`;
 
     try {
-        const response = await $http.get(url);
+        const response = await $http.get(url );
         if (response.error) throw new Error(response.error);
 
         let data = response.body;
@@ -23,9 +23,9 @@ async function main() {
         let info = jsonData.data.find(item => item.nian === year && item.yue === (now.getMonth() + 1) && item.ri === day);
         
         if (info) {
-            let title = `${year}年${month}月${day}日 <LaTex>${info.dddd}`;
-            let subTitle = `【$</LaTex>{info.shengxiao}】农历${info.n_yueri}`;
-            let detail = `干支: <LaTex>${info.gz_nian} $</LaTex>{info.gz_yue} ${info.gz_ri}\n`;
+            let title = `${year}年${month}月${day}日 ${info.dddd}`;
+            let subTitle = `【${info.shengxiao}】农历${info.n_yueri}`;
+            let detail = `干支: ${info.gz_nian} ${info.gz_yue} ${info.gz_ri}\n`;
             
             let jqName = info.jieqi_link ? info.jieqi_link.replace(/<[^>]+>/g, '') : "无";
             let jqNextName = info.jieqi_next_link ? info.jieqi_next_link.replace(/<[^>]+>/g, '') : "无";
@@ -39,24 +39,23 @@ async function main() {
             if (festival) detail += `节日: ${festival}\n`;
             
             detail += `━━━━━━━━━━━━━━━\n✅ 宜: ${info.yi.join(' ')}\n❌ 忌: ${info.ji.join(' ')}`;
-            
-            const fullContent = subTitle + "\n" + detail;
 
-            // 针对定时任务环境发送通知
-            if (typeof <LaTex>$cronexp !== "undefined" || (typeof $</LaTex>script !== "undefined" && <LaTex>$script.type === "cron")) {
-                $</LaTex>notification.post(title, subTitle, detail);
+            // 判断是否由定时任务触发 (Surge 的 cron 触发时 $cronexp 通常已由模块注入)
+            // 这里我们通过判断环境来决定是否发送通知
+            if (typeof $cronexp !== "undefined" || (typeof $script !== "undefined" && $script.type === "cron")) {
+                $notification.post(title, subTitle, detail);
             }
 
-            // 针对面板环境返回对象
-            <LaTex>$done({
+            // 面板模式必须返回对象
+            $done({
                 title: title,
-                content: fullContent,
+                content: subTitle + "\n" + detail,
                 icon: "calendar.circle.fill",
                 "icon-color": "#FF2D55"
             });
         }
     } catch (e) {
-        $</LaTex>done({
+        $done({
             title: "万年历",
             content: "获取失败: " + e.message,
             icon: "exclamationmark.triangle.fill"
