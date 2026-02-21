@@ -3,18 +3,23 @@
  * 适配: 面板(Panel) 与 定时任务(Cron)
  */
 
-(async () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const day = now.getDate();
-    const url = `https://www.rili.com.cn/rili/json/pc_wnl/${year}/${month}.js`;
+const now = new Date();
+const year = now.getFullYear();
+const month = (now.getMonth() + 1).toString().padStart(2, '0');
+const day = now.getDate();
+const url = `https://www.rili.com.cn/rili/json/pc_wnl/${year}/${month}.js`;
+
+$httpClient.get(url, function(error, response, data ) {
+    if (error) {
+        $done({
+            title: "万年历",
+            content: "网络请求失败: " + error,
+            icon: "exclamationmark.triangle.fill"
+        });
+        return;
+    }
 
     try {
-        const response = await $http.get(url );
-        if (response.error) throw new Error(response.error);
-
-        let data = response.body;
         let startIdx = data.indexOf('{');
         let endIdx = data.lastIndexOf('}');
         if (startIdx === -1 || endIdx === -1) throw new Error("数据格式错误");
@@ -40,24 +45,26 @@
             
             detail += `━━━━━━━━━━━━━━━\n✅ 宜: ${info.yi.join(' ')}\n❌ 忌: ${info.ji.join(' ')}`;
             
-            // 针对定时任务环境发送通知
+            // 针对定时任务发送通知
             if (typeof $cronexp !== "undefined" || (typeof $script !== "undefined" && $script.type === "cron")) {
                 $notification.post(title, subTitle, detail);
             }
 
-            // 面板模式必须返回包含 title, content, icon 的对象
+            // 面板模式返回对象
             $done({
                 title: title,
                 content: subTitle + "\n" + detail,
                 icon: "calendar.circle.fill",
                 "icon-color": "#FF2D55"
             });
+        } else {
+            throw new Error("未找到今日数据");
         }
     } catch (e) {
         $done({
             title: "万年历",
-            content: "获取失败: " + e.message,
+            content: "解析失败: " + e.message,
             icon: "exclamationmark.triangle.fill"
         });
     }
-})();
+});
