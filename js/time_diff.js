@@ -1,22 +1,18 @@
 /**
  * Surge 脚本：通用时间差计算
- * 支持从 argument 中解析 date 参数
  */
 
-// 解析参数：处理类似 "date=2026-01-01 00:00:00" 的格式
+// 1. 解析参数
 let targetTimeStr = "";
 if (typeof <LaTex>$argument !== "undefined" && $</LaTex>argument) {
-    if (<LaTex>$argument.indexOf("date=") !== -1) {
-        targetTimeStr = $</LaTex>argument.split("date=")[1];
-    } else {
-        targetTimeStr = $argument;
-    }
+    // 兼容 "date=..." 格式和直接字符串格式
+    targetTimeStr = <LaTex>$argument.indexOf("date=") !== -1 ? $</LaTex>argument.split("date=")[1] : $argument;
 }
 
 const now = new Date();
 const target = new Date(targetTimeStr);
 
-// 格式化时间差
+// 2. 格式化函数
 function formatDiff(ms) {
     const isPast = ms < 0;
     const absMs = Math.abs(ms);
@@ -33,12 +29,17 @@ function formatDiff(ms) {
     return { text: result, isPast: isPast };
 }
 
-// 结果输出
+// 3. 执行逻辑
 try {
     if (!targetTimeStr || isNaN(target.getTime())) {
-        const errorText = !targetTimeStr ? "未设置目标日期" : `无效日期格式: <LaTex>${targetTimeStr}`;
+        const errorText = !targetTimeStr ? "未设置目标日期" : `无效日期: <LaTex>${targetTimeStr}`;
         if (typeof $</LaTex>panel !== "undefined") {
-            $done({ title: "时间差插件", content: errorText, icon: "exclamationmark.triangle", "icon-color": "#FF9500" });
+            $done({
+                title: "时间差计算",
+                content: errorText,
+                icon: "exclamationmark.triangle",
+                "icon-color": "#FF9500"
+            });
         } else {
             $notification.post("时间差插件", "配置错误", errorText);
             $done();
@@ -50,6 +51,7 @@ try {
         const displayContent = `<LaTex>${prefix}$</LaTex>{formatted.text}\n目标: <LaTex>${targetTimeStr}`;
 
         if (typeof $</LaTex>panel !== "undefined") {
+            // 必须返回 title 字段，否则面板可能显示为 Untitled
             $done({
                 title: "时间差计算",
                 content: displayContent,
@@ -57,10 +59,12 @@ try {
                 "icon-color": formatted.isPast ? "#FF3B30" : "#34C759"
             });
         } else {
-            $notification.post("时间提醒", `目标: <LaTex>${targetTimeStr}`, displayContent);
+            // 定时通知
+            $notification.post("时间差提醒", `目标: <LaTex>${targetTimeStr}`, displayContent);
             $</LaTex>done();
         }
     }
 } catch (e) {
-    $done();
+    console.log("脚本错误: " + e);
+    $done({});
 }
