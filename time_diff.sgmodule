@@ -1,4 +1,4 @@
-#!name=时间差计算插件 (最终版)
+#!name=时间差计算插件 (修正版)
 #!desc=计算给定时间点与当前时间的差值。支持在模块参数中修改日期、Cron 表达式和刷新频率。
 #!author=Manus
 #!arguments=target_date:2026-01-01 00:00:00,cronexp:0 9 * * *,panel_interval:60
@@ -6,13 +6,12 @@
 #!category=工具
 
 [Panel]
-# 严格遵循您提供的示例语法
-时间差计算 = script-name=time-diff-script, update-interval={{{panel_interval}}}
+# 引用下面定义好的脚本名
+时间差计算 = script-name=time-diff-logic, update-interval={{{panel_interval}}}
 
 [Script]
-# 面板脚本：使用参数中的日期
-time-diff-script = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
+# 面板与通用逻辑脚本
+time-diff-logic = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
 
-# 定时任务脚本：使用参数中的 cronexp
-# 注意：在 Surge 中，cron 脚本的 cronexp 属性非常关键
+# 定时任务脚本
 time-diff-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
