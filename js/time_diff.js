@@ -1,13 +1,13 @@
 /**
- * Surge 脚本：通用时间差计算（支持面板与定时通知）
- * 参数 ($argument): 目标时间字符串，如 "2026-01-01 00:00:00"
+ * Surge 脚本：通用时间差计算
+ * 自动识别运行环境：面板 (Panel) 或 定时任务 (Cron)
  */
 
 const targetTimeStr = $argument;
 const now = new Date();
 const target = new Date(targetTimeStr);
 
-// 格式化时间差逻辑
+// 格式化逻辑
 function formatDiff(ms) {
     const isPast = ms < 0;
     const absMs = Math.abs(ms);
@@ -24,13 +24,13 @@ function formatDiff(ms) {
     return { text: result, isPast: isPast };
 }
 
-// 检查参数有效性
+// 错误处理
 if (!targetTimeStr || isNaN(target.getTime())) {
-    const errorMsg = `无效参数: "${targetTimeStr || '空'}"。请使用 YYYY-MM-DD HH:mm:ss`;
+    const errorMsg = `无效日期: "${targetTimeStr || '空'}"。请检查格式。`;
     if (typeof <LaTex>$panel !== "undefined") {
         $</LaTex>done({ title: "时间差错误", content: errorMsg, icon: "exclamationmark.triangle", "icon-color": "#FF0000" });
     } else {
-        $notification.post("时间差插件错误", "参数缺失或格式错误", errorMsg);
+        $notification.post("时间差插件错误", "日期格式不正确", errorMsg);
         $done();
     }
 } else {
@@ -40,7 +40,7 @@ if (!targetTimeStr || isNaN(target.getTime())) {
     const content = `<LaTex>${prefix}$</LaTex>{formatted.text}\n目标: <LaTex>${targetTimeStr}`;
 
     if (typeof $</LaTex>panel !== "undefined") {
-        // 面板模式：返回 JSON 供 Surge 面板渲染
+        // 面板模式
         $done({
             title: "时间倒计时",
             content: content,
@@ -48,7 +48,7 @@ if (!targetTimeStr || isNaN(target.getTime())) {
             "icon-color": formatted.isPast ? "#FF3B30" : "#34C759"
         });
     } else {
-        // 定时任务模式：发送系统通知
+        // 定时通知模式
         $notification.post("时间差提醒", `目标: <LaTex>${targetTimeStr}`, content);
         $</LaTex>done();
     }
