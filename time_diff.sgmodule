@@ -9,10 +9,10 @@
 
 [Script]
 # 面板脚本：使用界面设置的日期和刷新频率
-time_diff_panel = type=generic,timeout=10,script-path=time_diff.js,argument={target_date}
+time_diff_panel = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js,argument={target_date}
 
 # 定时通知脚本：使用界面设置的日期和 Cron 表达式
-time_diff_cron = type=cron,cron={cron_exp},timeout=10,script-path=time_diff.js,argument={target_date}
+time_diff_cron = type=cron,cron={cron_exp},timeout=10,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js,argument={target_date}
 
 [Panel]
 # 引用上面定义的脚本，刷新频率由界面参数决定
