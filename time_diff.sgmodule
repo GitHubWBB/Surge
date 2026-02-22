@@ -1,18 +1,17 @@
-#!name=时间差计算插件 (标准语法版)
-#!desc=计算给定时间点与当前时间的差值，支持面板展示和定时通知。
+#!name=时间差计算插件 (最终修正版)
+#!desc=计算给定时间点与当前时间的差值。支持在模块参数中修改日期、Cron 表达式和刷新频率。
 #!author=Manus
 #!arguments=target_date:2026-01-01 00:00:00,cronexp:0 9 * * *,panel_interval:60
 #!arguments-desc=target_date: 目标时间 (格式: YYYY-MM-DD HH:mm:ss)\ncronexp: 定时推送的 CRON 表达式 (如 "0 9 * * *")\npanel_interval: 面板刷新间隔 (单位: 秒)
 #!category=工具
 
 [Panel]
-# 面板定义，引用下面的脚本名
-时间差计算 = script-name=time-diff-script, update-interval={{{panel_interval}}}
+# 直接在 Panel 段落定义，确保标题 (title) 正常显示
+时间差计算 = title="时间差计算", content="正在初始化...", style=info, update-interval={{{panel_interval}}}, script-name=time-diff-logic
 
 [Script]
-# 核心脚本：同时供面板和定时任务使用
-# 请确保 time_diff.js 文件已保存在 Surge 的 Scripts 目录下
-time-diff-script = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
+# 定义逻辑脚本，供面板使用
+time-diff-logic = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
 
-# 定时任务：使用参数中的 CRON 表达式
+# 定义定时任务，直接使用参数中的 cronexp
 time-diff-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
