@@ -1,18 +1,20 @@
 /**
  * Surge 脚本：通用时间差计算
+ * 严格适配面板与定时通知
  */
 
-// 1. 解析参数
+// 1. 鲁棒的参数解析
 let targetTimeStr = "";
 if (typeof <LaTex>$argument !== "undefined" && $</LaTex>argument) {
-    // 兼容 "date=..." 格式和直接字符串格式
-    targetTimeStr = <LaTex>$argument.indexOf("date=") !== -1 ? $</LaTex>argument.split("date=")[1] : $argument;
+    // 处理 "date=2026-01-01 00:00:00" 格式
+    const match = <LaTex>$argument.match(/date=(.+)$</LaTex>/);
+    targetTimeStr = match ? match[1] : $argument;
 }
 
 const now = new Date();
 const target = new Date(targetTimeStr);
 
-// 2. 格式化函数
+// 2. 时间差计算函数
 function formatDiff(ms) {
     const isPast = ms < 0;
     const absMs = Math.abs(ms);
@@ -29,29 +31,32 @@ function formatDiff(ms) {
     return { text: result, isPast: isPast };
 }
 
-// 3. 执行逻辑
-try {
-    if (!targetTimeStr || isNaN(target.getTime())) {
-        const errorText = !targetTimeStr ? "未设置目标日期" : `无效日期: <LaTex>${targetTimeStr}`;
-        if (typeof $</LaTex>panel !== "undefined") {
-            $done({
-                title: "时间差计算",
-                content: errorText,
-                icon: "exclamationmark.triangle",
-                "icon-color": "#FF9500"
-            });
-        } else {
-            $notification.post("时间差插件", "配置错误", errorText);
-            $done();
+// 3. 逻辑执行与返回
+(function() {
+    try {
+        if (!targetTimeStr || isNaN(target.getTime())) {
+            const errorText = !targetTimeStr ? "未设置日期" : `无效日期: <LaTex>${targetTimeStr}`;
+            if (typeof $</LaTex>panel !== "undefined") {
+                $done({
+                    title: "时间差计算",
+                    content: errorText,
+                    icon: "exclamationmark.triangle",
+                    "icon-color": "#FF9500"
+                });
+            } else {
+                $notification.post("时间差插件", "配置错误", errorText);
+                $done();
+            }
+            return;
         }
-    } else {
+
         const diff = target.getTime() - now.getTime();
         const formatted = formatDiff(diff);
         const prefix = formatted.isPast ? "已过去: " : "剩余时间: ";
         const displayContent = `<LaTex>${prefix}$</LaTex>{formatted.text}\n目标: <LaTex>${targetTimeStr}`;
 
         if (typeof $</LaTex>panel !== "undefined") {
-            // 必须返回 title 字段，否则面板可能显示为 Untitled
+            // 面板返回：必须包含 title 和 content 字段
             $done({
                 title: "时间差计算",
                 content: displayContent,
@@ -59,12 +64,12 @@ try {
                 "icon-color": formatted.isPast ? "#FF3B30" : "#34C759"
             });
         } else {
-            // 定时通知
+            // 定时任务通知
             $notification.post("时间差提醒", `目标: <LaTex>${targetTimeStr}`, displayContent);
             $</LaTex>done();
         }
+    } catch (e) {
+        console.log("脚本执行异常: " + e);
+        $done({ title: "脚本错误", content: e.message });
     }
-} catch (e) {
-    console.log("脚本错误: " + e);
-    $done({});
-}
+})();
