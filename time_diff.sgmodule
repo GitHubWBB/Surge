@@ -7,7 +7,7 @@
 
 [Panel]
 # 直接在 Panel 段落定义，确保标题 (title) 正常显示
-时间差计算 = title="时间差计算", content="正在初始化...", style=info, update-interval={{{panel_interval}}}, script-name=time-diff-logic
+时间差计算 = script-name=time-diff-logic, style=info, update-interval={{{panel_interval}}}
 
 [Script]
 # 定义逻辑脚本，供面板使用
