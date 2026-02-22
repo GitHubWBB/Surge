@@ -12,7 +12,7 @@
 [Script]
 # 核心脚本：同时供面板和定时任务使用
 # 请确保 time_diff.js 文件已保存在 Surge 的 Scripts 目录下
-time-diff-script = type=generic, script-path=time_diff.js, argument=date={{{target_date}}}
+time-diff-script = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
 
 # 定时任务：使用参数中的 CRON 表达式
-time-diff-cron = type=cron, cronexp={{{cronexp}}}, script-path=time_diff.js, argument=date={{{target_date}}}
+time-diff-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/time_diff.js, argument=date={{{target_date}}}
