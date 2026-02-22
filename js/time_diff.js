@@ -1,13 +1,22 @@
 /**
  * Surge 脚本：通用时间差计算
- * 自动识别运行环境：面板 (Panel) 或 定时任务 (Cron)
+ * 支持从 argument 中解析 date 参数
  */
 
-const targetTimeStr = $argument;
+// 解析参数：处理类似 "date=2026-01-01 00:00:00" 的格式
+let targetTimeStr = "";
+if (typeof <LaTex>$argument !== "undefined" && $</LaTex>argument) {
+    if (<LaTex>$argument.indexOf("date=") !== -1) {
+        targetTimeStr = $</LaTex>argument.split("date=")[1];
+    } else {
+        targetTimeStr = $argument;
+    }
+}
+
 const now = new Date();
 const target = new Date(targetTimeStr);
 
-// 格式化逻辑
+// 格式化时间差
 function formatDiff(ms) {
     const isPast = ms < 0;
     const absMs = Math.abs(ms);
@@ -24,32 +33,34 @@ function formatDiff(ms) {
     return { text: result, isPast: isPast };
 }
 
-// 错误处理
-if (!targetTimeStr || isNaN(target.getTime())) {
-    const errorMsg = `无效日期: "${targetTimeStr || '空'}"。请检查格式。`;
-    if (typeof <LaTex>$panel !== "undefined") {
-        $</LaTex>done({ title: "时间差错误", content: errorMsg, icon: "exclamationmark.triangle", "icon-color": "#FF0000" });
+// 结果输出
+try {
+    if (!targetTimeStr || isNaN(target.getTime())) {
+        const errorText = !targetTimeStr ? "未设置目标日期" : `无效日期格式: <LaTex>${targetTimeStr}`;
+        if (typeof $</LaTex>panel !== "undefined") {
+            $done({ title: "时间差插件", content: errorText, icon: "exclamationmark.triangle", "icon-color": "#FF9500" });
+        } else {
+            $notification.post("时间差插件", "配置错误", errorText);
+            $done();
+        }
     } else {
-        $notification.post("时间差插件错误", "日期格式不正确", errorMsg);
-        $done();
-    }
-} else {
-    const diff = target.getTime() - now.getTime();
-    const formatted = formatDiff(diff);
-    const prefix = formatted.isPast ? "已过去: " : "剩余时间: ";
-    const content = `<LaTex>${prefix}$</LaTex>{formatted.text}\n目标: <LaTex>${targetTimeStr}`;
+        const diff = target.getTime() - now.getTime();
+        const formatted = formatDiff(diff);
+        const prefix = formatted.isPast ? "已过去: " : "剩余时间: ";
+        const displayContent = `<LaTex>${prefix}$</LaTex>{formatted.text}\n目标: <LaTex>${targetTimeStr}`;
 
-    if (typeof $</LaTex>panel !== "undefined") {
-        // 面板模式
-        $done({
-            title: "时间倒计时",
-            content: content,
-            icon: "timer",
-            "icon-color": formatted.isPast ? "#FF3B30" : "#34C759"
-        });
-    } else {
-        // 定时通知模式
-        $notification.post("时间差提醒", `目标: <LaTex>${targetTimeStr}`, content);
-        $</LaTex>done();
+        if (typeof $</LaTex>panel !== "undefined") {
+            $done({
+                title: "时间差计算",
+                content: displayContent,
+                icon: "timer",
+                "icon-color": formatted.isPast ? "#FF3B30" : "#34C759"
+            });
+        } else {
+            $notification.post("时间提醒", `目标: <LaTex>${targetTimeStr}`, displayContent);
+            $</LaTex>done();
+        }
     }
+} catch (e) {
+    $done();
 }
