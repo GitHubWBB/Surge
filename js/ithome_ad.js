@@ -1,60 +1,46 @@
 /**
- * IT之家 去广告脚本 for Surge
+ * IT之家 去广告脚本 v2.0 (2025 增强版)
+ * 适配 Surge / Loon / Quantumult X
  */
 
 let body = <LaTex>$response.body;
-if (!body) {
-    $</LaTex>done({});
-} else {
+if (!body) $</LaTex>done({});
+
+try {
     let obj = JSON.parse(body);
     const url = $request.url;
 
-    // 1. 列表页广告 (旧版 API)
-    if (url.includes("/json/listpage/news") || url.includes("/json/newslist/news")) {
-        if (obj.newslist) {
-            obj.newslist = obj.newslist.filter(item => !item.aid);
-        }
-    } 
-    // 2. 轮播图广告
-    else if (url.includes("/json/slide/index")) {
-        if (Array.isArray(obj)) {
-            obj = obj.filter(item => !item.isad);
-        }
-    } 
-    // 3. 移动端网页/详情页推荐广告
-    else if (url.includes("/api/news/newslistpageget")) {
-        if (obj.Result) {
-            obj.Result = obj.Result.filter(item => {
-                if (item.NewsTips) {
-                    return !item.NewsTips.some(tip => tip.TipName === "广告");
-                }
-                return true;
-            });
-        }
-    } 
-    // 4. 新版 Feed 流 (napi)
-    else if (url.includes("/api/news/getfeeds") || url.includes("/api/topmenu/index")) {
+    // 1. 新版 Feed 流 (napi.ithome.com)
+    if (url.indexOf("/api/news/getfeeds") !== -1 || url.indexOf("/api/topmenu/index") !== -1 || url.indexOf("/api/news/indexv2") !== -1) {
         if (obj.data && obj.data.list) {
             obj.data.list = obj.data.list.filter(item => {
-                // 过滤带有“广告”标签的项目
-                if (item.feedContent && item.feedContent.smallTags) {
-                    if (item.feedContent.smallTags.some(tag => tag.text === "广告")) {
-                        return false;
+                if (item.feedContent) {
+                    // 过滤 smallTags (广告/推广)
+                    if (item.feedContent.smallTags && item.feedContent.smallTags.some(tag => tag.text === "广告" || tag.text === "推广")) return false;
+                    // 过滤广告标识位
+                    if (item.feedContent.isAd === true || item.feedContent.aid) return false;
+                    // 过滤轮播图中的广告
+                    if (item.feedContent.focusNewsData) {
+                        item.feedContent.focusNewsData = item.feedContent.focusNewsData.filter(n => !n.isAd && !n.aid);
                     }
-                }
-                // 过滤焦点新闻中的广告
-                if (item.feedContent && item.feedContent.focusNewsData) {
-                    item.feedContent.focusNewsData = item.feedContent.focusNewsData.filter(n => !n.isAd);
                 }
                 return true;
             });
         }
     }
-    // 5. 开屏广告
-    else if (url.includes("/json/startpage/get")) {
+    // 2. 轮播图/列表页 (旧版 API)
+    else if (url.indexOf("/json/slide/index") !== -1 || url.indexOf("/json/listpage/news") !== -1) {
+        if (Array.isArray(obj)) obj = obj.filter(item => !item.isad && !item.aid);
+        if (obj.newslist) obj.newslist = obj.newslist.filter(item => !item.aid && !item.isad);
+    }
+    // 3. 开屏广告
+    else if (url.indexOf("/json/startpage/get") !== -1) {
         if (obj.iap) obj.iap = [];
         if (obj.list) obj.list = [];
+        if (obj.data) obj.data = {};
     }
 
-    $done({ body: JSON.stringify(obj) });
+    <LaTex>$done({ body: JSON.stringify(obj) });
+} catch (e) {
+    $</LaTex>done({});
 }
