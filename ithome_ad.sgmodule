@@ -12,7 +12,7 @@ DOMAIN,adapi.ithome.com,REJECT
 [Script]
 # IT之家 响应体去广告脚本
 # 注意：请将 script-path 替换为您实际存放 JS 脚本的地址（如 GitHub 链接或本地路径）
-IT之家去广告 = type=http-response,pattern=^https?:\/\/(api|m|napi)\.ithome\.com\/(json\/(listpage|newslist|slide|startpage)\/|api\/(news\/newslistpageget|news\/getfeeds|topmenu\/index)),requires-body=1,max-size=0,script-path=ithome_ad.js
+IT之家去广告 = type=http-response,pattern=^https?:\/\/(api|m|napi)\.ithome\.com\/(json\/(listpage|newslist|slide|startpage)\/|api\/(news\/newslistpageget|news\/getfeeds|topmenu\/index)),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/ithome_ad.js
 
 [MITM]
 hostname = %APPEND% api.ithome.com, m.ithome.com, napi.ithome.com
