@@ -1,5 +1,5 @@
-#!name=IT之家去广告
-#!desc=去除IT之家iOS端的信息流广告、轮播广告、详情页推荐广告及开屏广告。
+#!name=IT之家去广告 (增强版)
+#!desc=去除IT之家iOS端的信息流广告、轮播广告、详情页推荐及开屏广告。2025年增强版，修复失效问题。
 #!author=Manus
 #!category=广告屏蔽
 
@@ -8,11 +8,14 @@
 DOMAIN,api.zuihuimai.com,REJECT
 DOMAIN,sdk.ithome.com,REJECT
 DOMAIN,adapi.ithome.com,REJECT
+DOMAIN,dat.ruanmei.com,REJECT
+# 屏蔽开屏广告资源
+URL-REGEX,^https?:\/\/dat\.ruanmei\.com\/ithome\/money\/acd\.json$,REJECT
 
 [Script]
 # IT之家 响应体去广告脚本
-# 注意：请将 script-path 替换为您实际存放 JS 脚本的地址（如 GitHub 链接或本地路径）
-IT之家去广告 = type=http-response,pattern=^https?:\/\/(api|m|napi)\.ithome\.com\/(json\/(listpage|newslist|slide|startpage)\/|api\/(news\/newslistpageget|news\/getfeeds|topmenu\/index)),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/ithome_ad.js
+IT之家去广告 = type=http-response,pattern=^https?:\/\/(api|m|napi)\.ithome\.com\/(json\/(listpage|newslist|slide|startpage)\/|api\/(news\/newslistpageget|news\/getfeeds|topmenu\/index|news\/indexv2|search\/getsearchresult)),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/ithome_ad.js
 
 [MITM]
-hostname = %APPEND% api.ithome.com, m.ithome.com, napi.ithome.com
+hostname = %APPEND% api.ithome.com, m.ithome.com, napi.ithome.com, dat.ruanmei.com
+
