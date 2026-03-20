@@ -7,14 +7,12 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Fuel.png
 #!category=GitHubWBB
 #!system=ios
-#!arguments=city: 四川,cronexp: 30 7 * * * 
-#!arguments-desc=city: 省份名 \ncronexp: cron表达式
-
-
-
+#!arguments=cities=上海,北京;intl=true
 
 [Script]
-油价旗舰 = type=cron,cronexp=0 */4 * * *,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil.js,timeout=10,argument=cities=上海,北京&notify=true&intl=true&chart=true
+油价UI = type=cron,cronexp=0 */6 * * *,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil.js,timeout=10
 
 [Panel]
-油价面板 = script-name=油价旗舰,update-interval=1800,argument=cities=上海,北京
+油价面板 = script-name=油价UI,update-interval=1800
+
+
