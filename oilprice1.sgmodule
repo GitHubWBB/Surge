@@ -1,20 +1,20 @@
-#!name=油价查询面板1
-#!desc=油价查询1
+#!name=⛽油价旗舰版
+#!desc=全功能油价插件（预测/倒计时/趋势）
 #!openUrl=
 #!author=GitHubWBB
 #!homepage=
 #!manual=
-#!icon=
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Fuel.png
 #!category=GitHubWBB
 #!system=ios
 #!arguments=city: 四川,cronexp: 30 7 * * * 
 #!arguments-desc=city: 省份名 \ncronexp: cron表达式
 
 
-[Panel]
-车辆限行Panel1 = script-name=oil, update-interval=3600
+
 
 [Script]
-# Panel
+油价旗舰 = type=cron,cronexp=0 */4 * * *,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil.js,timeout=10,argument=cities=上海,北京&notify=true&intl=true&chart=true
 
-oil = type=cron,script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js,cronexp={{{cronexp}}},wake-system=1,timeout=10,script-update-interval=0,enable=true,argument=city={{{city}}}
+[Panel]
+油价面板 = script-name=油价旗舰,update-interval=1800,argument=cities=上海,北京
