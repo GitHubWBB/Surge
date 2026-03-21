@@ -16,3 +16,22 @@
 油价面板 = script-name=油价UI,update-interval=1800
 
 
+#!name=油价监控 (免API版)
+#!desc=监控国内外油价。支持面板显示与定时推送。
+#!category=监控
+
+# --- 模块参数配置 ---
+# @provname 省份拼音 (如: jiangsu, beijing, guangdong)
+# @notification 开启通知 (true/false)
+
+[Script]
+# 定时执行并显示在面板上
+# 每天上午8点执行
+oil_price_monitor = type=cron,cronexp="0 8 * * *",script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil.js,argument="provname={{{provname}}}&notification={{{notification}}}"
+
+[Panel]
+# 面板显示配置
+oil_price_panel = script-name=oil_price_monitor,title=今日油价,content=获取中...,icon=fuelpump.fill,icon-color=#5AC8FA
+
+
+
