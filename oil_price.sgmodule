@@ -10,5 +10,5 @@
 油价查询 = script-name=youjia-panel, update-interval=3600
 
 [Script]
-youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/custom/scripts/main/youjia.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
-youjia-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/custom/scripts/main/youjia.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
+youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
+youjia-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
