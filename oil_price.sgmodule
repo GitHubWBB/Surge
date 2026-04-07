@@ -42,10 +42,10 @@ notify_only_change = switch, false, tag=仅变化时通知, desc=仅在油价调
 
 [Script]
 # 面板显示脚本 - 点击面板刷新
-油价面板 = type=generic,timeout=30,script-path=https://raw.githubusercontent.com/custom/scripts/main/youjia.js,argument=city={{{oil_city}}}
+油价面板 = type=generic,timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument=city={{{oil_city}}}
 
 # 定时通知脚本 - 按照设置的cron表达式执行
-油价通知 = type=cron,cronexp={{{notify_cron}}},timeout=30,script-path=https://raw.githubusercontent.com/custom/scripts/main/youjia.js,argument=city={{{oil_city}}}&notify_only_change={{{notify_only_change}}}
+油价通知 = type=cron,cronexp={{{notify_cron}}},timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument=city={{{oil_city}}}&notify_only_change={{{notify_only_change}}}
 
 [Panel]
 # 面板配置
