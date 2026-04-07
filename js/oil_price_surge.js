@@ -58,15 +58,15 @@ const CITY_NAMES = {
     try {
         CONFIG.cityName = CITY_NAMES[CONFIG.city] || CONFIG.city.toUpperCase();
         
-        if (CONFIG.debug) {
-            $.log(`开始获取 ${CONFIG.cityName} 油价信息...`);
-        }
+        $.log(`开始获取 ${CONFIG.cityName} 油价信息...`);
         
         const oilData = await fetchOilPrice();
         
         if (!oilData || !oilData.prices || oilData.prices.length === 0) {
             throw new Error('未能获取到油价数据');
         }
+        
+        $.log(`成功获取 ${oilData.prices.length} 条油价数据`);
         
         // 保存当前油价用于下次比较
         const currentPricesJson = JSON.stringify(oilData.prices);
@@ -87,19 +87,17 @@ const CITY_NAMES = {
         $.setVal('last_oil_prices', currentPricesJson);
         
     } catch (error) {
-        $.log(`错误: ${error.message}`);
+        $.log(`错误: ${error.message || error}`);
         
         const isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
         
         if (isCron) {
-            // 定时通知错误
-            // 可以选择是否发送错误通知
-            // $.notify('油价查询失败', '', error.message);
+            // 定时通知错误 - 静默处理
         } else {
             // 面板错误显示
             const panel = {
                 title: '⛽ 油价查询',
-                content: `获取失败: ${error.message}`,
+                content: `获取失败: ${error.message || error}`,
                 icon: 'fuel.pump.fill',
                 'icon-color': '#FF3B30'
             };
@@ -112,25 +110,44 @@ const CITY_NAMES = {
 })();
 
 // ==================== 数据获取 ====================
-async function fetchOilPrice() {
-    const url = `https://${CONFIG.city}.bendibao.com/news/youjiachaxun/`;
-    
-    const headers = {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive'
-    };
-    
-    const response = await $.httpClient.get({ url, headers });
-    
-    if (response.status !== 200) {
-        throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const html = response.body;
-    return parseOilData(html);
+function fetchOilPrice() {
+    return new Promise((resolve, reject) => {
+        const url = `https://${CONFIG.city}.bendibao.com/news/youjiachaxun/`;
+        
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
+        };
+        
+        const options = { url, headers };
+        
+        $.httpClient.get(options, (error, response, body) => {
+            if (error) {
+                reject(`请求失败: ${error}`);
+                return;
+            }
+            
+            const status = response?.status || response?.statusCode;
+            
+            if (status !== 200) {
+                reject(`HTTP ${status}`);
+                return;
+            }
+            
+            if (!body) {
+                reject('返回内容为空');
+                return;
+            }
+            
+            try {
+                const data = parseOilData(body);
+                resolve(data);
+            } catch (e) {
+                reject(`解析失败: ${e.message}`);
+            }
+        });
+    });
 }
 
 // ==================== 数据解析 ====================
@@ -142,8 +159,7 @@ function parseOilData(html) {
         adjustDates: []
     };
     
-    // 解析油价表格数据
-    // 匹配模式: 燃油标号 + 最新油价 + 涨跌
+    // 解析油价表格数据 - 方案1: 严格模式
     const pricePattern = /<tr[^>]*>\s*<td[^>]*>([^<]*(?:柴油|汽油))<\/td>\s*<td[^>]*>([\d.]+元\/升)<\/td>\s*<td[^>]*>([+-]?\s*[\d.]+元\/升)<\/td>/gi;
     
     let match;
@@ -161,9 +177,8 @@ function parseOilData(html) {
         });
     }
     
-    // 备用解析方案：使用更宽松的模式
+    // 方案2: 宽松模式（如果方案1没有结果）
     if (data.prices.length === 0) {
-        // 尝试其他模式
         const altPattern = /(0号柴油|89号汽油|92号汽油|95号汽油|98号汽油|[-–]10号柴油|[-–]20号柴油)[^\d]*([\d.]+)\s*元\/升[^\d\-+]*([\-+]?\s*[\d.]+)\s*元\/升/gi;
         while ((match = altPattern.exec(html)) !== null) {
             const type = match[1].trim();
@@ -187,38 +202,11 @@ function parseOilData(html) {
         data.updateTime = `${updateMatch[1]} ${updateMatch[2]}`;
     }
     
-    // 备用更新时间解析
-    if (!data.updateTime) {
-        const altUpdatePattern = /(\d{4}[年/-]\d{1,2}[月/-]\d{1,2})\s*日?\s*(24:00|\d{1,2}:\d{2})/i;
-        const altUpdateMatch = html.match(altUpdatePattern);
-        if (altUpdateMatch) {
-            data.updateTime = `${altUpdateMatch[1]} ${altUpdateMatch[2]}`;
-        }
-    }
-    
     // 解析下次调整时间
     const nextAdjustPattern = /下次调整时间为\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}|24:00)/i;
     const nextAdjustMatch = html.match(nextAdjustPattern);
     if (nextAdjustMatch) {
         data.nextAdjustTime = `${nextAdjustMatch[1]} ${nextAdjustMatch[2]}`;
-    }
-    
-    // 备用下次调整时间解析
-    if (!data.nextAdjustTime) {
-        const altNextPattern = /下次调整[日期]*[为:]?\s*(\d{4}[年/-]\d{1,2}[月/-]\d{1,2})/i;
-        const altNextMatch = html.match(altNextPattern);
-        if (altNextMatch) {
-            data.nextAdjustTime = altNextMatch[1];
-        }
-    }
-    
-    // 解析2026年调整日历
-    const calendarPattern = /(\d{1,2}月\d{1,2}日)[^\u4e00-\u9fa5]*(星期[一二三四五六日])/gi;
-    while ((match = calendarPattern.exec(html)) !== null) {
-        data.adjustDates.push({
-            date: match[1],
-            weekday: match[2]
-        });
     }
     
     return data;
@@ -250,7 +238,6 @@ async function handlePanelDisplay(data) {
     }
     
     if (data.nextAdjustTime) {
-        // 计算距离下次调整的天数
         const daysUntil = calculateDaysUntil(data.nextAdjustTime);
         content += `\n📅 下次: ${data.nextAdjustTime}`;
         if (daysUntil !== null) {
@@ -316,12 +303,11 @@ async function handleCronNotification(data, hasChanged) {
 // ==================== 工具函数 ====================
 function calculateDaysUntil(dateStr) {
     try {
-        // 解析日期字符串
         const dateMatch = dateStr.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
         if (!dateMatch) return null;
         
         const year = parseInt(dateMatch[1]);
-        const month = parseInt(dateMatch[2]) - 1; // JavaScript月份从0开始
+        const month = parseInt(dateMatch[2]) - 1;
         const day = parseInt(dateMatch[3]);
         
         const targetDate = new Date(year, month, day);
@@ -345,8 +331,6 @@ function API(name = "未命名") {
             this.isQX = typeof $task !== 'undefined';
             this.isLoon = typeof $loon !== 'undefined';
             this.isSurge = typeof $httpClient !== 'undefined' && !this.isLoon;
-            this.isNode = typeof require === 'function';
-            this.isJSBox = typeof $drive !== 'undefined';
             this.isStash = typeof $environment !== 'undefined' && $environment['stash-version'];
         }
 
@@ -356,9 +340,6 @@ function API(name = "未命名") {
                 val = $persistentStore.read(key);
             } else if (this.isQX) {
                 val = $prefs.valueForKey(key);
-            } else if (this.isNode) {
-                this.data = this.loadData();
-                val = this.data?.[key];
             }
             return val ?? defaultVal;
         }
@@ -368,37 +349,6 @@ function API(name = "未命名") {
                 return $persistentStore.write(val, key);
             } else if (this.isQX) {
                 return $prefs.setValueForKey(val, key);
-            } else if (this.isNode) {
-                this.data = this.loadData();
-                this.data[key] = val;
-                this.writeData();
-                return true;
-            }
-        }
-
-        loadData() {
-            if (this.isNode) {
-                try {
-                    const fs = require('fs');
-                    if (!fs.existsSync('./oil_price_data.json')) {
-                        return {};
-                    }
-                    return JSON.parse(fs.readFileSync('./oil_price_data.json'));
-                } catch (e) {
-                    return {};
-                }
-            }
-            return {};
-        }
-
-        writeData() {
-            if (this.isNode) {
-                try {
-                    const fs = require('fs');
-                    fs.writeFileSync('./oil_price_data.json', JSON.stringify(this.data));
-                } catch (e) {
-                    // ignore
-                }
             }
         }
 
@@ -406,21 +356,12 @@ function API(name = "未命名") {
             return {
                 get: (options, callback) => {
                     if (this.isQX) {
-                        return $task.fetch(options).then(
-                            resp => callback(null, resp.status, resp.body),
+                        $task.fetch(options).then(
+                            resp => callback(null, resp, resp.body),
                             reason => callback(reason.error, null, null)
                         );
-                    }
-                    if (this.isSurge || this.isLoon || this.isStash) {
-                        return $httpClient.get(options, (error, response, body) => {
-                            callback(error, response?.status || response?.statusCode, body);
-                        });
-                    }
-                    if (this.isNode) {
-                        const request = require('request');
-                        return request(options, (error, response, body) => {
-                            callback(error, response?.statusCode, body);
-                        });
+                    } else if (this.isSurge || this.isLoon || this.isStash) {
+                        $httpClient.get(options, callback);
                     }
                 }
             };
@@ -431,8 +372,6 @@ function API(name = "未命名") {
                 $notify(title, subtitle, message);
             } else if (this.isSurge || this.isLoon || this.isStash) {
                 $notification.post(title, subtitle, message);
-            } else if (this.isNode) {
-                console.log(`${title}\n${subtitle}\n${message}`);
             }
         }
 
@@ -441,13 +380,7 @@ function API(name = "未命名") {
         }
 
         done(value = {}) {
-            if (this.isQX) {
-                $done(value);
-            } else if (this.isSurge || this.isLoon || this.isStash) {
-                $done(value);
-            } else if (this.isNode) {
-                process.exit(0);
-            }
+            $done(value);
         }
     }(name);
 }
