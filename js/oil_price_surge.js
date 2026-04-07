@@ -28,8 +28,8 @@ const ARGS = getArgs();
 
 // ==================== 配置 ====================
 const CONFIG = {
-    city: ARGS.CITY || 'cd',
-    onlyChange: ARGS.ONLY_CHANGE === 'true' || ARGS.ONLY_CHANGE === '1',
+    city: ARGS.city || 'cd',
+    onlyChange: ARGS.onlychange === 'true' || ARGS.onlychange === '1',
     cityName: ''
 };
 
