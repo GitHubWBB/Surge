@@ -1,0 +1,14 @@
+#!name=成都油价查询
+#!desc=从成都本地宝获取最新油价信息，支持面板显示、定时通知及 Cron 参数化配置。
+#!category=工具
+#!argument=cron_expression="0 0 8 * * ?"
+
+[Script]
+# 面板显示脚本
+成都油价 = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/your_username/your_repo/main/oil_price_surge.js,argument={cron_expression}
+
+# 定时通知脚本
+成都油价通知 = type=cron,cronexp={cron_expression},timeout=10,script-path=https://raw.githubusercontent.com/your_username/your_repo/main/oil_price_surge.js
+
+[Panel]
+成都油价 = title="成都油价",content="正在获取数据...",icon="fuelpump.fill",style=info
