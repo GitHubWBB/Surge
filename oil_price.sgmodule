@@ -4,52 +4,17 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouJia.png
 #!category=实用工具
 
-# ==================== 参数说明 ====================
-# oil_city: 城市代码，支持以下城市：
-#   - cd: 成都 (默认)
-#   - bj: 北京
-#   - sh: 上海
-#   - gz: 广州
-#   - sz: 深圳
-#   - cq: 重庆
-#   - hz: 杭州
-#   - nj: 南京
-#   - wh: 武汉
-#   - tj: 天津
-#   - zz: 郑州
-#   - cs: 长沙
-#   - qd: 青岛
-#   - suzhou: 苏州
-#   - dg: 东莞
-#   - fs: 佛山
-#
-# notify_cron: 定时通知的cron表达式 (默认: 0 9 * * * 即每天9:00)
-#   常用cron表达式示例：
-#   - 0 9 * * *    : 每天上午9:00
-#   - 0 8,20 * * * : 每天上午8:00和晚上8:00
-#   - 0 9 * * 1    : 每周一上午9:00
-#   - 0 9 1 * *    : 每月1日上午9:00
-#   - 0 */6 * * *  : 每6小时一次
-#
-# notify_only_change: 仅在油价调整时发送通知 (默认: false)
-#   - true: 只在油价有变化时才通知
-#   - false: 每次定时都通知
-
 [Argument]
-oil_city = input, "cd", tag=城市代码, desc=选择要查询油价的城市代码
-notify_cron = input, "0 9 * * *", tag=定时通知cron, desc=设置定时通知的时间(cron表达式)
-notify_only_change = switch, false, tag=仅变化时通知, desc=仅在油价调整时才发送通知
+CITY=input, cd, tag=城市代码, desc=选择城市: cd成都 bj北京 sh上海 gz广州 sz深圳 cq重庆 hz杭州 nj南京 wh武汉 tj天津 zz郑州 cs长沙 qd青岛
+CRON=input, 0 9 * * *, tag=定时通知, desc=Cron表达式(默认每天9点)
+ONLY_CHANGE=switch, false, tag=仅变化通知, desc=仅在油价调整时发送通知
 
 [Script]
-# 面板显示脚本 - 点击面板刷新
-油价面板 = type=generic,timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument=city={{{oil_city}}}
-
-# 定时通知脚本 - 按照设置的cron表达式执行
-油价通知 = type=cron,cronexp={{{notify_cron}}},timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument=city={{{oil_city}}}&notify_only_change={{{notify_only_change}}}
+油价面板 = type=generic,timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument="CITY={{{CITY}}}"
+油价通知 = type=cron,cronexp="{{{CRON}}}",timeout=30,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js,argument="CITY={{{CITY}}}&ONLY_CHANGE={{{ONLY_CHANGE}}}"
 
 [Panel]
-# 面板配置
-油价查询 = script-name=油价面板,title=油价查询,content=点击刷新获取最新油价,update-interval=3600
+油价查询 = script-name=油价面板,title=⛽ 油价查询,content=点击刷新获取最新油价,update-interval=3600
 
 [MITM]
 hostname = %APPEND% *.bendibao.com
