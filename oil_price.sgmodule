@@ -5,7 +5,7 @@
 
 [Script]
 # 面板显示脚本
-成都油价 = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/your_username/your_repo/main/oil_price_surge.js,argument={cron_expression}
+成都油价 = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price_surge.js,argument={cron_expression}
 
 # 定时通知脚本
 成都油价通知 = type=cron,cronexp={cron_expression},timeout=10,script-path=https://raw.githubusercontent.com/your_username/your_repo/main/oil_price_surge.js
