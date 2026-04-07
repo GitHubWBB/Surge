@@ -3,38 +3,39 @@
  * 数据来源: 本地宝 (bendibao.com)
  * 
  * 参数:
- * - CITY: 城市代码 (默认: cd)
- * - ONLY_CHANGE: 仅在变化时通知 (默认: false)
+ * - city: 城市代码 (默认: cd)
+ * - onlychange: 仅在变化时通知 (默认: false)
  */
 
 const $ = new API("油价查询");
 
 // ==================== 解析参数 ====================
 function getArgs() {
-    const args = {};
+    var args = {};
     if (typeof $argument !== 'undefined' && $argument) {
-        const pairs = $argument.split('&');
-        for (let pair of pairs) {
-            const [key, value] = pair.split('=');
-            if (key && value) {
-                args[key] = decodeURIComponent(value);
+        var pairs = $argument.split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i];
+            var parts = pair.split('=');
+            if (parts.length === 2) {
+                args[parts[0]] = decodeURIComponent(parts[1]);
             }
         }
     }
     return args;
 }
 
-const ARGS = getArgs();
+var ARGS = getArgs();
 
 // ==================== 配置 ====================
-const CONFIG = {
+var CONFIG = {
     city: ARGS.city || 'cd',
     onlyChange: ARGS.onlychange === 'true' || ARGS.onlychange === '1',
     cityName: ''
 };
 
 // 城市名称映射
-const CITY_NAMES = {
+var CITY_NAMES = {
     'cd': '成都', 'bj': '北京', 'sh': '上海', 'gz': '广州', 'sz': '深圳',
     'cq': '重庆', 'hz': '杭州', 'nj': '南京', 'wh': '武汉', 'tj': '天津',
     'zz': '郑州', 'cs': '长沙', 'qd': '青岛', 'suzhou': '苏州',
@@ -43,140 +44,141 @@ const CITY_NAMES = {
 
 CONFIG.cityName = CITY_NAMES[CONFIG.city] || CONFIG.city.toUpperCase();
 
-$.log(`城市: ${CONFIG.cityName}, 仅变化通知: ${CONFIG.onlyChange}`);
+$.log('城市: ' + CONFIG.cityName + ', 仅变化通知: ' + CONFIG.onlyChange);
 
 // ==================== 主程序 ====================
-(async () => {
-    try {
-        const url = `https://${CONFIG.city}.bendibao.com/news/youjiachaxun/`;
-        
-        $.log(`请求URL: ${url}`);
-        
-        const html = await httpGet(url);
+function main() {
+    var url = 'https://' + CONFIG.city + '.bendibao.com/news/youjiachaxun/';
+    
+    $.log('请求URL: ' + url);
+    
+    httpGet(url, function(error, html) {
+        if (error) {
+            handleError(error);
+            return;
+        }
         
         if (!html) {
-            throw new Error('返回内容为空');
+            handleError('返回内容为空');
+            return;
         }
         
-        const data = parseOilData(html);
+        var data = parseOilData(html);
         
         if (!data.prices || data.prices.length === 0) {
-            throw new Error('未能解析到油价数据');
+            handleError('未能解析到油价数据');
+            return;
         }
         
-        $.log(`成功解析 ${data.prices.length} 条油价数据`);
+        $.log('成功解析 ' + data.prices.length + ' 条油价数据');
         
         // 判断是否为cron执行
-        const isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
+        var isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
         
         if (isCron) {
             handleCronNotification(data);
         } else {
             handlePanelDisplay(data);
         }
-        
-    } catch (error) {
-        $.log(`错误: ${error.message || error}`);
-        
-        const isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
-        
-        if (!isCron) {
-            $.done({
-                title: '⛽ 油价查询',
-                content: `获取失败: ${error.message || error}`,
-                icon: 'fuel.pump.fill',
-                'icon-color': '#FF3B30'
-            });
-        } else {
-            $.done();
-        }
+    });
+}
+
+function handleError(error) {
+    $.log('错误: ' + error);
+    
+    var isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
+    
+    if (!isCron) {
+        $.done({
+            title: '⛽ 油价查询',
+            content: '获取失败: ' + error,
+            icon: 'fuel.pump.fill',
+            'icon-color': '#FF3B30'
+        });
+    } else {
+        $.done();
     }
-})();
+}
 
 // ==================== HTTP请求 ====================
-function httpGet(url) {
-    return new Promise((resolve, reject) => {
-        const options = {
-            url: url,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
-            }
-        };
+function httpGet(url, callback) {
+    var options = {
+        url: url,
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8'
+        }
+    };
+    
+    $httpClient.get(options, function(error, response, body) {
+        if (error) {
+            callback('请求失败: ' + error, null);
+            return;
+        }
         
-        $httpClient.get(options, (error, response, body) => {
-            if (error) {
-                reject(new Error(`请求失败: ${error}`));
-                return;
-            }
-            
-            const statusCode = response?.status || response?.statusCode;
-            
-            if (statusCode !== 200) {
-                reject(new Error(`HTTP ${statusCode}`));
-                return;
-            }
-            
-            resolve(body);
-        });
+        if (!response) {
+            callback('响应为空', null);
+            return;
+        }
+        
+        var statusCode = response.status || response.statusCode;
+        
+        if (statusCode !== 200) {
+            callback('HTTP ' + statusCode, null);
+            return;
+        }
+        
+        if (!body) {
+            callback('返回内容为空', null);
+            return;
+        }
+        
+        callback(null, body);
     });
 }
 
 // ==================== 数据解析 ====================
 function parseOilData(html) {
-    const data = {
+    var data = {
         prices: [],
         updateTime: '',
         nextAdjustTime: ''
     };
     
-    // 解析油价 - 方案1
-    const pricePattern = /<tr[^>]*>\s*<td[^>]*>([^<]*(?:柴油|汽油))<\/td>\s*<td[^>]*>([\d.]+元\/升)<\/td>\s*<td[^>]*>([+-]?\s*[\d.]+元\/升)<\/td>/gi;
+    // 解析油价
+    var pricePattern = /(0号柴油|89号汽油|92号汽油|95号汽油|98号汽油|[-–]10号柴油|[-–]20号柴油)[\s\S]*?([\d.]+)\s*元\/升[\s\S]*?([\-+\s]*[\d.]+)\s*元\/升/gi;
     
-    let match;
+    var match;
+    var seen = {};
     while ((match = pricePattern.exec(html)) !== null) {
-        const type = match[1].trim();
-        const price = match[2].trim();
-        const change = match[3].trim().replace(/\s+/g, '');
+        var type = match[1].trim();
+        // 去重
+        if (seen[type]) continue;
+        seen[type] = true;
+        
+        var price = match[2].trim() + '元/升';
+        var change = match[3].trim().replace(/\s+/g, '') + '元/升';
         
         data.prices.push({
             type: type,
             price: price,
             change: change,
-            isUp: change.startsWith('+'),
-            isDown: change.startsWith('-')
+            isUp: change.indexOf('+') === 0,
+            isDown: change.indexOf('-') === 0
         });
     }
     
-    // 方案2
-    if (data.prices.length === 0) {
-        const altPattern = /(0号柴油|89号汽油|92号汽油|95号汽油|98号汽油|[-–]10号柴油|[-–]20号柴油)[^\d]*([\d.]+)\s*元\/升[^\d\-+]*([\-+]?\s*[\d.]+)\s*元\/升/gi;
-        while ((match = altPattern.exec(html)) !== null) {
-            const type = match[1].trim();
-            const price = match[2].trim() + '元/升';
-            const change = match[3].trim().replace(/\s+/g, '') + '元/升';
-            
-            data.prices.push({
-                type: type,
-                price: price,
-                change: change,
-                isUp: change.startsWith('+'),
-                isDown: change.startsWith('-')
-            });
-        }
-    }
-    
     // 解析更新时间
-    const updateMatch = html.match(/油价更新于\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}|24:00)/i);
+    var updateMatch = html.match(/更新于\s*(\d{4}-\d{2}-\d{2})\s*<[^>]*>\s*(\d{2}:\d{2}|24:00)/i);
     if (updateMatch) {
-        data.updateTime = `${updateMatch[1]} ${updateMatch[2]}`;
+        data.updateTime = updateMatch[1] + ' ' + updateMatch[2];
     }
     
     // 解析下次调整时间
-    const nextMatch = html.match(/下次调整时间为\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}|24:00)/i);
+    var nextMatch = html.match(/下次调整时间为\s*(\d{4}-\d{2}-\d{2})\s*<[^>]*>\s*(\d{2}:\d{2}|24:00)/i);
     if (nextMatch) {
-        data.nextAdjustTime = `${nextMatch[1]} ${nextMatch[2]}`;
+        data.nextAdjustTime = nextMatch[1] + ' ' + nextMatch[2];
     }
     
     return data;
@@ -184,31 +186,38 @@ function parseOilData(html) {
 
 // ==================== 面板显示 ====================
 function handlePanelDisplay(data) {
-    const mainTypes = ['92号汽油', '95号汽油', '0号柴油'];
-    const lines = [];
+    var mainTypes = ['92号汽油', '95号汽油', '0号柴油'];
+    var lines = [];
     
-    for (const type of mainTypes) {
-        const p = data.prices.find(x => x.type.includes(type));
+    for (var i = 0; i < mainTypes.length; i++) {
+        var type = mainTypes[i];
+        var p = null;
+        for (var j = 0; j < data.prices.length; j++) {
+            if (data.prices[j].type.indexOf(type) !== -1) {
+                p = data.prices[j];
+                break;
+            }
+        }
         if (p) {
-            const icon = p.isUp ? '📈' : p.isDown ? '📉' : '➡️';
-            lines.push(`${type}: ${p.price} ${icon}${p.change.replace('元/升', '')}`);
+            var icon = p.isUp ? '📈' : p.isDown ? '📉' : '➡️';
+            lines.push(type + ': ' + p.price + ' ' + icon + p.change.replace('元/升', ''));
         }
     }
     
-    let content = lines.join('\n');
+    var content = lines.join('\n');
     
     if (data.updateTime) {
-        content += `\n\n⏰ 更新: ${data.updateTime}`;
+        content += '\n\n⏰ 更新: ' + data.updateTime;
     }
     
     if (data.nextAdjustTime) {
-        const days = calculateDays(data.nextAdjustTime);
-        content += `\n📅 下次: ${data.nextAdjustTime}`;
-        if (days !== null) content += ` (${days}天后)`;
+        var days = calculateDays(data.nextAdjustTime);
+        content += '\n📅 下次: ' + data.nextAdjustTime;
+        if (days !== null) content += ' (' + days + '天后)';
     }
     
     $.done({
-        title: `⛽ ${CONFIG.cityName}油价`,
+        title: '⛽ ' + CONFIG.cityName + '油价',
         content: content,
         icon: 'fuel.pump.fill',
         'icon-color': '#007AFF'
@@ -219,8 +228,8 @@ function handlePanelDisplay(data) {
 function handleCronNotification(data) {
     // 检查是否需要通知
     if (CONFIG.onlyChange) {
-        const lastPrices = $.getVal('last_prices', '');
-        const currentPrices = JSON.stringify(data.prices);
+        var lastPrices = $.getVal('last_prices', '');
+        var currentPrices = JSON.stringify(data.prices);
         if (lastPrices === currentPrices) {
             $.log('油价未变化，跳过通知');
             $.done();
@@ -229,21 +238,22 @@ function handleCronNotification(data) {
         $.setVal('last_prices', currentPrices);
     }
     
-    let body = '';
-    for (const p of data.prices) {
-        const icon = p.isUp ? '📈' : p.isDown ? '📉' : '➡️';
-        body += `${p.type}: ${p.price} ${icon}${p.change.replace('元/升', '')}\n`;
+    var body = '';
+    for (var i = 0; i < data.prices.length; i++) {
+        var p = data.prices[i];
+        var icon = p.isUp ? '📈' : p.isDown ? '📉' : '➡️';
+        body += p.type + ': ' + p.price + ' ' + icon + p.change.replace('元/升', '') + '\n';
     }
     
     if (data.nextAdjustTime) {
-        const days = calculateDays(data.nextAdjustTime);
-        body += `\n📅 下次调价: ${data.nextAdjustTime}`;
-        if (days !== null) body += ` (${days}天后)`;
+        var days = calculateDays(data.nextAdjustTime);
+        body += '\n📅 下次调价: ' + data.nextAdjustTime;
+        if (days !== null) body += ' (' + days + '天后)';
     }
     
     $.notify(
-        `⛽ ${CONFIG.cityName}油价信息`,
-        data.updateTime ? `更新于 ${data.updateTime}` : '',
+        '⛽ ' + CONFIG.cityName + '油价信息',
+        data.updateTime ? '更新于 ' + data.updateTime : '',
         body
     );
     
@@ -253,14 +263,14 @@ function handleCronNotification(data) {
 // ==================== 工具函数 ====================
 function calculateDays(dateStr) {
     try {
-        const m = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+        var m = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
         if (!m) return null;
         
-        const target = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
-        const today = new Date();
+        var target = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+        var today = new Date();
         today.setHours(0, 0, 0, 0);
         
-        const days = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+        var days = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
         return days > 0 ? days : 0;
     } catch (e) {
         return null;
@@ -272,25 +282,29 @@ function API(name) {
     return {
         name: name,
         
-        getVal(key, defaultVal = '') {
-            const val = $persistentStore.read(key);
+        getVal: function(key, defaultVal) {
+            defaultVal = defaultVal || '';
+            var val = $persistentStore.read(key);
             return val !== undefined && val !== null ? val : defaultVal;
         },
         
-        setVal(key, val) {
+        setVal: function(key, val) {
             return $persistentStore.write(val, key);
         },
         
-        log(msg) {
-            console.log(`[${name}] ${msg}`);
+        log: function(msg) {
+            console.log('[' + name + '] ' + msg);
         },
         
-        notify(title, subtitle, body) {
+        notify: function(title, subtitle, body) {
             $notification.post(title, subtitle, body);
         },
         
-        done(obj) {
+        done: function(obj) {
             $done(obj);
         }
     };
 }
+
+// 启动
+main();
