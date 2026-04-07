@@ -1,121 +1,453 @@
-/*
- * Surge Oil Price Script
- * 获取成都本地宝油价信息，并格式化输出，支持面板显示和定时通知。
- * 使用 Surge 的 $httpClient 进行网络请求，并使用正则表达式解析 HTML。
+/**
+ * 油价查询脚本 for Surge
+ * 数据来源: 本地宝 (bendibao.com)
+ * 功能: 面板显示 + 定时通知
+ * 
+ * 使用方法:
+ * 1. 面板模式: 配置Panel脚本
+ * 2. 通知模式: 配置Cron脚本
+ * 
+ * 可配置参数:
+ * - oil_city: 城市代码 (如 cd, bj, sh, gz, sz 等)
+ * - notify_cron: 定时通知的cron表达式 (默认: 0 9 * * * 每天9点)
+ * - notify_only_change: 仅在油价调整时通知 (默认: false)
  */
 
-const URL = 'https://cd.bendibao.com/news/youjiachaxun/';
+const $ = new API("油价查询");
 
-async function getOilPriceData() {
-    return new Promise((resolve, reject) => {
-        $httpClient.get(URL, function(error, response, data) {
-            if (error) {
-                console.log(`$httpClient error: ${error}`);
-                reject(error);
-                return;
-            }
+// ==================== 配置区域 ====================
+const CONFIG = {
+    // 城市代码: cd(成都), bj(北京), sh(上海), gz(广州), sz(深圳), cq(重庆) 等
+    city: $.getVal('oil_city', 'cd'),
+    
+    // 关注的城市名称（用于显示）
+    cityName: '',
+    
+    // 仅在油价调整时通知
+    notifyOnlyOnChange: $.getVal('notify_only_change', 'false') === 'true',
+    
+    // 上次油价（用于比较）
+    lastPrices: $.getVal('last_oil_prices', '{}'),
+    
+    // 调试模式
+    debug: false
+};
 
-            if (response.status !== 200) {
-                console.log(`HTTP status error: ${response.status}`);
-                reject(new Error(`HTTP status ${response.status}`));
-                return;
-            }
+// 城市名称映射
+const CITY_NAMES = {
+    'cd': '成都',
+    'bj': '北京',
+    'sh': '上海',
+    'gz': '广州',
+    'sz': '深圳',
+    'cq': '重庆',
+    'hz': '杭州',
+    'nj': '南京',
+    'wh': '武汉',
+    'tj': '天津',
+    'zz': '郑州',
+    'cs': '长沙',
+    'qd': '青岛',
+    'suzhou': '苏州',
+    'dg': '东莞',
+    'fs': '佛山'
+};
 
-            let oilPrices = [];
-            let updateTime = '';
-            let nextAdjustmentTime = '';
-            let adjustmentCalendar = [];
-
-            // 提取当前油价数据
-            const priceRegex = /<tr>\s*<td>(.*?号柴油|.*?号汽油)<\/td>\s*<td>(.*?)<\/td>\s*<td>(.*?)<\/td>\s*<td[^>]*><a[^>]*>>\s*<\/a><\/td>\s*<\/tr>/g;
-            let match;
-            while ((match = priceRegex.exec(data)) !== null) {
-                oilPrices.push({
-                    name: match[1].trim(),
-                    price: match[2].trim(),
-                    change: match[3].trim()
-                });
-            }
-
-            // 提取更新时间和下次调整时间
-            const timeRegex = /以上油价更新于(\d{4}-\d{2}-\d{2} \d{2}:\d{2})； 油价下次调整时间为(\d{4}-\d{2}-\d{2} \d{2}:\d{2})；/;
-            const timeMatch = data.match(timeRegex);
-            if (timeMatch) {
-                updateTime = timeMatch[1];
-                nextAdjustmentTime = timeMatch[2];
-            }
-
-            // 提取油价调整日历
-            const calendarSectionRegex = /2026年油价调整日历\s*(?:<ul[^>]*>\s*(?:<li[^>]*>.*?<\/li>\s*)*<\/ul>\s*){0,3}/s;
-            const calendarSectionMatch = data.match(calendarSectionRegex);
-
-            if (calendarSectionMatch) {
-                const calendarContent = calendarSectionMatch[0];
-                const calendarItemRegex = /(\d{1,2}月\d{1,2}日)\s*(星期[一二三四五六日])/g;
-                let itemMatch;
-                while ((itemMatch = calendarItemRegex.exec(calendarContent)) !== null) {
-                    adjustmentCalendar.push({
-                        date: itemMatch[1].trim(),
-                        dayOfWeek: itemMatch[2].trim()
-                    });
-                }
-            }
-
-            resolve({
-                oilPrices,
-                updateTime,
-                nextAdjustmentTime,
-                adjustmentCalendar
-            });
-        });
-    });
-}
-
-async function main() {
+// ==================== 主程序 ====================
+(async () => {
     try {
-        const data = await getOilPriceData();
-
-        if (!data || data.oilPrices.length === 0) {
-            $done();
+        CONFIG.cityName = CITY_NAMES[CONFIG.city] || CONFIG.city.toUpperCase();
+        
+        if (CONFIG.debug) {
+            $.log(`开始获取 ${CONFIG.cityName} 油价信息...`);
+        }
+        
+        const oilData = await fetchOilPrice();
+        
+        if (!oilData || !oilData.prices || oilData.prices.length === 0) {
+            throw new Error('未能获取到油价数据');
+        }
+        
+        // 保存当前油价用于下次比较
+        const currentPricesJson = JSON.stringify(oilData.prices);
+        const lastPricesJson = CONFIG.lastPrices;
+        
+        // 判断是否为cron执行（定时通知模式）
+        const isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
+        
+        if (isCron) {
+            // 定时通知模式
+            await handleCronNotification(oilData, currentPricesJson !== lastPricesJson);
+        } else {
+            // 面板模式
+            await handlePanelDisplay(oilData);
+        }
+        
+        // 保存当前油价
+        $.setVal('last_oil_prices', currentPricesJson);
+        
+    } catch (error) {
+        $.log(`错误: ${error.message}`);
+        
+        const isCron = typeof $trigger !== 'undefined' && $trigger === 'cron';
+        
+        if (isCron) {
+            // 定时通知错误
+            // 可以选择是否发送错误通知
+            // $.notify('油价查询失败', '', error.message);
+        } else {
+            // 面板错误显示
+            const panel = {
+                title: '⛽ 油价查询',
+                content: `获取失败: ${error.message}`,
+                icon: 'fuel.pump.fill',
+                'icon-color': '#FF3B30'
+            };
+            $.done(panel);
             return;
         }
+    }
+    
+    $.done();
+})();
 
-        let panelContent = '🚗 成都油价速览\n';
-        data.oilPrices.forEach(item => {
-            panelContent += `${item.name}: ${item.price} (${item.change})\n`;
+// ==================== 数据获取 ====================
+async function fetchOilPrice() {
+    const url = `https://${CONFIG.city}.bendibao.com/news/youjiachaxun/`;
+    
+    const headers = {
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive'
+    };
+    
+    const response = await $.httpClient.get({ url, headers });
+    
+    if (response.status !== 200) {
+        throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const html = response.body;
+    return parseOilData(html);
+}
+
+// ==================== 数据解析 ====================
+function parseOilData(html) {
+    const data = {
+        prices: [],
+        updateTime: '',
+        nextAdjustTime: '',
+        adjustDates: []
+    };
+    
+    // 解析油价表格数据
+    // 匹配模式: 燃油标号 + 最新油价 + 涨跌
+    const pricePattern = /<tr[^>]*>\s*<td[^>]*>([^<]*(?:柴油|汽油))<\/td>\s*<td[^>]*>([\d.]+元\/升)<\/td>\s*<td[^>]*>([+-]?\s*[\d.]+元\/升)<\/td>/gi;
+    
+    let match;
+    while ((match = pricePattern.exec(html)) !== null) {
+        const type = match[1].trim();
+        const price = match[2].trim();
+        const change = match[3].trim().replace(/\s+/g, '');
+        
+        data.prices.push({
+            type: type,
+            price: price,
+            change: change,
+            isUp: change.startsWith('+'),
+            isDown: change.startsWith('-')
         });
-        panelContent += `更新: ${data.updateTime}\n`;
-        panelContent += `下次调整: ${data.nextAdjustmentTime}\n\n`;
-
-        if (data.adjustmentCalendar.length > 0) {
-            panelContent += '📅 油价调整日历 (部分)\n';
-            // 只显示最近几条调整日历，避免面板过长
-            data.adjustmentCalendar.slice(0, 5).forEach(item => {
-                panelContent += `${item.date} ${item.dayOfWeek}\n`;
+    }
+    
+    // 备用解析方案：使用更宽松的模式
+    if (data.prices.length === 0) {
+        // 尝试其他模式
+        const altPattern = /(0号柴油|89号汽油|92号汽油|95号汽油|98号汽油|[-–]10号柴油|[-–]20号柴油)[^\d]*([\d.]+)\s*元\/升[^\d\-+]*([\-+]?\s*[\d.]+)\s*元\/升/gi;
+        while ((match = altPattern.exec(html)) !== null) {
+            const type = match[1].trim();
+            const price = match[2].trim() + '元/升';
+            const change = match[3].trim().replace(/\s+/g, '') + '元/升';
+            
+            data.prices.push({
+                type: type,
+                price: price,
+                change: change,
+                isUp: change.startsWith('+'),
+                isDown: change.startsWith('-')
             });
         }
-
-        // Surge 面板显示
-        $done({
-            title: '成都油价',
-            content: panelContent,
-            icon: 'fuelpump.fill'
-        });
-
-        // 定时通知
-        if (typeof $notification !== 'undefined' && typeof $script !== 'undefined' && $script.isCron) {
-            let notificationBody = '';
-            data.oilPrices.forEach(item => {
-                notificationBody += `${item.name}: ${item.price} (${item.change})\n`;
-            });
-            notificationBody += `下次调整: ${data.nextAdjustmentTime}`;
-            $notification.post('油价提醒', '成都油价更新', notificationBody);
+    }
+    
+    // 解析更新时间
+    const updatePattern = /油价更新于\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}|24:00)/i;
+    const updateMatch = html.match(updatePattern);
+    if (updateMatch) {
+        data.updateTime = `${updateMatch[1]} ${updateMatch[2]}`;
+    }
+    
+    // 备用更新时间解析
+    if (!data.updateTime) {
+        const altUpdatePattern = /(\d{4}[年/-]\d{1,2}[月/-]\d{1,2})\s*日?\s*(24:00|\d{1,2}:\d{2})/i;
+        const altUpdateMatch = html.match(altUpdatePattern);
+        if (altUpdateMatch) {
+            data.updateTime = `${altUpdateMatch[1]} ${altUpdateMatch[2]}`;
         }
+    }
+    
+    // 解析下次调整时间
+    const nextAdjustPattern = /下次调整时间为\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}|24:00)/i;
+    const nextAdjustMatch = html.match(nextAdjustPattern);
+    if (nextAdjustMatch) {
+        data.nextAdjustTime = `${nextAdjustMatch[1]} ${nextAdjustMatch[2]}`;
+    }
+    
+    // 备用下次调整时间解析
+    if (!data.nextAdjustTime) {
+        const altNextPattern = /下次调整[日期]*[为:]?\s*(\d{4}[年/-]\d{1,2}[月/-]\d{1,2})/i;
+        const altNextMatch = html.match(altNextPattern);
+        if (altNextMatch) {
+            data.nextAdjustTime = altNextMatch[1];
+        }
+    }
+    
+    // 解析2026年调整日历
+    const calendarPattern = /(\d{1,2}月\d{1,2}日)[^\u4e00-\u9fa5]*(星期[一二三四五六日])/gi;
+    while ((match = calendarPattern.exec(html)) !== null) {
+        data.adjustDates.push({
+            date: match[1],
+            weekday: match[2]
+        });
+    }
+    
+    return data;
+}
 
+// ==================== 面板显示 ====================
+async function handlePanelDisplay(data) {
+    // 构建面板内容
+    let content = '';
+    
+    // 主要油价（92号和95号汽油）
+    const mainTypes = ['92号汽油', '95号汽油', '0号柴油'];
+    const mainPrices = [];
+    
+    for (const type of mainTypes) {
+        const priceInfo = data.prices.find(p => p.type.includes(type));
+        if (priceInfo) {
+            const changeIcon = priceInfo.isUp ? '📈' : priceInfo.isDown ? '📉' : '➡️';
+            const changeText = priceInfo.change.replace('元/升', '');
+            mainPrices.push(`${type}: ${priceInfo.price} ${changeIcon}${changeText}`);
+        }
+    }
+    
+    content = mainPrices.join('\n');
+    
+    // 添加时间信息
+    if (data.updateTime) {
+        content += `\n\n⏰ 更新: ${data.updateTime}`;
+    }
+    
+    if (data.nextAdjustTime) {
+        // 计算距离下次调整的天数
+        const daysUntil = calculateDaysUntil(data.nextAdjustTime);
+        content += `\n📅 下次: ${data.nextAdjustTime}`;
+        if (daysUntil !== null) {
+            content += ` (${daysUntil}天后)`;
+        }
+    }
+    
+    // 构建面板
+    const panel = {
+        title: `⛽ ${CONFIG.cityName}油价`,
+        content: content,
+        icon: 'fuel.pump.fill',
+        'icon-color': '#007AFF'
+    };
+    
+    $.done(panel);
+}
+
+// ==================== 定时通知 ====================
+async function handleCronNotification(data, hasChanged) {
+    // 如果设置了仅在变化时通知，且价格未变化，则跳过
+    if (CONFIG.notifyOnlyOnChange && !hasChanged) {
+        $.log('油价未变化，跳过通知');
+        return;
+    }
+    
+    // 构建通知标题
+    let title = `⛽ ${CONFIG.cityName}油价信息`;
+    if (hasChanged) {
+        title += ' [已更新]';
+    }
+    
+    // 构建通知内容
+    let subtitle = '';
+    if (data.updateTime) {
+        subtitle = `更新于 ${data.updateTime}`;
+    }
+    
+    // 构建详细内容
+    let body = '';
+    
+    // 显示所有油价
+    for (const price of data.prices) {
+        const changeIcon = price.isUp ? '📈' : price.isDown ? '📉' : '➡️';
+        const changeText = price.change.replace('元/升', '');
+        const sign = changeText.startsWith('+') ? '+' : changeText.startsWith('-') ? '' : '';
+        body += `${price.type}: ${price.price} ${changeIcon}${sign}${changeText}\n`;
+    }
+    
+    // 添加下次调整信息
+    if (data.nextAdjustTime) {
+        const daysUntil = calculateDaysUntil(data.nextAdjustTime);
+        body += `\n📅 下次调价: ${data.nextAdjustTime}`;
+        if (daysUntil !== null) {
+            body += ` (${daysUntil}天后)`;
+        }
+    }
+    
+    // 发送通知
+    $.notify(title, subtitle, body);
+}
+
+// ==================== 工具函数 ====================
+function calculateDaysUntil(dateStr) {
+    try {
+        // 解析日期字符串
+        const dateMatch = dateStr.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+        if (!dateMatch) return null;
+        
+        const year = parseInt(dateMatch[1]);
+        const month = parseInt(dateMatch[2]) - 1; // JavaScript月份从0开始
+        const day = parseInt(dateMatch[3]);
+        
+        const targetDate = new Date(year, month, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const diffTime = targetDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        return diffDays > 0 ? diffDays : 0;
     } catch (e) {
-        console.log(`Script error: ${e.message}`);
-        $done();
+        return null;
     }
 }
 
-main();
+// ==================== API 封装 ====================
+function API(name = "未命名") {
+    return new class {
+        constructor(name) {
+            this.name = name;
+            this.isQX = typeof $task !== 'undefined';
+            this.isLoon = typeof $loon !== 'undefined';
+            this.isSurge = typeof $httpClient !== 'undefined' && !this.isLoon;
+            this.isNode = typeof require === 'function';
+            this.isJSBox = typeof $drive !== 'undefined';
+            this.isStash = typeof $environment !== 'undefined' && $environment['stash-version'];
+        }
+
+        getVal(key, defaultVal = '') {
+            let val;
+            if (this.isSurge || this.isLoon) {
+                val = $persistentStore.read(key);
+            } else if (this.isQX) {
+                val = $prefs.valueForKey(key);
+            } else if (this.isNode) {
+                this.data = this.loadData();
+                val = this.data?.[key];
+            }
+            return val ?? defaultVal;
+        }
+
+        setVal(key, val) {
+            if (this.isSurge || this.isLoon) {
+                return $persistentStore.write(val, key);
+            } else if (this.isQX) {
+                return $prefs.setValueForKey(val, key);
+            } else if (this.isNode) {
+                this.data = this.loadData();
+                this.data[key] = val;
+                this.writeData();
+                return true;
+            }
+        }
+
+        loadData() {
+            if (this.isNode) {
+                try {
+                    const fs = require('fs');
+                    if (!fs.existsSync('./oil_price_data.json')) {
+                        return {};
+                    }
+                    return JSON.parse(fs.readFileSync('./oil_price_data.json'));
+                } catch (e) {
+                    return {};
+                }
+            }
+            return {};
+        }
+
+        writeData() {
+            if (this.isNode) {
+                try {
+                    const fs = require('fs');
+                    fs.writeFileSync('./oil_price_data.json', JSON.stringify(this.data));
+                } catch (e) {
+                    // ignore
+                }
+            }
+        }
+
+        get httpClient() {
+            return {
+                get: (options, callback) => {
+                    if (this.isQX) {
+                        return $task.fetch(options).then(
+                            resp => callback(null, resp.status, resp.body),
+                            reason => callback(reason.error, null, null)
+                        );
+                    }
+                    if (this.isSurge || this.isLoon || this.isStash) {
+                        return $httpClient.get(options, (error, response, body) => {
+                            callback(error, response?.status || response?.statusCode, body);
+                        });
+                    }
+                    if (this.isNode) {
+                        const request = require('request');
+                        return request(options, (error, response, body) => {
+                            callback(error, response?.statusCode, body);
+                        });
+                    }
+                }
+            };
+        }
+
+        notify(title, subtitle, message) {
+            if (this.isQX) {
+                $notify(title, subtitle, message);
+            } else if (this.isSurge || this.isLoon || this.isStash) {
+                $notification.post(title, subtitle, message);
+            } else if (this.isNode) {
+                console.log(`${title}\n${subtitle}\n${message}`);
+            }
+        }
+
+        log(message) {
+            console.log(`[${this.name}] ${message}`);
+        }
+
+        done(value = {}) {
+            if (this.isQX) {
+                $done(value);
+            } else if (this.isSurge || this.isLoon || this.isStash) {
+                $done(value);
+            } else if (this.isNode) {
+                process.exit(0);
+            }
+        }
+    }(name);
+}
