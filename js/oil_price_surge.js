@@ -11,10 +11,14 @@
 var city = 'cd';
 var onlychange = false;
 
+console.log('[油价查询] $argument: ' + (typeof $argument !== 'undefined' ? $argument : 'undefined'));
+
 if (typeof $argument !== 'undefined' && $argument) {
     var args = $argument.split('&');
+    console.log('[油价查询] 解析参数: ' + JSON.stringify(args));
     for (var i = 0; i < args.length; i++) {
         var kv = args[i].split('=');
+        console.log('[油价查询] 参数' + i + ': ' + kv[0] + '=' + kv[1]);
         if (kv.length === 2) {
             if (kv[0] === 'city') city = kv[1];
             if (kv[0] === 'onlychange') onlychange = kv[1] === 'true';
