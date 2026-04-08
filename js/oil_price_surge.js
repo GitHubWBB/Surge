@@ -186,24 +186,26 @@ function parseOilData(html) {
 
 // ==================== 面板显示 ====================
 function handlePanel(data, lastData) {
-    // 表格样式显示
     var lines = [];
     var hasUp = false;
     var hasDown = false;
     
     // 表头
-    lines.push('燃油标号      最新油价    涨跌');
-    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push('燃油标号   油价    涨跌');
+    lines.push('----------------------');
     
-    // 所有油价类型
-    var allTypes = ['0号柴油', '89号汽油', '92号汽油', '95号汽油', '98号汽油', '-10号柴油', '-20号柴油'];
+    // 只显示0号柴油、92号、95号
+    var showTypes = [
+        { key: '0号柴油', name: '0号柴油' },
+        { key: '92号汽油', name: '92号汽油' },
+        { key: '95号汽油', name: '95号汽油' }
+    ];
     
-    for (var i = 0; i < allTypes.length; i++) {
-        var type = allTypes[i];
+    for (var i = 0; i < showTypes.length; i++) {
+        var showType = showTypes[i];
         var p = null;
         for (var j = 0; j < data.prices.length; j++) {
-            if (data.prices[j].type.indexOf(type.replace('-', '')) >= 0 ||
-                data.prices[j].type === type) {
+            if (data.prices[j].type.indexOf(showType.key) >= 0) {
                 p = data.prices[j];
                 break;
             }
@@ -213,25 +215,32 @@ function handlePanel(data, lastData) {
         if (p.isUp) hasUp = true;
         if (p.isDown) hasDown = true;
         
-        // 格式化：左对齐10字符 + 右对齐10字符 + 涨跌
-        var typeStr = padRight(p.type, 10);
-        var priceStr = padLeft(p.price, 10);
+        // 燃油名称（0号->0 号，让宽度一致）
+        var name = showType.name.replace('0号', '0 号');
         
-        // 涨跌颜色标记
+        // 价格（统一格式，如 8.66）
+        var price = p.priceNum.toFixed(2);
+        
+        // 涨跌（保留+号，统一格式）
+        var changeVal = p.changeNum;
         var changeStr = '';
-        if (p.changeNum > 0) {
-            changeStr = '🔴 +' + p.change;  // 上涨红色
-        } else if (p.changeNum < 0) {
-            changeStr = '🟢 ' + p.change;   // 下跌绿色
+        if (changeVal > 0) {
+            changeStr = '+ ' + changeVal.toFixed(2);
+        } else if (changeVal < 0) {
+            changeStr = '- ' + Math.abs(changeVal).toFixed(2);
         } else {
-            changeStr = '⚪ ' + p.change;   // 持平灰色
+            changeStr = '0.00';
         }
         
-        lines.push(typeStr + '  ' + priceStr + '  ' + changeStr);
+        // 空格对齐（固定列宽）
+        var namePad = name + '      '.substring(name.length);
+        var pricePad = '      '.substring(price.length) + price;
+        var line = namePad + pricePad + '  ' + changeStr;
+        lines.push(line);
     }
     
     // 时间信息
-    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push('----------------------');
     
     if (data.updateTime) {
         lines.push('📅 更新: ' + data.updateTime);
@@ -248,9 +257,9 @@ function handlePanel(data, lastData) {
     console.log('[油价查询] 面板内容:\n' + content);
     
     // 根据涨跌情况设置图标颜色
-    var iconColor = '#007AFF';  // 默认蓝色
-    if (hasUp && !hasDown) iconColor = '#FF3B30';  // 全涨红色
-    else if (hasDown && !hasUp) iconColor = '#34C759';  // 全跌绿色
+    var iconColor = '#007AFF';
+    if (hasUp && !hasDown) iconColor = '#FF3B30';
+    else if (hasDown && !hasUp) iconColor = '#34C759';
     
     $done({
         title: '⛽ ' + cityName + '油价',
@@ -258,23 +267,6 @@ function handlePanel(data, lastData) {
         icon: 'fuel.pump.fill',
         'icon-color': iconColor
     });
-}
-
-// 字符串填充函数
-function padRight(str, len) {
-    var result = str;
-    while (result.length < len) {
-        result += ' ';
-    }
-    return result;
-}
-
-function padLeft(str, len) {
-    var result = str;
-    while (result.length < len) {
-        result = ' ' + result;
-    }
-    return result;
 }
 
 // ==================== 定时通知 ====================
@@ -297,7 +289,6 @@ function handleCron(data, lastData) {
                 if (hasChanged) break;
             }
         } else {
-            // 第一次运行，没有历史数据，视为变化
             hasChanged = true;
         }
         
@@ -309,12 +300,24 @@ function handleCron(data, lastData) {
         console.log('[油价查询] 油价有变化，发送通知');
     }
     
-    // 构建通知内容
+    // 只显示0号、92、95
+    var showTypes = ['0号柴油', '92号汽油', '95号汽油'];
     var lines = [];
-    for (var i = 0; i < data.prices.length; i++) {
-        var p = data.prices[i];
-        var arrow = p.isUp ? '▲' : p.isDown ? '▼' : '−';
-        lines.push(p.type + ': ' + p.price + ' ' + arrow + p.change);
+    
+    for (var i = 0; i < showTypes.length; i++) {
+        var type = showTypes[i];
+        var p = null;
+        for (var j = 0; j < data.prices.length; j++) {
+            if (data.prices[j].type.indexOf(type) >= 0) {
+                p = data.prices[j];
+                break;
+            }
+        }
+        if (!p) continue;
+        
+        var changeStr = p.change.replace(/^\+/, '');
+        var arrow = p.changeNum > 0 ? '↑' : p.changeNum < 0 ? '↓' : '-';
+        lines.push(p.type + ': ' + p.price + ' ' + arrow + changeStr);
     }
     
     var body = lines.join('\n');
@@ -327,7 +330,7 @@ function handleCron(data, lastData) {
         }
     }
     
-    console.log('[油价查询] 发送通知');
+    console.log('[油价查询] 发送通知: ' + body);
     
     // 发送通知
     $notification.post(
