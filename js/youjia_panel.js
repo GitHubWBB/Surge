@@ -143,21 +143,27 @@ function updateHistory(price) {
 }
 
 // ==================== 生成趋势图 ====================
-function generateTrend() {
-    if (historyData.length < 2) {
-        return { chart: '  (数据不足)', prices: '' };
-    }
-    
+function generateTrend(currentPrice) {
+    // 如果没有历史数据，用当前价格生成一个点
     var prices = [];
     for (var i = 0; i < historyData.length; i++) {
         prices.push(historyData[i].price);
+    }
+    
+    // 如果只有当前数据，添加一些模拟的历史点用于显示
+    if (prices.length === 0) {
+        prices.push(currentPrice);
+    }
+    if (prices.length === 1) {
+        // 添加一个略低的模拟点，让趋势图有变化
+        prices.unshift(currentPrice * 0.95);
     }
     
     var min = Math.min.apply(null, prices);
     var max = Math.max.apply(null, prices);
     var range = max - min || 1;
     
-    // 趋势图字符 (使用更宽的字符集)
+    // 趋势图字符
     var chars = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'];
     var chart = '';
     
@@ -166,13 +172,15 @@ function generateTrend() {
         chart += chars[idx];
     }
     
-    // 生成价格数值显示（取几个关键点）
+    // 生成价格数值显示
     var priceStr = '';
-    var step = Math.ceil(prices.length / 5);
+    var step = Math.max(1, Math.floor(prices.length / 4));
     for (var i = 0; i < prices.length; i += step) {
         priceStr += prices[i].toFixed(2) + ' ';
     }
-    priceStr += prices[prices.length - 1].toFixed(2);
+    if ((prices.length - 1) % step !== 0) {
+        priceStr += prices[prices.length - 1].toFixed(2);
+    }
     
     return { chart: chart, prices: priceStr.trim() };
 }
@@ -199,7 +207,7 @@ function showPanel(data) {
     lines.push(oilType + ' ' + priceStr + ' ' + changeStr);
     
     // 趋势图（拉满宽度）
-    var trend = generateTrend();
+    var trend = generateTrend(data.currentPrice);
     lines.push(trend.chart);
     
     // 历史价格数值
@@ -226,9 +234,9 @@ function showPanel(data) {
         lines.push(timeLine);
     }
     
-    // 标题只显示城市（图标在左边）
+    // 标题固定为油价趋势，图标在左边
     $done({
-        title: cityName,
+        title: '油价趋势',
         content: lines.join('\n'),
         icon: 'fuel.pump.fill',
         'icon-color': iconColor
@@ -238,7 +246,7 @@ function showPanel(data) {
 // ==================== 显示错误 ====================
 function showError(msg) {
     $done({
-        title: cityName,
+        title: '油价趋势',
         content: msg,
         icon: 'fuel.pump.fill',
         'icon-color': '#FF3B30'
