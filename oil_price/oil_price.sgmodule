@@ -6,7 +6,7 @@
 #!arguments-desc=city: 城市拼音缩写 (如 cd/bj/sh)\nfuel: 油品编号 (如 92/95/0)\ncronexp: 定时推送的CRON表达式 (如 "0 8 * * *")
 
 [Panel]
-OilPrice = script-name=oil-price-panel, update-interval=3600
+OilPrice = type=generic, script-name=oil-price-panel, update-interval=3600, argument=city={{{city}}}&fuel={{{fuel}}}&icon=⛽&color=#FF3B30
 
 [Script]
 oil-price-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, argument=city={{{city}}}&fuel={{{fuel}}}

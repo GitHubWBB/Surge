@@ -70,9 +70,12 @@ function handleError(msg) {
 }
 
 function sendNotification(result) {
-  const lines = result.content.split('\n');
   const title = result.title;
-  const body = lines.slice(0, 3).join('\n');
+  // 通知显示完整内容，但移除分割线使其更紧凑
+  const body = result.content
+    .replace(/--------------------\n/g, "\n")  // 移除分割线
+    .replace(/\n+/g, "\n")  // 合并多余换行
+    .trim();
   $notification.post("⛽ " + title, "", body);
   $done();
 }
@@ -264,10 +267,13 @@ function generateAsciiChart(history) {
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
+      // 最高价格行
       chart += padLeft(maxLabel, labelW) + " |" + line + "\n";
     } else if (row === chartHeight - 1) {
+      // 最低价格行 + 横轴
       chart += padLeft(minLabel, labelW) + " +" + "-".repeat(width) + "\n";
     } else {
+      // 中间行，标签位置用空格填充
       chart += " ".repeat(labelW) + " |" + line + "\n";
     }
   }
