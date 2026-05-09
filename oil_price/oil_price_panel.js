@@ -7,7 +7,7 @@
 // ============ 参数解析 ============
 const arg = $argument || "";
 let city = "cd";
-let fuel = "92";
+let fuel = "95";
 let notify = "false"; // 是否为通知模式
 
 if (arg) {
@@ -258,9 +258,9 @@ function generateAsciiChart(history) {
     if (row === 0) {
       chart += line + "\n";
     } else if (row === chartHeight - 1) {
-      chart += `${min.toFixed(0)} └" + "─".repeat(width) + "\n";
+      chart += `${min.toFixed(0)} └` + "─".repeat(width) + "\n";
     } else {
-      chart += `     │" + line + "\n";
+      chart += `     │` + line + "\n";
     }
   }
 
