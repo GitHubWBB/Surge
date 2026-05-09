@@ -94,30 +94,36 @@ function parseOilPrice(html, targetFuel) {
 
   let content = "";
 
-  // 当前价格（大图标 + 缩进内容）
+  // 大图标标题
+  content += `⛽️ ${getCityName(city)}油价\n\n`;
+
+  // 当前价格
   if (currentPrice) {
     const change = currentPrice.change;
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
     const changeVal = change > 0 ? `+${change.toFixed(2)}` : change < 0 ? `${change.toFixed(2)}` : "0.00";
     content += `⛽ ${currentLabel}\n`;
-    content += `    ¥${currentPrice.price.toFixed(2)}/升  ${changeIcon}${changeVal}\n`;
+    content += `      ¥${currentPrice.price.toFixed(2)}/升  ${changeIcon}${changeVal}\n`;
   }
 
-  // 下次调价（小标题 + 缩进）
+  // 分割线 + 下次调价
   if (nextDate) {
+    content += `────────────────\n`;
     const daysLeft = daysUntil(nextDate);
     content += `📅 下次调价\n`;
-    content += `    ${nextDate} (${daysLeft}天后)\n`;
+    content += `      ${nextDate} (${daysLeft}天后)\n`;
   }
 
-  // ASCII 趋势图
+  // 分割线 + ASCII 趋势图
   if (history.length >= 2) {
+    content += `────────────────\n`;
     content += generateAsciiChart(history);
   }
 
-  // 全部油品价格（以"油"对齐，以"¥"对齐）
+  // 分割线 + 全部油品价格
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
-  content += `\n📋 全部油品\n`;
+  content += `────────────────\n`;
+  content += `📋 全部油品\n`;
   fuelOrder.forEach(f => {
     if (allPrices[f]) {
       const name = fuelNames[f] || f;
@@ -125,9 +131,13 @@ function parseOilPrice(html, targetFuel) {
       const dot = ch > 0 ? "🔴" : ch < 0 ? "🟢" : "⚪";
       const val = ch > 0 ? `+${ch.toFixed(2)}` : ch < 0 ? `${ch.toFixed(2)}` : " 0.00";
       const price = allPrices[f].price.toFixed(2);
-      // 对齐：名称占6字符，价格占6字符
-      const namePadded = padRight(name, 6);
-      content += `    ${dot} ${namePadded} ¥${price} (${val})\n`;
+      // 对齐：名称右对齐让"油"字对齐，价格右对齐让¥对齐
+      // 0号柴油=4字, 89号汽油=5字, -10号柴油=6字
+      // 让"油"对齐：名称左填充空格到统一宽度（以最长为准）
+      const nameAligned = padLeft(name, 6);
+      // 价格固定5字符（如9.41）
+      const priceAligned = padLeft(price, 5);
+      content += `      ${dot} ${nameAligned} ¥${priceAligned} (${val})\n`;
     }
   });
 
@@ -228,8 +238,8 @@ function generateAsciiChart(history) {
   const chartHeight = 5;
   const width = Math.min(prices.length * 2, 14);
 
-  let chart = `\n📊 价格趋势\n`;
-  chart += `    (${history[0].date} ~ ${history[history.length-1].date})\n`;
+  let chart = `📊 价格趋势\n`;
+  chart += `      (${history[0].date} ~ ${history[history.length-1].date})\n`;
 
   const canvas = [];
   for (let i = 0; i < chartHeight; i++) {
@@ -262,11 +272,11 @@ function generateAsciiChart(history) {
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
-      chart += "    " + padLeft(maxLabel, labelW) + " ┤" + line + "\n";
+      chart += "      " + padLeft(maxLabel, labelW) + " ┤" + line + "\n";
     } else if (row === chartHeight - 1) {
-      chart += "    " + padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
+      chart += "      " + padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
     } else {
-      chart += "    " + " ".repeat(labelW) + " │" + line + "\n";
+      chart += "      " + " ".repeat(labelW) + " │" + line + "\n";
     }
   }
 
@@ -274,7 +284,7 @@ function generateAsciiChart(history) {
   const firstPrice = prices[0];
   const diff = lastPrice - firstPrice;
   const trend = diff > 0 ? "📈 上涨" : diff < 0 ? "📉 下降" : "➖ 持平";
-  chart += `    ${trend} ¥${Math.abs(diff).toFixed(2)}`;
+  chart += `      ${trend} ¥${Math.abs(diff).toFixed(2)}`;
 
   return chart;
 }
