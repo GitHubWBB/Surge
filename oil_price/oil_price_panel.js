@@ -101,13 +101,13 @@ function parseOilPrice(html, targetFuel) {
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
     const changeVal = change > 0 ? `+${change.toFixed(2)}` : change < 0 ? `${change.toFixed(2)}` : "0.00";
     content += `⛽ ${currentLabel}\n`;
-    content += `¥${currentPrice.price.toFixed(2)}/升  ${changeIcon} ${changeVal}\n`;
+    content += `¥${currentPrice.price.toFixed(2)}/升  ${changeIcon}${changeVal}\n`;
   }
 
   // 下次调价
   if (nextDate) {
     const daysLeft = daysUntil(nextDate);
-    content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
+    content += `📅 下次调价 ${nextDate} (${daysLeft}天后)\n`;
   }
 
   // ASCII 趋势图
@@ -117,14 +117,15 @@ function parseOilPrice(html, targetFuel) {
 
   // 全部油品价格
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
-  content += "────── 全部油品 ──────\n";
+  content += "\n───── 全部油品 ─────\n";
   fuelOrder.forEach(f => {
     if (allPrices[f]) {
       const name = fuelNames[f] || f;
       const ch = allPrices[f].change;
       const dot = ch > 0 ? "🔴" : ch < 0 ? "🟢" : "⚪";
-      const val = ch > 0 ? `+${ch.toFixed(2)}` : ch < 0 ? `${ch.toFixed(2)}` : "0.00";
-      content += `${dot} ${name}  ¥${allPrices[f].price.toFixed(2)}  (${val})\n`;
+      const val = ch > 0 ? `+${ch.toFixed(2)}` : ch < 0 ? `${ch.toFixed(2)}` : " 0.00";
+      const price = allPrices[f].price.toFixed(2);
+      content += `${dot} ${name}   ¥${price} (${val})\n`;
     }
   });
 
@@ -223,11 +224,10 @@ function generateAsciiChart(history) {
   const range = max - min || 1;
 
   const chartHeight = 5;
-  const width = Math.min(prices.length * 2, 18);
+  const width = Math.min(prices.length * 2, 16);
 
   let chart = "\n📊 价格趋势\n";
   chart += `(${history[0].date} ~ ${history[history.length-1].date})\n`;
-  chart += `${max.toFixed(0)} ┤`;
 
   const canvas = [];
   for (let i = 0; i < chartHeight; i++) {
@@ -253,14 +253,18 @@ function generateAsciiChart(history) {
     }
   }
 
+  const maxLabel = max.toFixed(0);
+  const minLabel = min.toFixed(0);
+  const labelW = Math.max(maxLabel.length, minLabel.length);
+
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
-      chart += line + "\n";
+      chart += padLeft(maxLabel, labelW) + " ┤" + line + "\n";
     } else if (row === chartHeight - 1) {
-      chart += `${min.toFixed(0)} └` + "─".repeat(width) + "\n";
+      chart += padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
     } else {
-      chart += `     │` + line + "\n";
+      chart += " ".repeat(labelW) + " │" + line + "\n";
     }
   }
 
@@ -271,6 +275,11 @@ function generateAsciiChart(history) {
   chart += `${trend} ¥${Math.abs(diff).toFixed(2)}`;
 
   return chart;
+}
+
+function padLeft(str, len) {
+  while (str.length < len) str = " " + str;
+  return str;
 }
 
 function getCityName(code) {
