@@ -47,7 +47,7 @@
 OilPrice = title="⛽ 油价查询", content="正在加载...", style=info, script-name=oil-price-panel, update-interval=3600
 
 [Script]
-oil-price-panel = type=generic, script-path=oil_price_panel.js, timeout=30, argument=city={{city}}&fuel={{fuel}}
-
-# Cron 定时任务：每天按设定时间自动刷新面板数据
-oil-price-cron = type=cron, cronexp="{{cron}}", script-path=oil_price_panel.js, timeout=30, argument=city={{city}}&fuel={{fuel}}
+# 参数说明：argument 中 city=城市缩写, fuel=油品编号
+# 默认: city=cd(成都), fuel=92(92号汽油)
+# 修改 argument 即可切换城市和油品
+oil-price-panel = type=generic, script-path=oil_price_panel.js, timeout=30, argument=city=cd&fuel=92
