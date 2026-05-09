@@ -10,5 +10,5 @@
 油价查询 = script-name=youjia-panel, update-interval=43200
 
 [Script]
-youjia-panel = type=generic, timeout=30, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/js/main/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
-youjia-cron = type=cron, cronexp={{{cronexp}}}, timeout=30, wake-system=1, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/js/main/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
+youjia-panel = type=generic, timeout=30, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
+youjia-cron = type=cron, cronexp={{{cronexp}}}, timeout=30, wake-system=1, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
