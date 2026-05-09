@@ -106,20 +106,20 @@ function parseOilPrice(html, targetFuel) {
 
   // 下次调价
   if (nextDate) {
-    content += `─────────────────────\n`;
+    content += `--------------------\n`;
     const daysLeft = daysUntil(nextDate);
     content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
 
   // ASCII 趋势图
   if (history.length >= 2) {
-    content += `─────────────────────\n`;
+    content += `--------------------\n`;
     content += generateAsciiChart(history);
   }
 
   // 全部油品价格
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
-  content += `─────────────────────\n`;
+  content += `--------------------\n`;
   content += `📋 全部油品:\n`;
   fuelOrder.forEach(f => {
     if (allPrices[f]) {
@@ -244,7 +244,7 @@ function generateAsciiChart(history) {
     const x = Math.round(i * step);
     const y = chartHeight - 1 - Math.round(((prices[i] - min) / range) * (chartHeight - 1));
     points.push({ x, y });
-    canvas[y][x] = "●";
+    canvas[y][x] = "*";
   }
 
   for (let i = 1; i < points.length; i++) {
@@ -252,7 +252,7 @@ function generateAsciiChart(history) {
     const curr = points[i];
     if (curr.x > prev.x) {
       for (let x = prev.x + 1; x < curr.x; x++) {
-        if (canvas[prev.y][x] === " ") canvas[prev.y][x] = "─";
+        if (canvas[prev.y][x] === " ") canvas[prev.y][x] = "-";
       }
     }
   }
@@ -261,15 +261,14 @@ function generateAsciiChart(history) {
   const minLabel = min.toFixed(0);
   const labelW = Math.max(maxLabel.length, minLabel.length);
 
-  // 统一缩进，让图表左对齐
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
-      chart += padLeft(maxLabel, labelW) + " ┤" + line + "\n";
+      chart += padLeft(maxLabel, labelW) + " |" + line + "\n";
     } else if (row === chartHeight - 1) {
-      chart += padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
+      chart += padLeft(minLabel, labelW) + " +" + "-".repeat(width) + "\n";
     } else {
-      chart += " ".repeat(labelW) + " │" + line + "\n";
+      chart += " ".repeat(labelW) + " |" + line + "\n";
     }
   }
 
