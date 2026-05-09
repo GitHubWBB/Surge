@@ -4,10 +4,20 @@ Surge 油价查询｜本地宝通用版
 适配 Surge #!arguments + {{{}}} 变量注入
 */
 
+// 兼容 Surge 内置变量 $argument 和 Node.js 命令行参数
+const surgeArgument = typeof $argument !== 'undefined' ? $argument : '';
+const nodeArgument = process.argv.length >= 3 ? process.argv[2] : '';
+const rawArg = surgeArgument || nodeArgument;
+
 // 解析 &key=value 参数
 const args = Object.fromEntries(
-  $argument.split('&').map(s => s.split('=').map(i => decodeURIComponent(i)))
+  rawArg.split('&').map(s => {
+    const [key, ...valueParts] = s.split('=');
+    const value = valueParts.join('=').trim();
+    return [decodeURIComponent(key || ''), decodeURIComponent(value || '')];
+  }).filter(([k]) => k) // 过滤空键，避免无效参数
 );
+
 const config = {
   city: args.city || 'cd',
   focusFuel: args.focusFuel || '92号汽油',
