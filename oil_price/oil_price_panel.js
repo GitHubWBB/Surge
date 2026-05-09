@@ -4,29 +4,27 @@
  * 支持：面板显示 + 定时通知
  */
 
-// ============ 参数解析 ============
-const arg = $argument || "";
-let city = "cd";
-let fuel = "95";
-let notify = "false";
-
-if (arg) {
+// 参数解析函数
+function getParams(param) {
+  if (!param) return {};
   try {
-    const params = JSON.parse(arg);
-    if (params.city) city = params.city;
-    if (params.fuel) fuel = String(params.fuel);
-    if (params.notify) notify = params.notify;
+    return JSON.parse(param);
   } catch (e) {
-    arg.split("&").forEach(pair => {
-      const [k, v] = pair.split("=");
-      if (k === "city" && v) city = v;
-      if (k === "fuel" && v) fuel = v;
-      if (k === "notify" && v) notify = v;
-    });
+    return Object.fromEntries(
+      param
+        .split("&")
+        .map((item) => item.split("="))
+        .map(([k, v]) => [k, decodeURIComponent(v || "")])
+    );
   }
 }
 
-const isNotify = notify === "true";
+const params = getParams($argument);
+const city = params.city || "cd";
+const fuel = params.fuel || "95";
+const isNotify = params.notify === "true";
+const icon = params.icon || "⛽";
+const iconColor = params.color || "#FF3B30";
 
 const fuelNames = {
   "0": "0号柴油",
@@ -46,7 +44,7 @@ $httpClient.get(url, function (error, response, data) {
   }
 
   try {
-    const result = parseOilPrice(data, fuel);
+    const result = parseOilPrice(data, fuel, city, icon, iconColor);
     if (isNotify) {
       sendNotification(result);
     } else {
@@ -64,7 +62,9 @@ function handleError(msg) {
   } else {
     $done({
       title: "⛽ 油价查询",
-      content: `❌ 获取失败\n${msg}`
+      content: `❌ 获取失败\n${msg}`,
+      icon: icon,
+      "icon-color": iconColor
     });
   }
 }
@@ -80,7 +80,7 @@ function sendNotification(result) {
   $done();
 }
 
-function parseOilPrice(html, targetFuel) {
+function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
   const allPrices = parseCurrentPrices(html);
   const history = parseHistoryPrices(html, targetFuel);
   const nextDate = parseNextAdjustDate(html);
@@ -91,13 +91,15 @@ function parseOilPrice(html, targetFuel) {
   if (!currentPrice && history.length === 0) {
     return {
       title: "⛽ 油价查询",
-      content: `⚠️ 未找到 ${currentLabel} 数据\n请检查城市缩写: ${city}`
+      content: `⚠️ 未找到 ${currentLabel} 数据\n请检查城市缩写: ${cityCode}`,
+      icon: icon,
+      "icon-color": iconColor
     };
   }
 
   let content = "";
 
-  // 当前价格（标题由 title 字段自动显示，不需要重复）
+  // 当前价格
   if (currentPrice) {
     const change = currentPrice.change;
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
@@ -138,8 +140,10 @@ function parseOilPrice(html, targetFuel) {
   });
 
   return {
-    title: `${getCityName(city)}油价`,
-    content: content.trim()
+    title: `${getCityName(cityCode)}油价`,
+    content: content.trim(),
+    icon: icon,
+    "icon-color": iconColor
   };
 }
 
@@ -267,13 +271,10 @@ function generateAsciiChart(history) {
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
-      // 最高价格行
       chart += padLeft(maxLabel, labelW) + " |" + line + "\n";
     } else if (row === chartHeight - 1) {
-      // 最低价格行 + 横轴
       chart += padLeft(minLabel, labelW) + " +" + "-".repeat(width) + "\n";
     } else {
-      // 中间行，标签位置用空格填充
       chart += " ".repeat(labelW) + " |" + line + "\n";
     }
   }
@@ -289,11 +290,6 @@ function generateAsciiChart(history) {
 
 function padLeft(str, len) {
   while (str.length < len) str = " " + str;
-  return str;
-}
-
-function padRight(str, len) {
-  while (str.length < len) str = str + " ";
   return str;
 }
 
