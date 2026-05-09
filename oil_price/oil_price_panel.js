@@ -1,26 +1,32 @@
 /**
  * Surge 油价查询面板脚本
  * 数据来源：本地宝 (bendibao.com)
+ * 支持：面板显示 + 定时通知
  */
 
-// 参数解析
+// ============ 参数解析 ============
 const arg = $argument || "";
 let city = "cd";
 let fuel = "92";
+let notify = "false"; // 是否为通知模式
 
 if (arg) {
   try {
     const params = JSON.parse(arg);
     if (params.city) city = params.city;
     if (params.fuel) fuel = String(params.fuel);
+    if (params.notify) notify = params.notify;
   } catch (e) {
     arg.split("&").forEach(pair => {
       const [k, v] = pair.split("=");
       if (k === "city" && v) city = v;
       if (k === "fuel" && v) fuel = v;
+      if (k === "notify" && v) notify = v;
     });
   }
 }
+
+const isNotify = notify === "true";
 
 const fuelNames = {
   "0": "0号柴油",
@@ -35,23 +41,42 @@ const url = `https://${city}.bendibao.com/news/youjiachaxun/`;
 
 $httpClient.get(url, function (error, response, data) {
   if (error) {
-    $done({
-      title: "⛽ 油价查询",
-      content: `获取失败: ${error}`
-    });
+    handleError(error);
     return;
   }
 
   try {
     const result = parseOilPrice(data, fuel);
-    $done(result);
+    if (isNotify) {
+      sendNotification(result);
+    } else {
+      $done(result);
+    }
   } catch (e) {
-    $done({
-      title: "⛽ 油价查询",
-      content: `解析失败: ${e.message}`
-    });
+    handleError(e.message);
   }
 });
+
+function handleError(msg) {
+  if (isNotify) {
+    $notification.post("⛽ 油价查询", "获取失败", msg);
+    $done();
+  } else {
+    $done({
+      title: "⛽ 油价查询",
+      content: `❌ 获取失败\n${msg}`
+    });
+  }
+}
+
+function sendNotification(result) {
+  const lines = result.content.split('\n');
+  const title = result.title;
+  // 取前3行作为通知内容
+  const body = lines.slice(0, 3).join('\n');
+  $notification.post("⛽ " + title, "", body);
+  $done();
+}
 
 function parseOilPrice(html, targetFuel) {
   const allPrices = parseCurrentPrices(html);
@@ -64,43 +89,54 @@ function parseOilPrice(html, targetFuel) {
   if (!currentPrice && history.length === 0) {
     return {
       title: "⛽ 油价查询",
-      content: `未找到 ${currentLabel} 数据`
+      content: `⚠️ 未找到 ${currentLabel} 数据\n请检查城市缩写: ${city}`
     };
   }
 
   let content = "";
 
+  // 当前价格（带图标）
   if (currentPrice) {
     const change = currentPrice.change;
-    const changeStr = change > 0 ? `↑${change.toFixed(2)}` : change < 0 ? `↓${Math.abs(change).toFixed(2)}` : "-";
-    content += `${currentLabel}: ¥${currentPrice.price.toFixed(2)} ${changeStr}\n`;
+    const changeStr = change > 0 
+      ? `📈 +${change.toFixed(2)}` 
+      : change < 0 
+        ? `📉 ${change.toFixed(2)}` 
+        : `➖ 0.00`;
+    content += `⛽ ${currentLabel}: ¥${currentPrice.price.toFixed(2)}/L ${changeStr}\n`;
   }
 
+  // 下次调价
   if (nextDate) {
     const daysLeft = daysUntil(nextDate);
-    content += `下次调价: ${nextDate} (${daysLeft}天后)\n`;
+    content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
 
+  content += "─────────────────\n";
+
+  // ASCII 趋势图
   if (history.length >= 2) {
-    content += "\n" + generateAsciiChart(history, currentLabel);
+    content += generateAsciiChart(history);
+    content += "─────────────────\n";
   }
 
+  // 全部油品价格（紧凑格式）
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
-  let priceList = "";
+  let priceList = [];
   fuelOrder.forEach(f => {
     if (allPrices[f]) {
       const name = fuelNames[f] || f;
       const ch = allPrices[f].change;
-      const arrow = ch > 0 ? "↑" : ch < 0 ? "↓" : "-";
-      priceList += `${name}: ¥${allPrices[f].price.toFixed(2)} ${arrow}${Math.abs(ch).toFixed(2)}\n`;
+      const arrow = ch > 0 ? "🔴" : ch < 0 ? "🟢" : "⚪";
+      priceList.push(`${arrow}${name}:¥${allPrices[f].price.toFixed(2)}`);
     }
   });
-  if (priceList) {
-    content += "\n全部油品:\n" + priceList.trim();
+  if (priceList.length > 0) {
+    content += priceList.join("  ");
   }
 
   return {
-    title: `${getCityName(city)}油价`,
+    title: `⛽ ${getCityName(city)}油价`,
     content: content.trim()
   };
 }
@@ -185,7 +221,7 @@ function extractFuelKey(name) {
   return null;
 }
 
-function generateAsciiChart(history, label) {
+function generateAsciiChart(history) {
   if (history.length < 2) return "";
 
   const prices = history.map(h => h.price);
@@ -194,9 +230,9 @@ function generateAsciiChart(history, label) {
   const range = max - min || 1;
 
   const chartHeight = 4;
-  const width = Math.min(prices.length * 2, 20);
+  const width = Math.min(prices.length * 2, 16);
 
-  let chart = `${label}趋势:\n`;
+  let chart = `📊 趋势 (${history[0].date}~${history[history.length-1].date}):\n`;
   chart += `${max.toFixed(0)} `;
 
   const canvas = [];
@@ -218,7 +254,7 @@ function generateAsciiChart(history, label) {
     const curr = points[i];
     if (curr.x > prev.x) {
       for (let x = prev.x + 1; x < curr.x; x++) {
-        if (canvas[prev.y][x] === " ") canvas[prev.y][x] = "-";
+        if (canvas[prev.y][x] === " ") canvas[prev.y][x] = "─";
       }
     }
   }
