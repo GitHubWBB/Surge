@@ -1,14 +1,14 @@
 #!name=油价查询
-#!desc=本地宝油价查询，支持面板显示、定时更新、ASCII油价趋势图。可自定义城市、定时、仅调价通知
+#!desc=本地宝油价查询，支持面板、ASCII趋势、定时通知、自定义城市
 #!author=Custom
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouJia.png
-#!arguments=city:cd,cronexp:0 8 * * *,focusFuel:92号汽油,historyLen:6,onlyChange:false,notify:true
-#!arguments-desc=city: 城市拼音缩写 (cd成都 bj北京 sh上海 gz广州 sz深圳 cq重庆 hz杭州 nj南京 wh武汉 tj天津)\ncronexp: 定时更新CRON表达式\nfocusFuel: 趋势图关注油品(92号汽油/95号汽油/0号柴油)\nhistoryLen: 趋势图历史条数\nonlyChange: 仅油价变动时通知(true/false)\nnotify: 开启通知(true/false)
-#!category=实用工具
+#!arguments=city:cd,cronexp:0 9 * * *,focusFuel:92号汽油,historyLen:6,onlyChange:false,notify:true
+#!arguments-desc=city:城市缩写\ncronexp:定时\nfocusFuel:趋势油品\nhistoryLen:趋势长度\nonlyChange:仅调价通知\nnotify:开启通知
+#!category=测试中
 
 [Panel]
-油价查询 = script-name=youjia-panel, update-interval=43200
+油价查询 = script-name=youjia-panel, update-interval=3600
 
 [Script]
-youjia-panel = type=generic, timeout=30, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
-youjia-cron = type=cron, cronexp={{{cronexp}}}, timeout=30, wake-system=1, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
+youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
+youjia-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_bendibao.js, argument=city={{{city}}}&focusFuel={{{focusFuel}}}&historyLen={{{historyLen}}}&onlyChange={{{onlyChange}}}&notify={{{notify}}}
