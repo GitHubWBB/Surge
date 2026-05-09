@@ -8,6 +8,6 @@
 OilPrice = script-name=oil-price-panel, update-interval=3600
 
 [Script]
-oil-price-panel = type=generic, script-path=`https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js`, argument=city={{{city}}}&fuel={{{fuel}}}
+oil-price-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, argument=city={{{city}}}&fuel={{{fuel}}}
 
-oil-price-notify = type=cron, cronexp={{{cronexp}}}, script-path=`https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js`, argument=city={{{city}}}&fuel={{{fuel}}}&notify=true
+oil-price-notify = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, argument=city={{{city}}}&fuel={{{fuel}}}&notify=true
