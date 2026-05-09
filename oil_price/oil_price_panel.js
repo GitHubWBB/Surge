@@ -94,10 +94,7 @@ function parseOilPrice(html, targetFuel) {
 
   let content = "";
 
-  // 标题
-  content += `⛽️ ${getCityName(city)}油价\n`;
-
-  // 当前价格
+  // 当前价格（标题由 title 字段自动显示，不需要重复）
   if (currentPrice) {
     const change = currentPrice.change;
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
@@ -109,20 +106,20 @@ function parseOilPrice(html, targetFuel) {
 
   // 下次调价
   if (nextDate) {
-    content += `-------------------\n`;
+    content += `─────────────────────\n`;
     const daysLeft = daysUntil(nextDate);
     content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
 
   // ASCII 趋势图
   if (history.length >= 2) {
-    content += `-------------------\n`;
+    content += `─────────────────────\n`;
     content += generateAsciiChart(history);
   }
 
   // 全部油品价格
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
-  content += `-------------------\n`;
+  content += `─────────────────────\n`;
   content += `📋 全部油品:\n`;
   fuelOrder.forEach(f => {
     if (allPrices[f]) {
@@ -264,14 +261,15 @@ function generateAsciiChart(history) {
   const minLabel = min.toFixed(0);
   const labelW = Math.max(maxLabel.length, minLabel.length);
 
+  // 统一缩进，让图表左对齐
   for (let row = 0; row < chartHeight; row++) {
     const line = canvas[row].join("");
     if (row === 0) {
-      chart += "   " + padLeft(maxLabel, labelW) + " ┤" + line + "\n";
+      chart += padLeft(maxLabel, labelW) + " ┤" + line + "\n";
     } else if (row === chartHeight - 1) {
-      chart += "   " + padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
+      chart += padLeft(minLabel, labelW) + " └" + "─".repeat(width) + "\n";
     } else {
-      chart += "   " + " ".repeat(labelW) + " │" + line + "\n";
+      chart += " ".repeat(labelW) + " │" + line + "\n";
     }
   }
 
@@ -279,7 +277,7 @@ function generateAsciiChart(history) {
   const firstPrice = prices[0];
   const diff = lastPrice - firstPrice;
   const trend = diff > 0 ? "📈 总体趋势: 上涨" : diff < 0 ? "📉 总体趋势: 下降" : "➖ 总体趋势: 持平";
-  chart += `${trend} ¥${Math.abs(diff).toFixed(2)}`;
+  chart += `${trend} ¥${Math.abs(diff).toFixed(2)}\n`;
 
   return chart;
 }
