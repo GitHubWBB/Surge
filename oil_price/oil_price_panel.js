@@ -98,16 +98,16 @@ function parseOilPrice(html, targetFuel) {
   // 当前价格
   if (currentPrice) {
     const change = currentPrice.change;
-    const changeIcon = change > 0 ? "🔺" : change < 0 ? "🔻" : "➖";
+    const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
     const changeVal = change > 0 ? `+${change.toFixed(2)}` : change < 0 ? `${change.toFixed(2)}` : "0.00";
-    content += `${currentLabel}\n`;
+    content += `⛽ ${currentLabel}\n`;
     content += `¥${currentPrice.price.toFixed(2)}/升  ${changeIcon} ${changeVal}\n`;
   }
 
   // 下次调价
   if (nextDate) {
     const daysLeft = daysUntil(nextDate);
-    content += `⏰ 下次调价: ${nextDate} (${daysLeft}天后)\n`;
+    content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
 
   // ASCII 趋势图
@@ -122,9 +122,9 @@ function parseOilPrice(html, targetFuel) {
     if (allPrices[f]) {
       const name = fuelNames[f] || f;
       const ch = allPrices[f].change;
-      const icon = ch > 0 ? "📈" : ch < 0 ? "📉" : "➖";
+      const dot = ch > 0 ? "🔴" : ch < 0 ? "🟢" : "⚪";
       const val = ch > 0 ? `+${ch.toFixed(2)}` : ch < 0 ? `${ch.toFixed(2)}` : "0.00";
-      content += `${icon} ${name}  ¥${allPrices[f].price.toFixed(2)}  (${val})\n`;
+      content += `${dot} ${name}  ¥${allPrices[f].price.toFixed(2)}  (${val})\n`;
     }
   });
 
