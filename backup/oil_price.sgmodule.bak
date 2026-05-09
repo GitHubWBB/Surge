@@ -1,0 +1,14 @@
+#!name=油价查询
+#!desc=本地宝油价查询，支持面板显示和定时通知。可自定义城市和通知时间。
+#!author=Custom
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouJia.png
+#!arguments=city:cd,cronexp:0 9 * * *,onlychange:false
+#!arguments-desc=city: 城市拼音缩写 (cd成都 bj北京 sh上海 gz广州 sz深圳 cq重庆 hz杭州 nj南京 wh武汉 tj天津 zz郑州 cs长沙 qd青岛 suzhou苏州 dg东莞 fs佛山)\ncronexp: 定时推送的CRON表达式 (如 "0 9 * * *" 表示每天9点)\nonlychange: 是否仅在油价变化时通知 (true/false)
+#!category=实用工具
+
+[Panel]
+油价查询 = script-name=youjia-panel, update-interval=3600
+
+[Script]
+youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
+youjia-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}

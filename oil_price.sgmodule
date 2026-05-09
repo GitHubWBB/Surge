@@ -1,14 +1,53 @@
-#!name=油价查询
-#!desc=本地宝油价查询，支持面板显示和定时通知。可自定义城市和通知时间。
-#!author=Custom
-#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouJia.png
-#!arguments=city:cd,cronexp:0 9 * * *,onlychange:false
-#!arguments-desc=city: 城市拼音缩写 (cd成都 bj北京 sh上海 gz广州 sz深圳 cq重庆 hz杭州 nj南京 wh武汉 tj天津 zz郑州 cs长沙 qd青岛 suzhou苏州 dg东莞 fs佛山)\ncronexp: 定时推送的CRON表达式 (如 "0 9 * * *" 表示每天9点)\nonlychange: 是否仅在油价变化时通知 (true/false)
-#!category=实用工具
+#!name=⛽ 油价查询
+#!desc=查询全国各地最新油价、调价趋势、下次调价日期，面板展示ASCII趋势图
+#!system=ios
+
+# ============================================
+#   ⛽ 油价查询 - Surge 模块
+#   数据来源：本地宝 bendibao.com
+# ============================================
+#
+# 【参数说明】
+#   city  - 城市缩写（默认 cd=成都）
+#   fuel  - 关注油品（默认 92=92号汽油）
+#   cron  - 定时刷新 cron 表达式（默认 0 8 * * * = 每天8点）
+#
+# 【城市缩写对照】
+#   北京=bj  上海=sh  广州=gz  深圳=sz  成都=cd
+#   绵阳=my  攀枝花=pzh  阿坝=ab  甘孜=ganzi  凉山=liangshan
+#   重庆=cq  天津=tj  南京=nj  杭州=hz  武汉=wh
+#   长沙=cs  郑州=zz  济南=jn  西安=xa  沈阳=sy
+#   大连=dl  昆明=km  贵阳=gy  南宁=nn  海口=hk
+#
+# 【油品选项】
+#   0=0号柴油  89=89号汽油  92=92号汽油  95=95号汽油
+#   -10=-10号柴油  -20=-20号柴油
+#
+# 【使用方法】
+#   1. 修改下方参数区域的 city/fuel/cron 为你需要的值
+#   2. 将本模块安装到 Surge（模块 -> 安装新模块 -> 粘贴本文件URL）
+#   3. 在策略组页面查看油价面板，点击刷新按钮获取最新数据
+#
+# ============================================
+
+# ---------- 用户参数配置（修改这里） ----------
+
+# 城市缩写
+#!city=cd
+
+# 关注的油品编号
+#!fuel=92
+
+# 定时刷新 cron 表达式（默认每天8:00）
+#!cron=0 8 * * *
+
+# --------------------------------------------
 
 [Panel]
-油价查询 = script-name=youjia-panel, update-interval=3600
+OilPrice = title="⛽ 油价查询", content="正在加载...", style=info, script-name=oil-price-panel, update-interval=3600
 
 [Script]
-youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
-youjia-cron = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/oil_price_surge.js, argument=city={{{city}}}&onlychange={{{onlychange}}}
+oil-price-panel = type=generic, script-path=oil_price_panel.js, timeout=30, argument=city={{city}}&fuel={{fuel}}
+
+# Cron 定时任务：每天按设定时间自动刷新面板数据
+oil-price-cron = type=cron, cronexp="{{cron}}", script-path=oil_price_panel.js, timeout=30, argument=city={{city}}&fuel={{fuel}}

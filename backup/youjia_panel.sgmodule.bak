@@ -1,0 +1,13 @@
+#!name=油价趋势面板
+#!desc=本地宝油价查询 - 单一油号趋势显示
+#!author=Custom
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouJia.png
+#!arguments=city:cd,type:95号汽油
+#!arguments-desc=city: 城市拼音缩写 (cd成都 bj北京 sh上海 gz广州 sz深圳 cq重庆 hz杭州 nj南京 wh武汉 tj天津 zz郑州 cs长沙 qd青岛)\ntype: 油号类型 (0号柴油/89号汽油/92号汽油/95号汽油/98号汽油)
+#!category=实用工具
+
+[Panel]
+油价趋势 = script-name=youjia-panel, update-interval=3600
+
+[Script]
+youjia-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/js/youjia_panel.js, argument=city={{{city}}}&type={{{type}}}
