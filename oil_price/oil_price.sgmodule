@@ -1,15 +1,17 @@
 #!name=⛽ 油价查询
 #!desc=查询全国各地最新油价、调价趋势、下次调价日期，面板展示ASCII趋势图，支持定时通知
 #!system=ios
-#!arguments=city:cd,fuel:92,cronexp:0 8 * * *
-#!arguments-desc=city: 城市缩写 (如 cd, bj, sh), fuel: 油品编号 (如 92, 95, 0), cronexp: 定时推送的CRON表达式
 
 [Panel]
 OilPrice = script-name=oil-price-panel, update-interval=3600
 
 [Script]
-# 面板脚本
-oil-price-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, timeout=30, argument=city={{{city}}}&fuel={{{fuel}}}
+# 面板脚本 - 默认成都92号汽油
+# 修改 argument 中的 city 和 fuel 参数切换城市和油品
+# city: cd=成都, bj=北京, sh=上海, gz=广州, sz=深圳 等
+# fuel: 92, 95, 89, 0, -10, -20
+oil-price-panel = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, timeout=30, argument=city=cd&fuel=92
 
-# 定时通知脚本
-oil-price-notify = type=cron, cronexp={{{cronexp}}}, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, timeout=30, argument=city={{{city}}}&fuel={{{fuel}}}&notify=true
+# 定时通知脚本 - 每天早上8点推送
+# 修改 cronexp 调整推送时间，修改 argument 切换城市油品
+oil-price-notify = type=cron, cronexp=0 8 * * *, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/oil_price/oil_price_panel.js, timeout=30, argument=city=cd&fuel=92&notify=true
