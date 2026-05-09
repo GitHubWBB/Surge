@@ -1,7 +1,7 @@
 #!name=⛽ 油价查询
 #!desc=查询全国各地最新油价、调价趋势、下次调价日期，面板展示ASCII趋势图，支持定时通知
 #!system=ios
-#!arguments=city:cd,fuel:92,cronexp:0 8 * * *
+#!arguments=city:cd,fuel:95,cronexp:0 8 * * *
 #!arguments-desc=city: 城市拼音缩写 (如 cd/bj/sh)\nfuel: 油品编号 (如 92/95/0)\ncronexp: 定时推送的CRON表达式 (如 "0 8 * * *")
 
 [Panel]
