@@ -231,7 +231,7 @@ function generateAsciiChart(history) {
 
   const chartHeight = 5;
   const chartWidth = 14;
-  const yLabels = [11, 10, 9, 8, 7];
+  const yLabels = ["07", "08", "09", "10", "11"];
 
   let chart = `📊 价格趋势: (${displayHistory[0].date} ~ ${displayHistory[displayHistory.length-1].date})\n`;
 
@@ -241,9 +241,8 @@ function generateAsciiChart(history) {
   }
 
   const xPositions = [];
-  const stepX = chartWidth / dataCount;
   for (let i = 0; i < dataCount; i++) {
-    xPositions.push(Math.round(i * stepX));
+    xPositions.push(Math.floor(i * chartWidth / (dataCount - 1 || 1)));
   }
 
   for (let i = 0; i < dataCount; i++) {
@@ -261,8 +260,11 @@ function generateAsciiChart(history) {
 
     if (i < dataCount - 1) {
       const nextX = xPositions[i + 1];
-      for (let cx = x + 1; cx < nextX && cx < chartWidth; cx++) {
+      const lineLen = Math.max(1, Math.floor((nextX - x - 1) / 2));
+      let cx = x + 1;
+      for (let l = 0; l < lineLen && cx < chartWidth; l++) {
         canvas[y][cx] = "─";
+        cx++;
       }
     }
   }
@@ -275,7 +277,7 @@ function generateAsciiChart(history) {
     chart += "\n";
   }
 
-  chart += "  └";
+  chart += "   └";
   for (let i = 0; i < chartWidth; i++) {
     chart += "─";
   }
