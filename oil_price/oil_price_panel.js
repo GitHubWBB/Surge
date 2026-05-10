@@ -103,13 +103,14 @@ function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
     const changeVal = change > 0 ? `+${change.toFixed(2)}` : change < 0 ? `${change.toFixed(2)}` : "0.00";
     content += `⛽ 关注油号: ${currentLabel}\n`;
-    content += `💰 当前价格: ¥${currentPrice.price.toFixed(2)}/升\n`;
+    content += `💰 当前价格: ¥${currentPrice.price.toFixed(2)}元/升\n`;
     content += `${changeIcon} 涨跌幅度: ${changeVal}\n`;
   }
 
   if (history.length >= 1) {
     content += `--------------------\n`;
-    content += `🕐 最近调价: ${history[history.length - 1].date}\n`;
+    const lastDate = formatDate(history[history.length - 1].date);
+    content += `🕐 最近调价: ${lastDate}\n`;
   }
 
   if (nextDate) {
@@ -234,9 +235,9 @@ function generateAsciiChart(history) {
   const displayHistory = history.slice(-6);
 
   const chartHeight = 5;
-  const chartWidth = 12;
+  const chartWidth = 14;
 
-  let chart = `📊 价格趋势: (${displayHistory[0].date} ~ ${displayHistory[displayHistory.length-1].date})\n`;
+  let chart = `📊 价格趋势: (${formatDate(displayHistory[0].date)} ~ ${formatDate(displayHistory[displayHistory.length-1].date)})\n`;
 
   const canvas = [];
   for (let i = 0; i < chartHeight; i++) {
@@ -247,8 +248,9 @@ function generateAsciiChart(history) {
   if (dataCount === 1) {
     xPositions.push(Math.floor(chartWidth / 2));
   } else {
+    const step = (chartWidth) / dataCount;
     for (let i = 0; i < dataCount; i++) {
-      xPositions.push(Math.round(i * (chartWidth - 1) / (dataCount - 1)));
+      xPositions.push(Math.round(i * step));
     }
   }
 
@@ -263,11 +265,11 @@ function generateAsciiChart(history) {
     else if (price >= 7.5) y = 3;
     else y = 4;
     
-    canvas[y][x] = "●";
+    if (x < chartWidth) canvas[y][x] = "●";
 
     if (i < dataCount - 1) {
       const nextX = xPositions[i + 1];
-      for (let cx = x + 1; cx < nextX; cx++) {
+      for (let cx = x + 1; cx < nextX && cx < chartWidth; cx++) {
         canvas[y][cx] = "─";
       }
     }
@@ -334,4 +336,15 @@ function daysUntil(dateStr) {
   } catch (e) {
     return "?";
   }
+}
+
+function formatDate(dateStr) {
+  const year = new Date().getFullYear();
+  const match = dateStr.match(/(\d{1,2})月(\d{1,2})日/);
+  if (match) {
+    const month = parseInt(match[1]).toString().padStart(2, '0');
+    const day = parseInt(match[2]).toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  return dateStr;
 }
