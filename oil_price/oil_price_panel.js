@@ -234,66 +234,54 @@ function generateAsciiChart(history) {
   const displayPrices = prices.slice(-6);
   const displayHistory = history.slice(-6);
 
-  const chartHeight = 5;
-  const chartWidth = 14;
+  const chartHeight = 4;
+  const barWidth = 2;
 
-  let chart = `📊 价格趋势: (${formatDate(displayHistory[0].date)} ~ ${formatDate(displayHistory[displayHistory.length-1].date)})\n`;
+  let chart = `📊 价格趋势:\n`;
+  chart += `时间范围: ${formatDate(displayHistory[0].date)} ~ ${formatDate(displayHistory[displayHistory.length-1].date)}\n`;
 
-  const canvas = [];
-  for (let i = 0; i < chartHeight; i++) {
-    canvas.push(new Array(chartWidth).fill(" "));
-  }
+  const min = Math.min(...displayPrices);
+  const max = Math.max(...displayPrices);
+  const range = max - min || 1;
 
-  const xPositions = [];
-  if (dataCount === 1) {
-    xPositions.push(Math.floor(chartWidth / 2));
-  } else {
-    const step = (chartWidth) / dataCount;
-    for (let i = 0; i < dataCount; i++) {
-      xPositions.push(Math.round(i * step));
-    }
-  }
-
+  const bars = [];
   for (let i = 0; i < dataCount; i++) {
-    const x = xPositions[i];
     const price = displayPrices[i];
-    
-    let y = 0;
-    if (price >= 10.5) y = 0;
-    else if (price >= 9.5) y = 1;
-    else if (price >= 8.5) y = 2;
-    else if (price >= 7.5) y = 3;
-    else y = 4;
-    
-    if (x < chartWidth) canvas[y][x] = "●";
-
-    if (i < dataCount - 1) {
-      const nextX = xPositions[i + 1];
-      for (let cx = x + 1; cx < nextX && cx < chartWidth; cx++) {
-        canvas[y][cx] = "─";
-      }
-    }
+    const normalized = (price - min) / range;
+    const height = Math.max(1, Math.round(normalized * chartHeight));
+    bars.push(height);
   }
 
-  for (let row = 0; row < chartHeight; row++) {
-    chart += "│";
-    for (let col = 0; col < chartWidth; col++) {
-      chart += canvas[row][col];
+  for (let row = chartHeight - 1; row >= 0; row--) {
+    chart += "  ";
+    for (let i = 0; i < dataCount; i++) {
+      if (bars[i] > row) {
+        chart += "██";
+      } else {
+        chart += "  ";
+      }
+      if (i < dataCount - 1) {
+        chart += " ";
+      }
     }
     chart += "\n";
   }
 
-  chart += "└";
-  for (let i = 0; i < chartWidth; i++) {
-    chart += "─";
+  chart += "  ";
+  for (let i = 0; i < dataCount; i++) {
+    chart += "──";
+    if (i < dataCount - 1) {
+      chart += " ";
+    }
   }
   chart += "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
   const firstPrice = displayPrices[0];
   const diff = lastPrice - firstPrice;
-  const trend = diff > 0 ? "📈 总体趋势: 上涨" : diff < 0 ? "📉 总体趋势: 下降" : "➖ 总体趋势: 持平";
-  chart += `${trend} ¥${Math.abs(diff).toFixed(2)}\n`;
+  const trend = diff > 0 ? "📈" : diff < 0 ? "📉" : "➖";
+  const trendText = diff > 0 ? "上涨" : diff < 0 ? "下降" : "持平";
+  chart += `${trend} 总体趋势: ${trendText} ¥${Math.abs(diff).toFixed(2)}\n`;
 
   return chart;
 }
