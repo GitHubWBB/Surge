@@ -234,12 +234,11 @@ function generateAsciiChart(history) {
   const displayPrices = prices.slice(-6);
   const displayHistory = history.slice(-6);
 
-  let chart = `📊 价格趋势\n`;
-  chart += `${formatDate(displayHistory[0].date)} ~ ${formatDate(displayHistory[displayHistory.length-1].date)}\n`;
-
   const min = Math.min(...displayPrices);
   const max = Math.max(...displayPrices);
   const range = max - min || 1;
+
+  const dateRange = formatDateShort(displayHistory[0].date) + " ~ " + formatDateShort(displayHistory[displayHistory.length-1].date);
 
   const bars = [];
   for (let i = 0; i < dataCount; i++) {
@@ -250,6 +249,7 @@ function generateAsciiChart(history) {
     bars.push(chars[Math.min(level, 7)]);
   }
 
+  let chart = `📊 价格趋势: ${dateRange}\n`;
   chart += bars.join("  ") + "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
@@ -309,6 +309,16 @@ function formatDate(dateStr) {
     const month = parseInt(match[1]).toString().padStart(2, '0');
     const day = parseInt(match[2]).toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+  return dateStr;
+}
+
+function formatDateShort(dateStr) {
+  const match = dateStr.match(/(\d{1,2})月(\d{1,2})日/);
+  if (match) {
+    const month = parseInt(match[1]).toString().padStart(2, '0');
+    const day = parseInt(match[2]).toString().padStart(2, '0');
+    return `${month}-${day}`;
   }
   return dateStr;
 }
