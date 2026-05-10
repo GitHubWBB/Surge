@@ -234,37 +234,24 @@ function generateAsciiChart(history) {
   const displayPrices = prices.slice(-6);
   const displayHistory = history.slice(-6);
 
-  const chartHeight = 4;
-
   const dateRange = formatDateShort(displayHistory[0].date) + " ~ " + formatDateShort(displayHistory[displayHistory.length-1].date);
 
   const min = Math.min(...displayPrices);
   const max = Math.max(...displayPrices);
   const range = max - min || 1;
 
-  const heights = [];
+  const bars = [];
   for (let i = 0; i < dataCount; i++) {
     const price = displayPrices[i];
     const normalized = (price - min) / range;
-    const h = Math.max(1, Math.round(normalized * chartHeight));
-    heights.push(h);
-  }
-
-  const cols = [];
-  for (let i = 0; i < dataCount; i++) {
-    const col = [];
-    for (let row = 0; row < chartHeight; row++) {
-      if (row < heights[i]) {
-        col.push("█");
-      } else {
-        col.push(" ");
-      }
-    }
-    cols.push(col.join(""));
+    const level = Math.floor(normalized * 7);
+    const chars = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"];
+    bars.push(chars[Math.min(level, 7)]);
   }
 
   let chart = `📊 价格趋势: ${dateRange}\n`;
-  chart += cols.join(" ") + "\n";
+  chart += "\n";
+  chart += bars.join(" ") + "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
   const firstPrice = displayPrices[0];
