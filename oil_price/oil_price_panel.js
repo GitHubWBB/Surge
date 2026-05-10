@@ -71,10 +71,9 @@ function handleError(msg) {
 
 function sendNotification(result) {
   const title = result.title;
-  const body = result.content
-    .replace(/--------------------\n/g, "\n")
-    .replace(/\n+/g, "\n")
-    .trim();
+  const lines = result.content.split("\n");
+  const filtered = lines.filter(line => !line.includes("--------------------") && line.trim() !== "");
+  const body = filtered.join("\n");
   $notification.post("⛽ " + title, "", body);
   $done();
 }
@@ -250,31 +249,11 @@ function generateAsciiChart(history) {
     heights.push(h);
   }
 
-  let chart = `📊 价格趋势: ${dateRange}\n`;
-  
-  for (let row = chartHeight; row >= 1; row--) {
-    let line = " ";
-    for (let i = 0; i < dataCount; i++) {
-      if (heights[i] >= row) {
-        line += "█";
-      } else {
-        line += " ";
-      }
-      if (i < dataCount - 1) {
-        line += " ";
-      }
-    }
-    chart += line + "\n";
-  }
+  const chars = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"];
+  const bars = heights.map(h => chars[Math.min(h - 1, 7)]);
 
-  chart += " ";
-  for (let i = 0; i < dataCount; i++) {
-    chart += "─";
-    if (i < dataCount - 1) {
-      chart += " ";
-    }
-  }
-  chart += "\n";
+  let chart = `📊 价格趋势: ${dateRange}\n`;
+  chart += bars.join(" ") + "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
   const firstPrice = displayPrices[0];
