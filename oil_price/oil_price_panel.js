@@ -23,7 +23,7 @@ const params = getParams($argument);
 const city = params.city || "cd";
 const fuel = params.fuel || "95";
 const isNotify = params.notify === "true";
-const icon = params.icon || "⛽";
+const icon = params.icon || "fuelpump.fill";
 const iconColor = params.color || "#FF3B30";
 
 const fuelNames = {
