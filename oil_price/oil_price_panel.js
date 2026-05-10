@@ -71,10 +71,9 @@ function handleError(msg) {
 
 function sendNotification(result) {
   const title = result.title;
-  // 通知显示完整内容，但移除分割线使其更紧凑
   const body = result.content
-    .replace(/--------------------\n/g, "\n")  // 移除分割线
-    .replace(/\n+/g, "\n")  // 合并多余换行
+    .replace(/--------------------\n/g, "\n")
+    .replace(/\n+/g, "\n")
     .trim();
   $notification.post("⛽ " + title, "", body);
   $done();
@@ -99,7 +98,6 @@ function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
 
   let content = "";
 
-  // 当前价格
   if (currentPrice) {
     const change = currentPrice.change;
     const changeIcon = change > 0 ? "📈" : change < 0 ? "📉" : "➖";
@@ -109,20 +107,17 @@ function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
     content += `${changeIcon} 涨跌幅度: ${changeVal}\n`;
   }
 
-  // 下次调价
   if (nextDate) {
     content += `--------------------\n`;
     const daysLeft = daysUntil(nextDate);
     content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
 
-  // ASCII 趋势图
   if (history.length >= 2) {
     content += `--------------------\n`;
     content += generateAsciiChart(history);
   }
 
-  // 全部油品价格
   const fuelOrder = ["0", "89", "92", "95", "-10", "-20"];
   content += `--------------------\n`;
   content += `📋 全部油品:\n`;
@@ -133,7 +128,6 @@ function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
       const dot = ch > 0 ? "🔴" : ch < 0 ? "🟢" : "⚪";
       const val = ch > 0 ? `+${ch.toFixed(2)}` : ch < 0 ? `${ch.toFixed(2)}` : "0.00";
       const price = allPrices[f].price.toFixed(2);
-      // 名称右对齐让冒号对齐
       const nameAligned = padLeft(name, 6);
       content += `${dot} ${nameAligned}: ¥${price} (${val})\n`;
     }
@@ -236,48 +230,63 @@ function generateAsciiChart(history) {
   const range = max - min || 1;
 
   const chartHeight = 5;
-  const width = Math.min(prices.length * 2, 14);
+  const dataCount = prices.length;
+  const xAxisWidth = dataCount + 2;
+
+  const maxLabel = Math.ceil(max).toFixed(0);
+  const minLabel = Math.floor(min).toFixed(0);
+  const labelW = Math.max(maxLabel.length, minLabel.length);
 
   let chart = `📊 价格趋势: (${history[0].date} ~ ${history[history.length-1].date})\n`;
 
   const canvas = [];
   for (let i = 0; i < chartHeight; i++) {
-    canvas.push(new Array(width).fill(" "));
+    canvas.push(new Array(xAxisWidth).fill(" "));
   }
 
-  const step = prices.length > 1 ? (width - 1) / (prices.length - 1) : 0;
-  const points = [];
-  for (let i = 0; i < prices.length; i++) {
-    const x = Math.round(i * step);
+  const pts = [];
+  for (let i = 0; i < dataCount; i++) {
+    const x = i + 1;
     const y = chartHeight - 1 - Math.round(((prices[i] - min) / range) * (chartHeight - 1));
-    points.push({ x, y });
-    canvas[y][x] = "*";
+    pts.push({ x, y });
+    canvas[y][x] = "●";
   }
 
-  for (let i = 1; i < points.length; i++) {
-    const prev = points[i - 1];
-    const curr = points[i];
-    if (curr.x > prev.x) {
-      for (let x = prev.x + 1; x < curr.x; x++) {
-        if (canvas[prev.y][x] === " ") canvas[prev.y][x] = "-";
+  for (let i = 1; i < pts.length; i++) {
+    const prev = pts[i - 1];
+    const curr = pts[i];
+    if (curr.x !== prev.x) {
+      const dx = curr.x - prev.x;
+      const dy = curr.y - prev.y;
+      const dist = Math.max(Math.abs(dx), Math.abs(dy));
+      for (let t = 1; t < dist; t++) {
+        const x = prev.x + Math.round(dx * t / dist);
+        const y = prev.y + Math.round(dy * t / dist);
+        if (canvas[y][x] === " ") canvas[y][x] = "─";
       }
     }
   }
 
-  const maxLabel = max.toFixed(0);
-  const minLabel = min.toFixed(0);
-  const labelW = Math.max(maxLabel.length, minLabel.length);
-
   for (let row = 0; row < chartHeight; row++) {
-    const line = canvas[row].join("");
+    let line = "";
     if (row === 0) {
-      chart += padLeft(maxLabel, labelW) + " |" + line + "\n";
+      line = padLeft(maxLabel, labelW) + " ┤";
     } else if (row === chartHeight - 1) {
-      chart += padLeft(minLabel, labelW) + " +" + "-".repeat(width) + "\n";
+      line = padLeft(minLabel, labelW) + " ├";
     } else {
-      chart += " ".repeat(labelW) + " |" + line + "\n";
+      line = " ".repeat(labelW) + " │";
     }
+    for (let col = 0; col < xAxisWidth; col++) {
+      line += canvas[row][col];
+    }
+    chart += line + "\n";
   }
+
+  chart += " ".repeat(labelW) + " └";
+  for (let i = 0; i < xAxisWidth; i++) {
+    chart += "─";
+  }
+  chart += "\n";
 
   const lastPrice = prices[prices.length - 1];
   const firstPrice = prices[0];
@@ -289,8 +298,8 @@ function generateAsciiChart(history) {
 }
 
 function padLeft(str, len) {
-  while (str.length < len) str = " " + str;
-  return str;
+  while (String(str).length < len) str = " " + str;
+  return String(str);
 }
 
 function getCityName(code) {
