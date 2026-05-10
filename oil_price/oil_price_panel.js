@@ -107,8 +107,12 @@ function parseOilPrice(html, targetFuel, cityCode, icon, iconColor) {
     content += `${changeIcon} 涨跌幅度: ${changeVal}\n`;
   }
 
-  if (nextDate) {
+  if (history.length >= 1) {
     content += `--------------------\n`;
+    content += `🕐 最近调价: ${history[history.length - 1].date}\n`;
+  }
+
+  if (nextDate) {
     const daysLeft = daysUntil(nextDate);
     content += `📅 下次调价: ${nextDate} (${daysLeft}天后)\n`;
   }
