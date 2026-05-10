@@ -235,6 +235,8 @@ function generateAsciiChart(history) {
   const displayHistory = history.slice(-6);
 
   const chartHeight = 4;
+  const barWidth = 2;
+  const gap = 1;
 
   let chart = `📊 价格趋势\n`;
   chart += `${formatDate(displayHistory[0].date)} ~ ${formatDate(displayHistory[displayHistory.length-1].date)}\n`;
@@ -252,22 +254,28 @@ function generateAsciiChart(history) {
   }
 
   for (let row = chartHeight - 1; row >= 0; row--) {
-    chart += " ";
+    let line = " ";
     for (let i = 0; i < dataCount; i++) {
       if (bars[i] > row) {
-        chart += "██";
+        line += "██";
       } else {
-        chart += "  ";
+        line += "  ";
+      }
+      if (i < dataCount - 1) {
+        for (let g = 0; g < gap; g++) line += " ";
       }
     }
-    chart += "\n";
+    chart += line + "\n";
   }
 
-  chart += " ";
+  let baseline = " ";
   for (let i = 0; i < dataCount; i++) {
-    chart += "──";
+    baseline += "──";
+    if (i < dataCount - 1) {
+      for (let g = 0; g < gap; g++) baseline += " ";
+    }
   }
-  chart += "\n";
+  chart += baseline + "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
   const firstPrice = displayPrices[0];
