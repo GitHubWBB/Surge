@@ -225,71 +225,64 @@ function generateAsciiChart(history) {
   if (history.length < 2) return "";
 
   const prices = history.map(h => h.price);
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  const range = max - min || 1;
+  const dataCount = Math.min(prices.length, 6);
+  const displayPrices = prices.slice(-6);
+  const displayHistory = history.slice(-6);
 
   const chartHeight = 5;
-  const dataCount = prices.length;
-  const xAxisWidth = dataCount + 2;
+  const chartWidth = 14;
+  const yLabels = [11, 10, 9, 8, 7];
 
-  const maxLabel = Math.ceil(max).toFixed(0);
-  const minLabel = Math.floor(min).toFixed(0);
-  const labelW = Math.max(maxLabel.length, minLabel.length);
-
-  let chart = `📊 价格趋势: (${history[0].date} ~ ${history[history.length-1].date})\n`;
+  let chart = `📊 价格趋势: (${displayHistory[0].date} ~ ${displayHistory[displayHistory.length-1].date})\n`;
 
   const canvas = [];
   for (let i = 0; i < chartHeight; i++) {
-    canvas.push(new Array(xAxisWidth).fill(" "));
+    canvas.push(new Array(chartWidth).fill(" "));
   }
 
-  const pts = [];
+  const xPositions = [];
+  const stepX = chartWidth / dataCount;
   for (let i = 0; i < dataCount; i++) {
-    const x = i + 1;
-    const y = chartHeight - 1 - Math.round(((prices[i] - min) / range) * (chartHeight - 1));
-    pts.push({ x, y });
-    canvas[y][x] = "●";
+    xPositions.push(Math.round(i * stepX));
   }
 
-  for (let i = 1; i < pts.length; i++) {
-    const prev = pts[i - 1];
-    const curr = pts[i];
-    if (curr.x !== prev.x) {
-      const dx = curr.x - prev.x;
-      const dy = curr.y - prev.y;
-      const dist = Math.max(Math.abs(dx), Math.abs(dy));
-      for (let t = 1; t < dist; t++) {
-        const x = prev.x + Math.round(dx * t / dist);
-        const y = prev.y + Math.round(dy * t / dist);
-        if (canvas[y][x] === " ") canvas[y][x] = "─";
+  for (let i = 0; i < dataCount; i++) {
+    const x = xPositions[i];
+    const price = displayPrices[i];
+    
+    let y = 0;
+    if (price >= 10.5) y = 0;
+    else if (price >= 9.5) y = 1;
+    else if (price >= 8.5) y = 2;
+    else if (price >= 7.5) y = 3;
+    else y = 4;
+    
+    canvas[y][x] = "●";
+
+    if (i < dataCount - 1) {
+      const nextX = xPositions[i + 1];
+      for (let cx = x + 1; cx < nextX && cx < chartWidth; cx++) {
+        canvas[y][cx] = "─";
       }
     }
   }
 
   for (let row = 0; row < chartHeight; row++) {
-    let line = "";
-    if (row === 0) {
-      line = padLeft(maxLabel, labelW) + " ┤";
-    } else if (row === chartHeight - 1) {
-      line = padLeft(minLabel, labelW) + " ├";
-    } else {
-      line = " ".repeat(labelW) + " │";
+    chart += yLabels[row] + " │";
+    for (let col = 0; col < chartWidth; col++) {
+      chart += canvas[row][col];
     }
-    for (let col = 0; col < xAxisWidth; col++) {
-      line += canvas[row][col];
-    }
-    chart += line + "\n";
+    chart += "\n";
   }
 
-  chart += " ".repeat(labelW) + " └";
-  for (let i = 0; i < xAxisWidth; i++) {
+  chart += "  └";
+  for (let i = 0; i < chartWidth; i++) {
     chart += "─";
   }
   chart += "\n";
 
-  const lastPrice = prices[prices.length - 1];
-  const firstPrice = prices[0];
+  const lastPrice = displayPrices[displayPrices.length - 1];
+  const firstPrice = displayPrices[0];
   const diff = lastPrice - firstPrice;
   const trend = diff > 0 ? "📈 总体趋势: 上涨" : diff < 0 ? "📉 总体趋势: 下降" : "➖ 总体趋势: 持平";
   chart += `${trend} ¥${Math.abs(diff).toFixed(2)}\n`;
