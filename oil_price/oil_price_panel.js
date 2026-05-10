@@ -234,24 +234,47 @@ function generateAsciiChart(history) {
   const displayPrices = prices.slice(-6);
   const displayHistory = history.slice(-6);
 
+  const chartHeight = 4;
+
   const dateRange = formatDateShort(displayHistory[0].date) + " ~ " + formatDateShort(displayHistory[displayHistory.length-1].date);
 
   const min = Math.min(...displayPrices);
   const max = Math.max(...displayPrices);
   const range = max - min || 1;
 
-  const bars = [];
+  const heights = [];
   for (let i = 0; i < dataCount; i++) {
     const price = displayPrices[i];
     const normalized = (price - min) / range;
-    const level = Math.floor(normalized * 7);
-    const chars = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"];
-    bars.push(chars[Math.min(level, 7)]);
+    const h = Math.max(1, Math.round(normalized * chartHeight));
+    heights.push(h);
   }
 
   let chart = `📊 价格趋势: ${dateRange}\n`;
+  
+  for (let row = chartHeight; row >= 1; row--) {
+    let line = " ";
+    for (let i = 0; i < dataCount; i++) {
+      if (heights[i] >= row) {
+        line += "█";
+      } else {
+        line += " ";
+      }
+      if (i < dataCount - 1) {
+        line += " ";
+      }
+    }
+    chart += line + "\n";
+  }
+
+  chart += " ";
+  for (let i = 0; i < dataCount; i++) {
+    chart += "─";
+    if (i < dataCount - 1) {
+      chart += " ";
+    }
+  }
   chart += "\n";
-  chart += bars.join(" ") + "\n";
 
   const lastPrice = displayPrices[displayPrices.length - 1];
   const firstPrice = displayPrices[0];
