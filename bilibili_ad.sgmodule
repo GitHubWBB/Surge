@@ -1,0 +1,20 @@
+#!name=Bilibili 去广告
+#!desc=去除 Bilibili 首页推荐、视频详情页、搜索结果、动态等页面的广告
+#!author=Surge Script
+#!category=广告屏蔽
+
+[Rule]
+# 屏蔽 Bilibili 广告相关域名
+DOMAIN,ad.bilibili.com,REJECT
+DOMAIN,api.bilibili.com/x/activity,REJECT
+DOMAIN,api.bilibili.com/x/promotion,REJECT
+DOMAIN,api.bilibili.com/x/elec,REJECT
+DOMAIN,api.bilibili.com/x/show,REJECT
+DOMAIN,api.bilibili.com/x/game-center,REJECT
+
+[Script]
+# Bilibili 响应体去广告脚本
+Bilibili 去广告 = type=http-response,pattern=^https?:\/\/api\.bilibili\.com\/(x\/feed|x\/v2\/feed|x\/player|x\/web-interface\/search|x\/polymer\/web-dynamic|pgc\/player),requires-body=1,max-size=0,script-path=js/bilibili_ad.js
+
+[MITM]
+hostname = %APPEND% api.bilibili.com, app.bilibili.com, interface.bilibili.com
