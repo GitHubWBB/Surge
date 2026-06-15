@@ -1,0 +1,2203 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//QoderWork//FIFA World Cup 2026//CN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:2026 FIFA World Cup ⚽
+X-WR-TIMEZONE:Asia/Shanghai
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+TZNAME:UTC
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:Asia/Shanghai
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:wc2026-match-001@qoderwork.com
+DTSTART:20260611T190000Z
+DTEND:20260611T210000Z
+SUMMARY:⚽ 🇲🇽 Mexico vs 🇿🇦 South Africa | 小组赛 A组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇲🇽 Mexi
+ co vs 🇿🇦 South Africa\n\n⏰ 北京时间: 2026-06-12 03:00\n⏰ UT
+ C: 2026-06-11 19:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico\n\n
+ 📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  🇰🇷 
+ South Korea\n  🇨🇿 Czech Republic
+LOCATION:Estadio Azteca\, Mexico City\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇲🇽 Mexico vs 🇿🇦 South Africa | 小组赛 A组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-002@qoderwork.com
+DTSTART:20260612T020000Z
+DTEND:20260612T040000Z
+SUMMARY:⚽ 🇰🇷 South Korea vs 🇨🇿 Czech Republic | 小组赛 A
+ 
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇰🇷 Sout
+ h Korea vs 🇨🇿 Czech Republic\n\n⏰ 北京时间: 2026-06-12 10:00\
+ n⏰ UTC: 2026-06-12 02:00 UTC\n\n📍 Estadio Akron\, Guadalajara\, Mexi
+ co\n\n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  
+ 🇷 South Korea\n  🇨🇿 Czech Republic
+LOCATION:Estadio Akron\, Guadalajara\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇰🇷 South Korea vs 🇨🇿 Czech Republic | 小组
+  A组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-003@qoderwork.com
+DTSTART:20260612T190000Z
+DTEND:20260612T210000Z
+SUMMARY:⚽ 🇨🇦 Canada vs 🇧🇦 Bosnia and Herzegovina | 小组赛
+  B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇨🇦 Cana
+ da vs 🇧🇦 Bosnia and Herzegovina\n\n⏰ 北京时间: 2026-06-13 03:
+ 00\n⏰ UTC: 2026-06-12 19:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\
+ n📋 B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n
+   🇶🇦 Qatar\n  🇨🇭 Switzerland
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇦 Canada vs 🇧🇦 Bosnia and Herzegovina | 小
+ 赛 B组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-004@qoderwork.com
+DTSTART:20260613T010000Z
+DTEND:20260613T030000Z
+SUMMARY:⚽ 🇺🇸 USA vs 🇵🇾 Paraguay | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇺🇸 USA 
+ vs 🇵🇾 Paraguay\n\n⏰ 北京时间: 2026-06-13 09:00\n⏰ UTC: 2026
+ -06-13 01:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA\n\n📋 D组球
+ 队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹
+  Turkey
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇺🇸 USA vs 🇵🇾 Paraguay | 小组赛 D组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-005@qoderwork.com
+DTSTART:20260613T190000Z
+DTEND:20260613T210000Z
+SUMMARY:⚽ 🇧🇷 Brazil vs 🇲🇦 Morocco | 小组赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇧🇷 Braz
+ il vs 🇲🇦 Morocco\n\n⏰ 北京时间: 2026-06-14 03:00\n⏰ UTC: 20
+ 26-06-13 19:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA\n\n
+  C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭🇹 Haiti\n 
+  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇧🇷 Brazil vs 🇲🇦 Morocco | 小组赛 C组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-006@qoderwork.com
+DTSTART:20260614T020000Z
+DTEND:20260614T040000Z
+SUMMARY:⚽ 🇭🇹 Haiti vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland | 小
+ 赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇭🇹 Hait
+ i vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland\n\n⏰ 北京时间: 2026-06-1
+ 4 10:00\n⏰ UTC: 2026-06-14 02:00 UTC\n\n📍 Gillette Stadium\, Foxboro
+ ugh\, USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  
+ 🇹 Haiti\n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇭🇹 Haiti vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland | 
+ 小组赛 C组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-007@qoderwork.com
+DTSTART:20260614T020000Z
+DTEND:20260614T040000Z
+SUMMARY:⚽ 🇦🇺 Australia vs 🇹🇷 Turkey | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇦🇺 Aust
+ ralia vs 🇹🇷 Turkey\n\n⏰ 北京时间: 2026-06-14 10:00\n⏰ UTC: 
+ 2026-06-14 02:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 D组
+ 队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹
+  Turkey
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇦🇺 Australia vs 🇹🇷 Turkey | 小组赛 D组 sta
+ rts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-008@qoderwork.com
+DTSTART:20260614T170000Z
+DTEND:20260614T190000Z
+SUMMARY:⚽ 🇶🇦 Qatar vs 🇨🇭 Switzerland | 小组赛 B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇶🇦 Qata
+ r vs 🇨🇭 Switzerland\n\n⏰ 北京时间: 2026-06-15 01:00\n⏰ UTC:
+  2026-06-14 17:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋 
+ B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n  🇶
+ 🇦 Qatar\n  🇨🇭 Switzerland
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇶🇦 Qatar vs 🇨🇭 Switzerland | 小组赛 B组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-009@qoderwork.com
+DTSTART:20260614T190000Z
+DTEND:20260614T210000Z
+SUMMARY:⚽ 🇩🇪 Germany vs 🇨🇼 Curacao | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇩🇪 Germ
+ any vs 🇨🇼 Curacao\n\n⏰ 北京时间: 2026-06-15 03:00\n⏰ UTC: 2
+ 026-06-14 19:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 E组球
+ :\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory Coast\n  
+ 🇨 Ecuador
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇩🇪 Germany vs 🇨🇼 Curacao | 小组赛 E组 star
+ ts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-010@qoderwork.com
+DTSTART:20260614T220000Z
+DTEND:20260615T000000Z
+SUMMARY:⚽ 🇨🇮 Ivory Coast vs 🇪🇨 Ecuador | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇨🇮 Ivor
+ y Coast vs 🇪🇨 Ecuador\n\n⏰ 北京时间: 2026-06-15 06:00\n⏰ UT
+ C: 2026-06-14 22:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, 
+ USA\n\n📋 E组球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨
+  Ivory Coast\n  🇪🇨 Ecuador
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇮 Ivory Coast vs 🇪🇨 Ecuador | 小组赛 E组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-011@qoderwork.com
+DTSTART:20260615T020000Z
+DTEND:20260615T040000Z
+SUMMARY:⚽ 🇳🇱 Netherlands vs 🇯🇵 Japan | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇳🇱 Neth
+ erlands vs 🇯🇵 Japan\n\n⏰ 北京时间: 2026-06-15 10:00\n⏰ UTC:
+  2026-06-15 02:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n📋 F组
+ 球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n 
+  🇯🇵 Japan
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇱 Netherlands vs 🇯🇵 Japan | 小组赛 F组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-012@qoderwork.com
+DTSTART:20260615T050000Z
+DTEND:20260615T070000Z
+SUMMARY:⚽ 🇸🇪 Sweden vs 🇹🇳 Tunisia | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇸🇪 Swed
+ en vs 🇹🇳 Tunisia\n\n⏰ 北京时间: 2026-06-15 13:00\n⏰ UTC: 20
+ 26-06-15 05:00 UTC\n\n📍 Estadio BBVA\, Monterrey\, Mexico\n\n📋 F组
+ 球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n 
+  🇯🇵 Japan
+LOCATION:Estadio BBVA\, Monterrey\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇸🇪 Sweden vs 🇹🇳 Tunisia | 小组赛 F组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-013@qoderwork.com
+DTSTART:20260615T160000Z
+DTEND:20260615T180000Z
+SUMMARY:⚽ 🇪🇸 Spain vs 🇨🇻 Cape Verde | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇪🇸 Spai
+ n vs 🇨🇻 Cape Verde\n\n⏰ 北京时间: 2026-06-16 00:00\n⏰ UTC: 
+ 2026-06-15 16:00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA\n\n
+  H组球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 Saudi 
+ Arabia\n  🇺🇾 Uruguay
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇪🇸 Spain vs 🇨🇻 Cape Verde | 小组赛 H组 sta
+ rts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-014@qoderwork.com
+DTSTART:20260615T190000Z
+DTEND:20260615T210000Z
+SUMMARY:⚽ 🇧🇪 Belgium vs 🇪🇬 Egypt | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇧🇪 Belg
+ ium vs 🇪🇬 Egypt\n\n⏰ 北京时间: 2026-06-16 03:00\n⏰ UTC: 202
+ 6-06-15 19:00 UTC\n\n📍 Lumen Field\, Seattle\, USA\n\n📋 G组球队:
+ \n  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳🇿 New Z
+ ealand
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇧🇪 Belgium vs 🇪🇬 Egypt | 小组赛 G组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-015@qoderwork.com
+DTSTART:20260615T220000Z
+DTEND:20260616T000000Z
+SUMMARY:⚽ 🇸🇦 Saudi Arabia vs 🇺🇾 Uruguay | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇸🇦 Saud
+ i Arabia vs 🇺🇾 Uruguay\n\n⏰ 北京时间: 2026-06-16 06:00\n⏰ U
+ TC: 2026-06-15 22:00 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA\
+ n\n📋 H组球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 
+ Saudi Arabia\n  🇺🇾 Uruguay
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇸🇦 Saudi Arabia vs 🇺🇾 Uruguay | 小组赛 H组
+  starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-016@qoderwork.com
+DTSTART:20260616T010000Z
+DTEND:20260616T030000Z
+SUMMARY:⚽ 🇮🇷 Iran vs 🇳🇿 New Zealand | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇮🇷 Iran
+  vs 🇳🇿 New Zealand\n\n⏰ 北京时间: 2026-06-16 09:00\n⏰ UTC: 
+ 2026-06-16 01:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA\n\n📋 G
+ 球队:\n  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳
+  New Zealand
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇮🇷 Iran vs 🇳🇿 New Zealand | 小组赛 G组 sta
+ rts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-017@qoderwork.com
+DTSTART:20260616T190000Z
+DTEND:20260616T210000Z
+SUMMARY:⚽ 🇫🇷 France vs 🇸🇳 Senegal | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇫🇷 Fran
+ ce vs 🇸🇳 Senegal\n\n⏰ 北京时间: 2026-06-17 03:00\n⏰ UTC: 20
+ 26-06-16 19:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA\n\n
+  I组球队:\n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n  
+ 🇳🇴 Norway
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇫🇷 France vs 🇸🇳 Senegal | 小组赛 I组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-018@qoderwork.com
+DTSTART:20260616T220000Z
+DTEND:20260617T000000Z
+SUMMARY:⚽ 🇮🇶 Iraq vs 🇳🇴 Norway | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇮🇶 Iraq
+  vs 🇳🇴 Norway\n\n⏰ 北京时间: 2026-06-17 06:00\n⏰ UTC: 2026-
+ 06-16 22:00 UTC\n\n📍 Gillette Stadium\, Foxborough\, USA\n\n📋 I组
+ 队:\n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n  🇳
+  Norway
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇮🇶 Iraq vs 🇳🇴 Norway | 小组赛 I组 starts i
+ n 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-019@qoderwork.com
+DTSTART:20260617T010000Z
+DTEND:20260617T030000Z
+SUMMARY:⚽ 🇦🇷 Argentina vs 🇩🇿 Algeria | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇦🇷 Arge
+ ntina vs 🇩🇿 Algeria\n\n⏰ 北京时间: 2026-06-17 09:00\n⏰ UTC:
+  2026-06-17 01:00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA\n\n
+  J组球队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Aust
+ ria\n  🇯🇴 Jordan
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇦🇷 Argentina vs 🇩🇿 Algeria | 小组赛 J组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-020@qoderwork.com
+DTSTART:20260617T040000Z
+DTEND:20260617T060000Z
+SUMMARY:⚽ 🇦🇹 Austria vs 🇯🇴 Jordan | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇦🇹 Aust
+ ria vs 🇯🇴 Jordan\n\n⏰ 北京时间: 2026-06-17 12:00\n⏰ UTC: 20
+ 26-06-17 04:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋 J
+ 球队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Austria\n 
+  🇯🇴 Jordan
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇦🇹 Austria vs 🇯🇴 Jordan | 小组赛 J组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-021@qoderwork.com
+DTSTART:20260617T170000Z
+DTEND:20260617T190000Z
+SUMMARY:⚽ 🇵🇹 Portugal vs 🇨🇩 DR Congo | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇵🇹 Port
+ ugal vs 🇨🇩 DR Congo\n\n⏰ 北京时间: 2026-06-18 01:00\n⏰ UTC:
+  2026-06-17 17:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 K组球
+ 队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uzbekistan\n  
+ 🇨🇴 Colombia
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇵🇹 Portugal vs 🇨🇩 DR Congo | 小组赛 K组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-022@qoderwork.com
+DTSTART:20260617T200000Z
+DTEND:20260617T220000Z
+SUMMARY:⚽ 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇭🇷 Croatia | 小
+ 组赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🏴󠁧󠁢
+ 󠁮󠁧󠁿 England vs 🇭🇷 Croatia\n\n⏰ 北京时间: 2026-06-
+ 18 04:00\n⏰ UTC: 2026-06-17 20:00 UTC\n\n📍 AT&T Stadium\, Arlington\
+ , USA\n\n📋 L组球队:\n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n  🇭
+ 🇷 Croatia\n  🇬🇭 Ghana\n  🇵🇦 Panama
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇭🇷 Croatia |
+  小组赛 L组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-023@qoderwork.com
+DTSTART:20260617T230000Z
+DTEND:20260618T010000Z
+SUMMARY:⚽ 🇬🇭 Ghana vs 🇵🇦 Panama | 小组赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🇬🇭 Ghan
+ a vs 🇵🇦 Panama\n\n⏰ 北京时间: 2026-06-18 07:00\n⏰ UTC: 2026
+ -06-17 23:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\n📋 L组球队:
+ \n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n  🇭🇷 Croatia\n  🇬🇭 
+ Ghana\n  🇵🇦 Panama
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇬🇭 Ghana vs 🇵🇦 Panama | 小组赛 L组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-024@qoderwork.com
+DTSTART:20260618T020000Z
+DTEND:20260618T040000Z
+SUMMARY:⚽ 🇺🇿 Uzbekistan vs 🇨🇴 Colombia | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇺🇿 Uzbe
+ kistan vs 🇨🇴 Colombia\n\n⏰ 北京时间: 2026-06-18 10:00\n⏰ UT
+ C: 2026-06-18 02:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico\n\n
+ 📋 K组球队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uz
+ bekistan\n  🇨🇴 Colombia
+LOCATION:Estadio Azteca\, Mexico City\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇺🇿 Uzbekistan vs 🇨🇴 Colombia | 小组赛 K组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-025@qoderwork.com
+DTSTART:20260618T160000Z
+DTEND:20260618T180000Z
+SUMMARY:⚽ 🇨🇿 Czech Republic vs 🇿🇦 South Africa | 小组赛 A
+ 组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇨🇿 Czec
+ h Republic vs 🇿🇦 South Africa\n\n⏰ 北京时间: 2026-06-19 00:00
+ \n⏰ UTC: 2026-06-18 16:00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\,
+  USA\n\n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  
+ 🇷 South Korea\n  🇨🇿 Czech Republic
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇿 Czech Republic vs 🇿🇦 South Africa | 小组
+  A组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-026@qoderwork.com
+DTSTART:20260618T190000Z
+DTEND:20260618T210000Z
+SUMMARY:⚽ 🇨🇭 Switzerland vs 🇧🇦 Bosnia and Herzegovina | 小
+ 赛 B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇨🇭 Swit
+ zerland vs 🇧🇦 Bosnia and Herzegovina\n\n⏰ 北京时间: 2026-06-1
+ 9 03:00\n⏰ UTC: 2026-06-18 19:00 UTC\n\n📍 SoFi Stadium\, Los Angeles
+ \, USA\n\n📋 B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herz
+ egovina\n  🇶🇦 Qatar\n  🇨🇭 Switzerland
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇭 Switzerland vs 🇧🇦 Bosnia and Herzegovina | 
+ 小组赛 B组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-027@qoderwork.com
+DTSTART:20260618T220000Z
+DTEND:20260619T000000Z
+SUMMARY:⚽ 🇨🇦 Canada vs 🇶🇦 Qatar | 小组赛 B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇨🇦 Cana
+ da vs 🇶🇦 Qatar\n\n⏰ 北京时间: 2026-06-19 06:00\n⏰ UTC: 2026
+ -06-18 22:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 B组球队
+ :\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n  🇶🇦 Qatar
+ \n  🇨🇭 Switzerland
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇦 Canada vs 🇶🇦 Qatar | 小组赛 B组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-028@qoderwork.com
+DTSTART:20260619T010000Z
+DTEND:20260619T030000Z
+SUMMARY:⚽ 🇲🇽 Mexico vs 🇰🇷 South Korea | 小组赛 A组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇲🇽 Mexi
+ co vs 🇰🇷 South Korea\n\n⏰ 北京时间: 2026-06-19 09:00\n⏰ UTC
+ : 2026-06-19 01:00 UTC\n\n📍 Estadio Akron\, Guadalajara\, Mexico\n\n
+  A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  🇰🇷 So
+ uth Korea\n  🇨🇿 Czech Republic
+LOCATION:Estadio Akron\, Guadalajara\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇲🇽 Mexico vs 🇰🇷 South Korea | 小组赛 A组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-029@qoderwork.com
+DTSTART:20260619T190000Z
+DTEND:20260619T210000Z
+SUMMARY:⚽ 🇺🇸 USA vs 🇦🇺 Australia | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇺🇸 USA 
+ vs 🇦🇺 Australia\n\n⏰ 北京时间: 2026-06-20 03:00\n⏰ UTC: 202
+ 6-06-19 19:00 UTC\n\n📍 Lumen Field\, Seattle\, USA\n\n📋 D组球队:
+ \n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹🇷 T
+ urkey
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇺🇸 USA vs 🇦🇺 Australia | 小组赛 D组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-030@qoderwork.com
+DTSTART:20260619T220000Z
+DTEND:20260620T000000Z
+SUMMARY:⚽ 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs 🇲🇦 Morocco | 
+ 组赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🏴󠁧󠁢
+ 󠁣󠁴󠁿 Scotland vs 🇲🇦 Morocco\n\n⏰ 北京时间: 2026-06
+ -20 06:00\n⏰ UTC: 2026-06-19 22:00 UTC\n\n📍 Gillette Stadium\, Foxbo
+ rough\, USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n 
+  🇭🇹 Haiti\n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs 🇲🇦 Morocco 
+ | 小组赛 C组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-031@qoderwork.com
+DTSTART:20260620T010000Z
+DTEND:20260620T030000Z
+SUMMARY:⚽ 🇧🇷 Brazil vs 🇭🇹 Haiti | 小组赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇧🇷 Braz
+ il vs 🇭🇹 Haiti\n\n⏰ 北京时间: 2026-06-20 09:00\n⏰ UTC: 2026
+ -06-20 01:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, USA\n\n
+ 📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭🇹 Haiti
+ \n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇧🇷 Brazil vs 🇭🇹 Haiti | 小组赛 C组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-032@qoderwork.com
+DTSTART:20260620T040000Z
+DTEND:20260620T060000Z
+SUMMARY:⚽ 🇹🇷 Turkey vs 🇵🇾 Paraguay | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇹🇷 Turk
+ ey vs 🇵🇾 Paraguay\n\n⏰ 北京时间: 2026-06-20 12:00\n⏰ UTC: 2
+ 026-06-20 04:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋 D
+ 球队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  
+ 🇷 Turkey
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇹🇷 Turkey vs 🇵🇾 Paraguay | 小组赛 D组 star
+ ts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-033@qoderwork.com
+DTSTART:20260620T170000Z
+DTEND:20260620T190000Z
+SUMMARY:⚽ 🇳🇱 Netherlands vs 🇸🇪 Sweden | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇳🇱 Neth
+ erlands vs 🇸🇪 Sweden\n\n⏰ 北京时间: 2026-06-21 01:00\n⏰ UTC
+ : 2026-06-20 17:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 F组
+ 队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n  
+ 🇵 Japan
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇱 Netherlands vs 🇸🇪 Sweden | 小组赛 F组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-034@qoderwork.com
+DTSTART:20260620T200000Z
+DTEND:20260620T220000Z
+SUMMARY:⚽ 🇩🇪 Germany vs 🇨🇮 Ivory Coast | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇩🇪 Germ
+ any vs 🇨🇮 Ivory Coast\n\n⏰ 北京时间: 2026-06-21 04:00\n⏰ UT
+ C: 2026-06-20 20:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\n📋 E组
+ 球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory Coast\n
+   🇪🇨 Ecuador
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇩🇪 Germany vs 🇨🇮 Ivory Coast | 小组赛 E组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-035@qoderwork.com
+DTSTART:20260621T000000Z
+DTEND:20260621T020000Z
+SUMMARY:⚽ 🇪🇨 Ecuador vs 🇨🇼 Curacao | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇪🇨 Ecua
+ dor vs 🇨🇼 Curacao\n\n⏰ 北京时间: 2026-06-21 08:00\n⏰ UTC: 2
+ 026-06-21 00:00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA\n\n📋
+  E组球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory Co
+ ast\n  🇪🇨 Ecuador
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇪🇨 Ecuador vs 🇨🇼 Curacao | 小组赛 E组 star
+ ts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-036@qoderwork.com
+DTSTART:20260621T040000Z
+DTEND:20260621T060000Z
+SUMMARY:⚽ 🇹🇳 Tunisia vs 🇯🇵 Japan | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇹🇳 Tuni
+ sia vs 🇯🇵 Japan\n\n⏰ 北京时间: 2026-06-21 12:00\n⏰ UTC: 202
+ 6-06-21 04:00 UTC\n\n📍 Estadio BBVA\, Monterrey\, Mexico\n\n📋 F组
+ 队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n  
+ 🇯🇵 Japan
+LOCATION:Estadio BBVA\, Monterrey\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇹🇳 Tunisia vs 🇯🇵 Japan | 小组赛 F组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-037@qoderwork.com
+DTSTART:20260621T160000Z
+DTEND:20260621T180000Z
+SUMMARY:⚽ 🇪🇸 Spain vs 🇸🇦 Saudi Arabia | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇪🇸 Spai
+ n vs 🇸🇦 Saudi Arabia\n\n⏰ 北京时间: 2026-06-22 00:00\n⏰ UTC
+ : 2026-06-21 16:00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA\n\n
+  H组球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 Saud
+ i Arabia\n  🇺🇾 Uruguay
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇪🇸 Spain vs 🇸🇦 Saudi Arabia | 小组赛 H组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-038@qoderwork.com
+DTSTART:20260621T190000Z
+DTEND:20260621T210000Z
+SUMMARY:⚽ 🇧🇪 Belgium vs 🇮🇷 Iran | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇧🇪 Belg
+ ium vs 🇮🇷 Iran\n\n⏰ 北京时间: 2026-06-22 03:00\n⏰ UTC: 2026
+ -06-21 19:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA\n\n📋 G组球
+ 队:\n  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳🇿 N
+ ew Zealand
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇧🇪 Belgium vs 🇮🇷 Iran | 小组赛 G组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-039@qoderwork.com
+DTSTART:20260621T220000Z
+DTEND:20260622T000000Z
+SUMMARY:⚽ 🇺🇾 Uruguay vs 🇨🇻 Cape Verde | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇺🇾 Urug
+ uay vs 🇨🇻 Cape Verde\n\n⏰ 北京时间: 2026-06-22 06:00\n⏰ UTC
+ : 2026-06-21 22:00 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA\n\
+ n📋 H组球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 Sa
+ udi Arabia\n  🇺🇾 Uruguay
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇺🇾 Uruguay vs 🇨🇻 Cape Verde | 小组赛 H组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-040@qoderwork.com
+DTSTART:20260622T010000Z
+DTEND:20260622T030000Z
+SUMMARY:⚽ 🇳🇿 New Zealand vs 🇪🇬 Egypt | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇳🇿 New 
+ Zealand vs 🇪🇬 Egypt\n\n⏰ 北京时间: 2026-06-22 09:00\n⏰ UTC:
+  2026-06-22 01:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 G组
+ 队:\n  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳🇿
+  New Zealand
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇿 New Zealand vs 🇪🇬 Egypt | 小组赛 G组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-041@qoderwork.com
+DTSTART:20260622T170000Z
+DTEND:20260622T190000Z
+SUMMARY:⚽ 🇦🇷 Argentina vs 🇦🇹 Austria | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇦🇷 Arge
+ ntina vs 🇦🇹 Austria\n\n⏰ 北京时间: 2026-06-23 01:00\n⏰ UTC:
+  2026-06-22 17:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n📋 J组
+ 球队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Austria\n  
+ 🇯🇴 Jordan
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇦🇷 Argentina vs 🇦🇹 Austria | 小组赛 J组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-042@qoderwork.com
+DTSTART:20260622T210000Z
+DTEND:20260622T230000Z
+SUMMARY:⚽ 🇫🇷 France vs 🇮🇶 Iraq | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇫🇷 Fran
+ ce vs 🇮🇶 Iraq\n\n⏰ 北京时间: 2026-06-23 05:00\n⏰ UTC: 2026-
+ 06-22 21:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, USA\n\n
+  I组球队:\n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n
+   🇳🇴 Norway
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇫🇷 France vs 🇮🇶 Iraq | 小组赛 I组 starts i
+ n 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-043@qoderwork.com
+DTSTART:20260623T000000Z
+DTEND:20260623T020000Z
+SUMMARY:⚽ 🇳🇴 Norway vs 🇸🇳 Senegal | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇳🇴 Norw
+ ay vs 🇸🇳 Senegal\n\n⏰ 北京时间: 2026-06-23 08:00\n⏰ UTC: 20
+ 26-06-23 00:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA\n\n
+  I组球队:\n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n  
+ 🇳🇴 Norway
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇴 Norway vs 🇸🇳 Senegal | 小组赛 I组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-044@qoderwork.com
+DTSTART:20260623T030000Z
+DTEND:20260623T050000Z
+SUMMARY:⚽ 🇯🇴 Jordan vs 🇩🇿 Algeria | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇯🇴 Jord
+ an vs 🇩🇿 Algeria\n\n⏰ 北京时间: 2026-06-23 11:00\n⏰ UTC: 20
+ 26-06-23 03:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋 J
+ 球队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Austria\n 
+  🇯🇴 Jordan
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇯🇴 Jordan vs 🇩🇿 Algeria | 小组赛 J组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-045@qoderwork.com
+DTSTART:20260623T170000Z
+DTEND:20260623T190000Z
+SUMMARY:⚽ 🇵🇹 Portugal vs 🇺🇿 Uzbekistan | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇵🇹 Port
+ ugal vs 🇺🇿 Uzbekistan\n\n⏰ 北京时间: 2026-06-24 01:00\n⏰ UT
+ C: 2026-06-23 17:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 K组
+ 队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uzbekistan\n
+   🇨🇴 Colombia
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇵🇹 Portugal vs 🇺🇿 Uzbekistan | 小组赛 K组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-046@qoderwork.com
+DTSTART:20260623T200000Z
+DTEND:20260623T220000Z
+SUMMARY:⚽ 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇬🇭 Ghana | 小
+ 赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🏴󠁧󠁢
+ 󠁮󠁧󠁿 England vs 🇬🇭 Ghana\n\n⏰ 北京时间: 2026-06-24
+  04:00\n⏰ UTC: 2026-06-23 20:00 UTC\n\n📍 Gillette Stadium\, Foxborou
+ gh\, USA\n\n📋 L组球队:\n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n  
+ 🇷 Croatia\n  🇬🇭 Ghana\n  🇵🇦 Panama
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇬🇭 Ghana | 
+ 组赛 L组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-047@qoderwork.com
+DTSTART:20260623T230000Z
+DTEND:20260624T010000Z
+SUMMARY:⚽ 🇵🇦 Panama vs 🇭🇷 Croatia | 小组赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🇵🇦 Pana
+ ma vs 🇭🇷 Croatia\n\n⏰ 北京时间: 2026-06-24 07:00\n⏰ UTC: 20
+ 26-06-23 23:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\n📋 L组球
+ :\n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n  🇭🇷 Croatia\n  🇬
+  Ghana\n  🇵🇦 Panama
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇵🇦 Panama vs 🇭🇷 Croatia | 小组赛 L组 start
+ s in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-048@qoderwork.com
+DTSTART:20260624T020000Z
+DTEND:20260624T040000Z
+SUMMARY:⚽ 🇨🇴 Colombia vs 🇨🇩 DR Congo | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇨🇴 Colo
+ mbia vs 🇨🇩 DR Congo\n\n⏰ 北京时间: 2026-06-24 10:00\n⏰ UTC:
+  2026-06-24 02:00 UTC\n\n📍 Estadio Akron\, Guadalajara\, Mexico\n\n
+  K组球队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uzbek
+ istan\n  🇨🇴 Colombia
+LOCATION:Estadio Akron\, Guadalajara\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇴 Colombia vs 🇨🇩 DR Congo | 小组赛 K组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-049@qoderwork.com
+DTSTART:20260624T190000Z
+DTEND:20260624T210000Z
+SUMMARY:⚽ 🇨🇭 Switzerland vs 🇨🇦 Canada | 小组赛 B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇨🇭 Swit
+ zerland vs 🇨🇦 Canada\n\n⏰ 北京时间: 2026-06-25 03:00\n⏰ UTC
+ : 2026-06-24 19:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 B组
+ 球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n  🇶🇦
+  Qatar\n  🇨🇭 Switzerland
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇭 Switzerland vs 🇨🇦 Canada | 小组赛 B组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-050@qoderwork.com
+DTSTART:20260624T190000Z
+DTEND:20260624T210000Z
+SUMMARY:⚽ 🇧🇦 Bosnia and Herzegovina vs 🇶🇦 Qatar | 小组赛 
+ B组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇧🇦 Bosn
+ ia and Herzegovina vs 🇶🇦 Qatar\n\n⏰ 北京时间: 2026-06-25 03:0
+ 0\n⏰ UTC: 2026-06-24 19:00 UTC\n\n📍 Lumen Field\, Seattle\, USA\n\n
+  B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n  
+ 🇶🇦 Qatar\n  🇨🇭 Switzerland
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇧🇦 Bosnia and Herzegovina vs 🇶🇦 Qatar | 小组
+ 赛 B组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-051@qoderwork.com
+DTSTART:20260624T220000Z
+DTEND:20260625T000000Z
+SUMMARY:⚽ 🇲🇦 Morocco vs 🇭🇹 Haiti | 小组赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇲🇦 Moro
+ cco vs 🇭🇹 Haiti\n\n⏰ 北京时间: 2026-06-25 06:00\n⏰ UTC: 202
+ 6-06-24 22:00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA\n\n📋 C
+ 组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭🇹 Haiti\n  
+ 󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇲🇦 Morocco vs 🇭🇹 Haiti | 小组赛 C组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-052@qoderwork.com
+DTSTART:20260624T220000Z
+DTEND:20260625T000000Z
+SUMMARY:⚽ 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs 🇧🇷 Brazil | 小
+ 组赛 C组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🏴󠁧󠁢
+ 󠁣󠁴󠁿 Scotland vs 🇧🇷 Brazil\n\n⏰ 北京时间: 2026-06-
+ 25 06:00\n⏰ UTC: 2026-06-24 22:00 UTC\n\n📍 Hard Rock Stadium\, Miami
+  Gardens\, USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco
+ \n  🇭🇹 Haiti\n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs 🇧🇷 Brazil |
+  小组赛 C组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-053@qoderwork.com
+DTSTART:20260625T010000Z
+DTEND:20260625T030000Z
+SUMMARY:⚽ 🇨🇿 Czech Republic vs 🇲🇽 Mexico | 小组赛 A组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇨🇿 Czec
+ h Republic vs 🇲🇽 Mexico\n\n⏰ 北京时间: 2026-06-25 09:00\n⏰ 
+ UTC: 2026-06-25 01:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico\n
+ \n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  🇰
+  South Korea\n  🇨🇿 Czech Republic
+LOCATION:Estadio Azteca\, Mexico City\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇿 Czech Republic vs 🇲🇽 Mexico | 小组赛 A
+  starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-054@qoderwork.com
+DTSTART:20260625T010000Z
+DTEND:20260625T030000Z
+SUMMARY:⚽ 🇿🇦 South Africa vs 🇰🇷 South Korea | 小组赛 A组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇿🇦 Sout
+ h Africa vs 🇰🇷 South Korea\n\n⏰ 北京时间: 2026-06-25 09:00\n
+  UTC: 2026-06-25 01:00 UTC\n\n📍 Estadio BBVA\, Monterrey\, Mexico\n\
+ n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  🇰🇷
+  South Korea\n  🇨🇿 Czech Republic
+LOCATION:Estadio BBVA\, Monterrey\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇿🇦 South Africa vs 🇰🇷 South Korea | 小组赛 
+ A组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-055@qoderwork.com
+DTSTART:20260625T200000Z
+DTEND:20260625T220000Z
+SUMMARY:⚽ 🇪🇨 Ecuador vs 🇩🇪 Germany | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇪🇨 Ecua
+ dor vs 🇩🇪 Germany\n\n⏰ 北京时间: 2026-06-26 04:00\n⏰ UTC: 2
+ 026-06-25 20:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA\n\n
+  E组球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory 
+ Coast\n  🇪🇨 Ecuador
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇪🇨 Ecuador vs 🇩🇪 Germany | 小组赛 E组 star
+ ts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-056@qoderwork.com
+DTSTART:20260625T200000Z
+DTEND:20260625T220000Z
+SUMMARY:⚽ 🇨🇼 Curacao vs 🇨🇮 Ivory Coast | 小组赛 E组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇨🇼 Cura
+ cao vs 🇨🇮 Ivory Coast\n\n⏰ 北京时间: 2026-06-26 04:00\n⏰ UT
+ C: 2026-06-25 20:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, 
+ USA\n\n📋 E组球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨
+  Ivory Coast\n  🇪🇨 Ecuador
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇼 Curacao vs 🇨🇮 Ivory Coast | 小组赛 E组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-057@qoderwork.com
+DTSTART:20260625T230000Z
+DTEND:20260626T010000Z
+SUMMARY:⚽ 🇯🇵 Japan vs 🇸🇪 Sweden | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇯🇵 Japa
+ n vs 🇸🇪 Sweden\n\n⏰ 北京时间: 2026-06-26 07:00\n⏰ UTC: 2026
+ -06-25 23:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n📋 F组球
+ :\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n  🇯
+ 🇵 Japan
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇯🇵 Japan vs 🇸🇪 Sweden | 小组赛 F组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-058@qoderwork.com
+DTSTART:20260625T230000Z
+DTEND:20260626T010000Z
+SUMMARY:⚽ 🇹🇳 Tunisia vs 🇳🇱 Netherlands | 小组赛 F组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇹🇳 Tuni
+ sia vs 🇳🇱 Netherlands\n\n⏰ 北京时间: 2026-06-26 07:00\n⏰ UT
+ C: 2026-06-25 23:00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA\n\n
+ 📋 F组球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 T
+ unisia\n  🇯🇵 Japan
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇹🇳 Tunisia vs 🇳🇱 Netherlands | 小组赛 F组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-059@qoderwork.com
+DTSTART:20260626T020000Z
+DTEND:20260626T040000Z
+SUMMARY:⚽ 🇹🇷 Turkey vs 🇺🇸 USA | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇹🇷 Turk
+ ey vs 🇺🇸 USA\n\n⏰ 北京时间: 2026-06-26 10:00\n⏰ UTC: 2026-0
+ 6-26 02:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA\n\n📋 D组球
+ :\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹🇷
+  Turkey
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇹🇷 Turkey vs 🇺🇸 USA | 小组赛 D组 starts in
+  30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-060@qoderwork.com
+DTSTART:20260626T020000Z
+DTEND:20260626T040000Z
+SUMMARY:⚽ 🇵🇾 Paraguay vs 🇦🇺 Australia | 小组赛 D组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇵🇾 Para
+ guay vs 🇦🇺 Australia\n\n⏰ 北京时间: 2026-06-26 10:00\n⏰ UTC
+ : 2026-06-26 02:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋
+  D组球队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n
+   🇹🇷 Turkey
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇵🇾 Paraguay vs 🇦🇺 Australia | 小组赛 D组 s
+ tarts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-061@qoderwork.com
+DTSTART:20260626T190000Z
+DTEND:20260626T210000Z
+SUMMARY:⚽ 🇨🇻 Cape Verde vs 🇸🇦 Saudi Arabia | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇨🇻 Cape
+  Verde vs 🇸🇦 Saudi Arabia\n\n⏰ 北京时间: 2026-06-27 03:00\n
+  UTC: 2026-06-26 19:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 H
+ 组球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 Saudi Ara
+ bia\n  🇺🇾 Uruguay
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇻 Cape Verde vs 🇸🇦 Saudi Arabia | 小组赛 H
+ 组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-062@qoderwork.com
+DTSTART:20260626T190000Z
+DTEND:20260626T210000Z
+SUMMARY:⚽ 🇺🇾 Uruguay vs 🇪🇸 Spain | 小组赛 H组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 H组 (Group H)\n\n🇺🇾 Urug
+ uay vs 🇪🇸 Spain\n\n⏰ 北京时间: 2026-06-27 03:00\n⏰ UTC: 202
+ 6-06-26 19:00 UTC\n\n📍 Estadio Akron\, Guadalajara\, Mexico\n\n📋 H
+ 球队:\n  🇪🇸 Spain\n  🇨🇻 Cape Verde\n  🇸🇦 Saudi Arab
+ ia\n  🇺🇾 Uruguay
+LOCATION:Estadio Akron\, Guadalajara\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group H
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇺🇾 Uruguay vs 🇪🇸 Spain | 小组赛 H组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-063@qoderwork.com
+DTSTART:20260627T000000Z
+DTEND:20260627T020000Z
+SUMMARY:⚽ 🇳🇿 New Zealand vs 🇧🇪 Belgium | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇳🇿 New 
+ Zealand vs 🇧🇪 Belgium\n\n⏰ 北京时间: 2026-06-27 08:00\n⏰ UT
+ C: 2026-06-27 00:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 G
+ 球队:\n  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳
+  New Zealand
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇿 New Zealand vs 🇧🇪 Belgium | 小组赛 G组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-064@qoderwork.com
+DTSTART:20260627T000000Z
+DTEND:20260627T020000Z
+SUMMARY:⚽ 🇪🇬 Egypt vs 🇮🇷 Iran | 小组赛 G组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 G组 (Group G)\n\n🇪🇬 Egyp
+ t vs 🇮🇷 Iran\n\n⏰ 北京时间: 2026-06-27 08:00\n⏰ UTC: 2026-0
+ 6-27 00:00 UTC\n\n📍 Lumen Field\, Seattle\, USA\n\n📋 G组球队:\n 
+  🇧🇪 Belgium\n  🇪🇬 Egypt\n  🇮🇷 Iran\n  🇳🇿 New Zeal
+ and
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group G
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇪🇬 Egypt vs 🇮🇷 Iran | 小组赛 G组 starts in
+  30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-065@qoderwork.com
+DTSTART:20260627T030000Z
+DTEND:20260627T050000Z
+SUMMARY:⚽ 🇳🇴 Norway vs 🇫🇷 France | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇳🇴 Norw
+ ay vs 🇫🇷 France\n\n⏰ 北京时间: 2026-06-27 11:00\n⏰ UTC: 202
+ 6-06-27 03:00 UTC\n\n📍 Gillette Stadium\, Foxborough\, USA\n\n📋 I
+ 球队:\n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n  🇳
+  Norway
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇳🇴 Norway vs 🇫🇷 France | 小组赛 I组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-066@qoderwork.com
+DTSTART:20260627T030000Z
+DTEND:20260627T050000Z
+SUMMARY:⚽ 🇸🇳 Senegal vs 🇮🇶 Iraq | 小组赛 I组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 I组 (Group I)\n\n🇸🇳 Sene
+ gal vs 🇮🇶 Iraq\n\n⏰ 北京时间: 2026-06-27 11:00\n⏰ UTC: 2026
+ -06-27 03:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\n📋 I组球队:
+ \n  🇫🇷 France\n  🇸🇳 Senegal\n  🇮🇶 Iraq\n  🇳🇴 Norw
+ ay
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group I
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇸🇳 Senegal vs 🇮🇶 Iraq | 小组赛 I组 starts 
+ in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-067@qoderwork.com
+DTSTART:20260627T210000Z
+DTEND:20260627T230000Z
+SUMMARY:⚽ 🇵🇦 Panama vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England | 小
+ 赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🇵🇦 Pana
+ ma vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n\n⏰ 北京时间: 2026-06-2
+ 8 05:00\n⏰ UTC: 2026-06-27 21:00 UTC\n\n📍 MetLife Stadium\, East Rut
+ herford\, USA\n\n📋 L组球队:\n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England
+ \n  🇭🇷 Croatia\n  🇬🇭 Ghana\n  🇵🇦 Panama
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇵🇦 Panama vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England | 
+ 小组赛 L组 starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-068@qoderwork.com
+DTSTART:20260627T210000Z
+DTEND:20260627T230000Z
+SUMMARY:⚽ 🇭🇷 Croatia vs 🇬🇭 Ghana | 小组赛 L组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 L组 (Group L)\n\n🇭🇷 Croa
+ tia vs 🇬🇭 Ghana\n\n⏰ 北京时间: 2026-06-28 05:00\n⏰ UTC: 202
+ 6-06-27 21:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, USA\n\
+ n📋 L组球队:\n  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England\n  🇭🇷 Cro
+ atia\n  🇬🇭 Ghana\n  🇵🇦 Panama
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group L
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇭🇷 Croatia vs 🇬🇭 Ghana | 小组赛 L组 starts
+  in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-069@qoderwork.com
+DTSTART:20260627T233000Z
+DTEND:20260628T013000Z
+SUMMARY:⚽ 🇨🇴 Colombia vs 🇵🇹 Portugal | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇨🇴 Colo
+ mbia vs 🇵🇹 Portugal\n\n⏰ 北京时间: 2026-06-28 07:30\n⏰ UTC:
+  2026-06-27 23:30 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA\n\n
+ 📋 K组球队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uz
+ bekistan\n  🇨🇴 Colombia
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇴 Colombia vs 🇵🇹 Portugal | 小组赛 K组 st
+ arts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-070@qoderwork.com
+DTSTART:20260627T233000Z
+DTEND:20260628T013000Z
+SUMMARY:⚽ 🇨🇩 DR Congo vs 🇺🇿 Uzbekistan | 小组赛 K组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 K组 (Group K)\n\n🇨🇩 DR C
+ ongo vs 🇺🇿 Uzbekistan\n\n⏰ 北京时间: 2026-06-28 07:30\n⏰ UT
+ C: 2026-06-27 23:30 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA\n\n
+ 📋 K组球队:\n  🇵🇹 Portugal\n  🇨🇩 DR Congo\n  🇺🇿 Uz
+ bekistan\n  🇨🇴 Colombia
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group K
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇨🇩 DR Congo vs 🇺🇿 Uzbekistan | 小组赛 K组 
+ starts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-071@qoderwork.com
+DTSTART:20260628T020000Z
+DTEND:20260628T040000Z
+SUMMARY:⚽ 🇩🇿 Algeria vs 🇦🇹 Austria | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇩🇿 Alge
+ ria vs 🇦🇹 Austria\n\n⏰ 北京时间: 2026-06-28 10:00\n⏰ UTC: 2
+ 026-06-28 02:00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA\n\n📋
+  J组球队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Austri
+ a\n  🇯🇴 Jordan
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇩🇿 Algeria vs 🇦🇹 Austria | 小组赛 J组 star
+ ts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-072@qoderwork.com
+DTSTART:20260628T020000Z
+DTEND:20260628T040000Z
+SUMMARY:⚽ 🇯🇴 Jordan vs 🇦🇷 Argentina | 小组赛 J组
+DESCRIPTION:2026 FIFA World Cup\n小组赛 J组 (Group J)\n\n🇯🇴 Jord
+ an vs 🇦🇷 Argentina\n\n⏰ 北京时间: 2026-06-28 10:00\n⏰ UTC: 
+ 2026-06-28 02:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n📋 J组
+ 队:\n  🇦🇷 Argentina\n  🇩🇿 Algeria\n  🇦🇹 Austria\n  
+ 🇴 Jordan
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,Group J
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🇯🇴 Jordan vs 🇦🇷 Argentina | 小组赛 J组 sta
+ rts in 30 minutes!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-073@qoderwork.com
+DTSTART:20260628T210000Z
+DTEND:20260628T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-29 05:00\n⏰ UTC: 2026-06-28 2
+ 1:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-074@qoderwork.com
+DTSTART:20260628T230000Z
+DTEND:20260629T012000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-29 07:00\n⏰ UTC: 2026-06-28 2
+ 3:00 UTC\n\n📍 NRG Stadium\, Houston\, USA
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-075@qoderwork.com
+DTSTART:20260629T010000Z
+DTEND:20260629T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-29 09:00\n⏰ UTC: 2026-06-29 0
+ 1:00 UTC\n\n📍 Gillette Stadium\, Foxborough\, USA
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-076@qoderwork.com
+DTSTART:20260629T030000Z
+DTEND:20260629T052000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-29 11:00\n⏰ UTC: 2026-06-29 0
+ 3:00 UTC\n\n📍 Estadio BBVA\, Monterrey\, Mexico
+LOCATION:Estadio BBVA\, Monterrey\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-077@qoderwork.com
+DTSTART:20260629T210000Z
+DTEND:20260629T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-30 05:00\n⏰ UTC: 2026-06-29 2
+ 1:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-078@qoderwork.com
+DTSTART:20260629T230000Z
+DTEND:20260630T012000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-30 07:00\n⏰ UTC: 2026-06-29 2
+ 3:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-079@qoderwork.com
+DTSTART:20260630T010000Z
+DTEND:20260630T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-06-30 09:00\n⏰ UTC: 2026-06-30 0
+ 1:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico
+LOCATION:Estadio Azteca\, Mexico City\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-080@qoderwork.com
+DTSTART:20260630T210000Z
+DTEND:20260630T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-01 05:00\n⏰ UTC: 2026-06-30 2
+ 1:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA
+LOCATION:Levi's Stadium\, Santa Clara\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-081@qoderwork.com
+DTSTART:20260630T230000Z
+DTEND:20260701T012000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-01 07:00\n⏰ UTC: 2026-06-30 2
+ 3:00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-082@qoderwork.com
+DTSTART:20260701T010000Z
+DTEND:20260701T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-01 09:00\n⏰ UTC: 2026-07-01 0
+ 1:00 UTC\n\n📍 Lumen Field\, Seattle\, USA
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-083@qoderwork.com
+DTSTART:20260701T210000Z
+DTEND:20260701T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-02 05:00\n⏰ UTC: 2026-07-01 2
+ 1:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-084@qoderwork.com
+DTSTART:20260702T010000Z
+DTEND:20260702T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-02 09:00\n⏰ UTC: 2026-07-02 0
+ 1:00 UTC\n\n📍 BMO Field\, Toronto\, Canada
+LOCATION:BMO Field\, Toronto\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-085@qoderwork.com
+DTSTART:20260702T230000Z
+DTEND:20260703T012000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-03 07:00\n⏰ UTC: 2026-07-02 2
+ 3:00 UTC\n\n📍 BC Place\, Vancouver\, Canada
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-086@qoderwork.com
+DTSTART:20260703T010000Z
+DTEND:20260703T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-03 09:00\n⏰ UTC: 2026-07-03 0
+ 1:00 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-087@qoderwork.com
+DTSTART:20260703T210000Z
+DTEND:20260703T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-04 05:00\n⏰ UTC: 2026-07-03 2
+ 1:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-088@qoderwork.com
+DTSTART:20260703T230000Z
+DTEND:20260704T012000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛
+DESCRIPTION:2026 FIFA World Cup\n1/16决赛 (1/16决赛)\n\n🏳️ TBD vs
+  🏳️ TBD\n\n⏰ 北京时间: 2026-07-04 07:00\n⏰ UTC: 2026-07-03 2
+ 3:00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/16决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/16决赛 starts in 30 minut
+ es!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-089@qoderwork.com
+DTSTART:20260704T170000Z
+DTEND:20260704T192000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-05 01:00\n⏰ UTC: 2026-07-04 17:
+ 00 UTC\n\n📍 NRG Stadium\, Houston\, USA
+LOCATION:NRG Stadium\, Houston\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-090@qoderwork.com
+DTSTART:20260704T210000Z
+DTEND:20260704T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-05 05:00\n⏰ UTC: 2026-07-04 21:
+ 00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, USA
+LOCATION:Lincoln Financial Field\, Philadelphia\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-091@qoderwork.com
+DTSTART:20260705T200000Z
+DTEND:20260705T222000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-06 04:00\n⏰ UTC: 2026-07-05 20:
+ 00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-092@qoderwork.com
+DTSTART:20260706T000000Z
+DTEND:20260706T022000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-06 08:00\n⏰ UTC: 2026-07-06 00:
+ 00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico
+LOCATION:Estadio Azteca\, Mexico City\, Mexico
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-093@qoderwork.com
+DTSTART:20260706T190000Z
+DTEND:20260706T212000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-07 03:00\n⏰ UTC: 2026-07-06 19:
+ 00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-094@qoderwork.com
+DTSTART:20260707T000000Z
+DTEND:20260707T022000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-07 08:00\n⏰ UTC: 2026-07-07 00:
+ 00 UTC\n\n📍 Lumen Field\, Seattle\, USA
+LOCATION:Lumen Field\, Seattle\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-095@qoderwork.com
+DTSTART:20260707T160000Z
+DTEND:20260707T182000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-08 00:00\n⏰ UTC: 2026-07-07 16:
+ 00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-096@qoderwork.com
+DTSTART:20260707T200000Z
+DTEND:20260707T222000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛
+DESCRIPTION:2026 FIFA World Cup\n1/8决赛 (1/8决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-08 04:00\n⏰ UTC: 2026-07-07 20:
+ 00 UTC\n\n📍 BC Place\, Vancouver\, Canada
+LOCATION:BC Place\, Vancouver\, Canada
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/8决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/8决赛 starts in 30 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-097@qoderwork.com
+DTSTART:20260709T200000Z
+DTEND:20260709T222000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛
+DESCRIPTION:2026 FIFA World Cup\n1/4决赛 (1/4决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-10 04:00\n⏰ UTC: 2026-07-09 20:
+ 00 UTC\n\n📍 Gillette Stadium\, Foxborough\, USA
+LOCATION:Gillette Stadium\, Foxborough\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/4决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-098@qoderwork.com
+DTSTART:20260710T190000Z
+DTEND:20260710T212000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛
+DESCRIPTION:2026 FIFA World Cup\n1/4决赛 (1/4决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-11 03:00\n⏰ UTC: 2026-07-10 19:
+ 00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA
+LOCATION:SoFi Stadium\, Los Angeles\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/4决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-099@qoderwork.com
+DTSTART:20260711T210000Z
+DTEND:20260711T232000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛
+DESCRIPTION:2026 FIFA World Cup\n1/4决赛 (1/4决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-12 05:00\n⏰ UTC: 2026-07-11 21:
+ 00 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/4决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-100@qoderwork.com
+DTSTART:20260712T010000Z
+DTEND:20260712T032000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛
+DESCRIPTION:2026 FIFA World Cup\n1/4决赛 (1/4决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-12 09:00\n⏰ UTC: 2026-07-12 01:
+ 00 UTC\n\n📍 Arrowhead Stadium\, Kansas City\, USA
+LOCATION:Arrowhead Stadium\, Kansas City\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,1/4决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 1/4决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-101@qoderwork.com
+DTSTART:20260714T190000Z
+DTEND:20260714T212000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛
+DESCRIPTION:2026 FIFA World Cup\n半决赛 (半决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-15 03:00\n⏰ UTC: 2026-07-14 19:
+ 00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA
+LOCATION:AT&T Stadium\, Arlington\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,半决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-102@qoderwork.com
+DTSTART:20260715T190000Z
+DTEND:20260715T212000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛
+DESCRIPTION:2026 FIFA World Cup\n半决赛 (半决赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-16 03:00\n⏰ UTC: 2026-07-15 19:
+ 00 UTC\n\n📍 Mercedes-Benz Stadium\, Atlanta\, USA
+LOCATION:Mercedes-Benz Stadium\, Atlanta\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,半决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 半决赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-103@qoderwork.com
+DTSTART:20260718T210000Z
+DTEND:20260718T233000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 季军赛
+DESCRIPTION:2026 FIFA World Cup\n季军赛 (季军赛)\n\n🏳️ TBD vs 
+ ️ TBD\n\n⏰ 北京时间: 2026-07-19 05:00\n⏰ UTC: 2026-07-18 21:
+ 00 UTC\n\n📍 Hard Rock Stadium\, Miami Gardens\, USA
+LOCATION:Hard Rock Stadium\, Miami Gardens\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,季军赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 季军赛 starts in 30 minute
+ s!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 季军赛 starts in 10 minute
+ s!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wc2026-match-104@qoderwork.com
+DTSTART:20260719T210000Z
+DTEND:20260719T233000Z
+SUMMARY:⚽ 🏳️ TBD vs 🏳️ TBD | 决赛
+DESCRIPTION:2026 FIFA World Cup\n决赛 (决赛)\n\n🏳️ TBD vs 🏳️
+  TBD\n\n⏰ 北京时间: 2026-07-20 05:00\n⏰ UTC: 2026-07-19 21:00 UTC
+ \n\n📍 MetLife Stadium\, East Rutherford\, USA
+LOCATION:MetLife Stadium\, East Rutherford\, USA
+CATEGORIES:Sports\,FIFA World Cup 2026\,决赛
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 决赛 starts in 30 minutes!
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:⚽ 🏳️ TBD vs 🏳️ TBD | 决赛 starts in 10 minutes!
+END:VALARM
+END:VEVENT
+END:VCALENDAR
