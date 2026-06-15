@@ -1,34 +1,23 @@
 #!name=2026世界杯数据面板
-#!desc=FIFA 2026美加墨世界杯：赛程/比分/排名/射手/通知，48队104场完整数据
+#!desc=FIFA 2026美加墨世界杯：赛程/比分/分组/射手/通知，48队104场完整数据
 #!author=GitHubWBB
 #!category=GitHubWBB
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/FIFA.png
 #!system=ios
-#!arguments=api_key:,remind_before:30,panel_group:ALL
-#!arguments-desc=api_key: football-data.org API Key (免费注册: football-data.org/client/register)\nremind_before: 赛前提醒提前分钟数 (默认30)\npanel_group: 小组排名面板展示组别 (A-L 或 ALL 全部)
+#!arguments=api_key:22c9843b0896497eb6ca3e77b78cf5fe,remind_before:30
+#!arguments-desc=api_key: football-data.org API Key\nremind_before: 赛前提醒提前分钟数 (默认30)
 
 [Panel]
-# 今日赛程 - 北京时间显示所有当日比赛 (国旗+中文队名+场馆)
-今日赛程 = script-name=worldcup-today, update-interval=120, title=今日赛程, icon=soccerball, icon-color=#34C759
-
-# 实时比分 - 进行中/即将开始/今日已结束
-实时比分 = script-name=worldcup-live, update-interval=60, title=实时比分, icon=sportscourt.fill, icon-color=#FF3B30
-
-# 小组排名 - 12组积分榜
-小组排名 = script-name=worldcup-standings, update-interval=300, title=小组排名, icon=list.number, icon-color=#007AFF
-
-# 射手榜 - 进球/助攻排行
-射手榜 = script-name=worldcup-scorers, update-interval=600, title=射手榜, icon=figure.soccer, icon-color=#FF9500
+今日赛程 = script-name=worldcup-today, update-interval=120
+实时比分 = script-name=worldcup-live, update-interval=60
+分组详情 = script-name=worldcup-groups, update-interval=300
+射手榜 = script-name=worldcup-scorers, update-interval=600
 
 [Script]
-# 面板数据脚本 (type=generic)
-worldcup-today = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_today.js, timeout=30, argument=api_key={{{api_key}}}&panel_group={{{panel_group}}}
+worldcup-today = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_today.js, timeout=30, argument=api_key={{{api_key}}}
 worldcup-live = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_live.js, timeout=30, argument=api_key={{{api_key}}}
-worldcup-standings = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_standings.js, timeout=30, argument=api_key={{{api_key}}}&panel_group={{{panel_group}}}
+worldcup-groups = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_groups.js, timeout=30, argument=api_key={{{api_key}}}
 worldcup-scorers = type=generic, script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_scorers.js, timeout=30, argument=api_key={{{api_key}}}
-
-# 赛前提醒 & 赛果通知 & 每日赛程摘要 (每10分钟检查)
 世界杯通知 = type=cron, cronexp="*/10 * * * *", script-path=https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/worldcup_notify.js, wake-system=1, timeout=30, argument=api_key={{{api_key}}}&remind_before={{{remind_before}}}
 
-# 远程更新配置
 #!MANAGED-CONFIG https://raw.githubusercontent.com/GitHubWBB/Surge/main/fifa2026/2026_WorldCup_Dashboard.sgmodule interval=86400 strict=false
