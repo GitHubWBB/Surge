@@ -1,11 +1,18 @@
 /**
  * 2026 FIFA 世界杯 - 今日赛程面板
- * 
- * Surge 面板脚本：显示今日（北京时间）所有比赛
- * 带国旗 Emoji + 中文队名 + 北京时间 + 小组信息
- * 
- * 配置方式：在 Surge 中添加 Panel，脚本类型选 "Script"
+ * Surge type=generic 面板脚本
+ * 数据来源：内置赛程 + football-data.org API
  */
+
+// ===== 参数解析 =====
+var apiKey = "";
+if (typeof $argument !== "undefined" && $argument) {
+  var _args = $argument.split("&");
+  for (var _i = 0; _i < _args.length; _i++) {
+    var _kv = _args[_i].split("=");
+    if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
+  }
+}
 
 // ===== 国旗 Emoji 映射 =====
 var FLAGS = {
@@ -37,7 +44,7 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克斯坦","Colombia":"哥伦比亚",
 };
 
-// ===== 完整赛程 (ET 时间) =====
+// ===== 完整赛程 (ET 美东时间) =====
 var MATCHES = [
   {id:1,g:"A",h:"Mexico",a:"South Africa",d:"2026-06-11T15:00",v:"Estadio Azteca, 墨西哥城"},
   {id:2,g:"A",h:"South Korea",a:"Czechia",d:"2026-06-11T22:00",v:"Estadio Akron, 瓜达拉哈拉"},
@@ -114,7 +121,6 @@ var MATCHES = [
 ];
 
 // ===== ET 转北京时间 (+12h) =====
-// 手动解析避免依赖设备时区, 将存储的 ET 时间视为 UTC 再+12h
 function toBJ(etStr) {
   var p = etStr.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   var utcMs = Date.UTC(+p[1], +p[2]-1, +p[3], +p[4], +p[5]);
@@ -122,117 +128,102 @@ function toBJ(etStr) {
 }
 
 // ===== 面板主逻辑 =====
-(function () {
-  var now = new Date();
-  var today = now.getFullYear() + "-" +
-    String(now.getMonth() + 1).padStart(2, "0") + "-" +
-    String(now.getDate()).padStart(2, "0");
+var now = new Date();
+var today = now.getFullYear() + "-" +
+  String(now.getMonth() + 1).padStart(2, "0") + "-" +
+  String(now.getDate()).padStart(2, "0");
 
-  var todayMatches = [];
-  for (var i = 0; i < MATCHES.length; i++) {
-    var m = MATCHES[i];
-    var bj = toBJ(m.d);
-    var ds = bj.getFullYear() + "-" +
-      String(bj.getMonth() + 1).padStart(2, "0") + "-" +
-      String(bj.getDate()).padStart(2, "0");
-    if (ds === today) {
-      var hh = String(bj.getHours()).padStart(2, "0");
-      var mm = String(bj.getMinutes()).padStart(2, "0");
-      todayMatches.push({
-        m: m,
-        time: hh + ":" + mm,
-        sort: bj.getHours() * 60 + bj.getMinutes(),
-        ts: bj.getTime(),
-      });
-    }
-  }
-  todayMatches.sort(function(a, b) { return a.sort - b.sort; });
-
-  // 检查 API 比分数据
-  var apiKey = $persistentStore.get("wc2026_api_key") || "";
-  if (apiKey && todayMatches.length > 0) {
-    var url = "https://api.football-data.org/v4/competitions/WC/matches?dateFrom=" + today + "&dateTo=" + today;
-    $httpClient.get({ url: url, headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
-      var scores = {};
-      if (!error && data) {
-        try {
-          var json = JSON.parse(data);
-          if (json.matches) {
-            for (var k = 0; k < json.matches.length; k++) {
-              var apiMatch = json.matches[k];
-              var key = apiMatch.homeTeam.name + "_" + apiMatch.awayTeam.name;
-              scores[key] = {
-                homeScore: apiMatch.score.fullTime.home !== null ? apiMatch.score.fullTime.home :
-                           apiMatch.score.halfTime.home !== null ? apiMatch.score.halfTime.home : "?",
-                awayScore: apiMatch.score.fullTime.away !== null ? apiMatch.score.fullTime.away :
-                           apiMatch.score.halfTime.away !== null ? apiMatch.score.halfTime.away : "?",
-                status: apiMatch.status,
-                minute: apiMatch.minute || "",
-              };
-            }
-          }
-        } catch(e) {}
-      }
-      renderPanel(todayMatches, scores);
+var todayMatches = [];
+for (var i = 0; i < MATCHES.length; i++) {
+  var m = MATCHES[i];
+  var bj = toBJ(m.d);
+  var ds = bj.getFullYear() + "-" +
+    String(bj.getMonth() + 1).padStart(2, "0") + "-" +
+    String(bj.getDate()).padStart(2, "0");
+  if (ds === today) {
+    var hh = String(bj.getHours()).padStart(2, "0");
+    var mm = String(bj.getMinutes()).padStart(2, "0");
+    todayMatches.push({
+      m: m, time: hh + ":" + mm,
+      sort: bj.getHours() * 60 + bj.getMinutes(), ts: bj.getTime(),
     });
-  } else {
-    renderPanel(todayMatches, {});
   }
-})();
+}
+todayMatches.sort(function(a, b) { return a.sort - b.sort; });
 
-function renderPanel(todayMatches, scores) {
-  if (todayMatches.length === 0) {
+if (apiKey && todayMatches.length > 0) {
+  var reqUrl = "https://api.football-data.org/v4/competitions/WC/matches?dateFrom=" + today + "&dateTo=" + today;
+  $httpClient.get({ url: reqUrl, headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
+    var scores = {};
+    if (!error && data) {
+      try {
+        var json = JSON.parse(data);
+        if (json.matches) {
+          for (var k = 0; k < json.matches.length; k++) {
+            var am = json.matches[k];
+            scores[am.homeTeam.name + "_" + am.awayTeam.name] = {
+              hs: am.score.fullTime.home !== null ? am.score.fullTime.home : (am.score.halfTime.home !== null ? am.score.halfTime.home : "?"),
+              as: am.score.fullTime.away !== null ? am.score.fullTime.away : (am.score.halfTime.away !== null ? am.score.halfTime.away : "?"),
+              st: am.status, min: am.minute || "",
+            };
+          }
+        }
+      } catch(e) {}
+    }
+    renderPanel(todayMatches, scores);
+  });
+} else {
+  renderPanel(todayMatches, {});
+}
+
+function renderPanel(matches, scores) {
+  if (matches.length === 0) {
     $done({
-      title: "⚽ FIFA 2026 世界杯",
-      content: "今日无比赛\n\n下一比赛日请继续关注！\n📅 小组赛: 6/12 - 6/28\n🏆 决赛: 7/19 新泽西",
+      title: "⚽ 世界杯 · 今日赛程",
+      content: "今日无比赛\n\n📅 小组赛: 6/12 - 6/28\n🏆 决赛: 7/20 03:00 新泽西",
+      icon: "soccerball", "icon-color": "#8E8E93"
     });
     return;
   }
 
   var lines = [];
-  lines.push("📅 今日 " + todayMatches.length + " 场比赛 (北京时间)\n");
+  lines.push("📅 今日 " + matches.length + " 场 (北京时间)\n");
 
-  for (var i = 0; i < todayMatches.length; i++) {
-    var item = todayMatches[i];
+  for (var i = 0; i < matches.length; i++) {
+    var item = matches[i];
     var m = item.m;
     var hF = FLAGS[m.h] || "🏳️";
     var aF = FLAGS[m.a] || "🏳️";
     var hC = CN[m.h] || m.h;
     var aC = CN[m.a] || m.a;
 
-    // 状态标识
-    var statusIcon = "⏰"; // 未开始
+    var statusIcon = "⏰";
     var scoreStr = "";
-    var now = new Date();
     var matchTime = toBJ(m.d);
 
     if (now.getTime() > matchTime.getTime() + 2 * 3600000) {
-      statusIcon = "✅"; // 已结束
+      statusIcon = "✅";
     } else if (now.getTime() > matchTime.getTime() - 5 * 60000 &&
                now.getTime() < matchTime.getTime() + 2 * 3600000) {
-      statusIcon = "🔴"; // 进行中
+      statusIcon = "🔴";
     }
 
-    // 检查是否有 API 比分
     var key1 = m.h + "_" + m.a;
     if (scores[key1]) {
       var s = scores[key1];
-      scoreStr = " [" + s.homeScore + " - " + s.awayScore + "]";
-      if (s.status === "IN_PLAY") {
-        statusIcon = "🔴";
-        scoreStr += " " + s.minute + "'";
-      } else if (s.status === "FINISHED") {
-        statusIcon = "✅";
-      }
+      scoreStr = " [" + s.hs + "-" + s.as + "]";
+      if (s.st === "IN_PLAY") { statusIcon = "🔴"; scoreStr += " " + s.min + "'"; }
+      else if (s.st === "FINISHED") { statusIcon = "✅"; }
     }
 
     lines.push(statusIcon + " " + item.time + " " + hF + hC + " vs " + aF + aC + scoreStr);
     lines.push("    📍 " + m.v + " [" + m.g + "组]");
-    if (i < todayMatches.length - 1) lines.push("");
+    if (i < matches.length - 1) lines.push("");
   }
 
   $done({
-    title: "⚽ FIFA 2026 世界杯",
+    title: "⚽ 世界杯 · 今日赛程",
     content: lines.join("\n"),
+    icon: "soccerball", "icon-color": "#34C759"
   });
 }

@@ -1,9 +1,18 @@
 /**
  * 2026 FIFA 世界杯 - 小组排名面板
- * 
- * Surge 面板脚本：显示各小组积分榜
- * 支持 API 实时数据 + 静态分组展示
+ * Surge type=generic 面板脚本
  */
+
+var apiKey = "";
+var panelGroup = "ALL";
+if (typeof $argument !== "undefined" && $argument) {
+  var _a = $argument.split("&");
+  for (var _i = 0; _i < _a.length; _i++) {
+    var _kv = _a[_i].split("=");
+    if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
+    if (_kv[0] === "panel_group") panelGroup = decodeURIComponent(_kv[1] || "ALL");
+  }
+}
 
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -48,66 +57,41 @@ var GROUPS = {
   L:["England","Croatia","Ghana","Panama"],
 };
 
-// 读取用户选择展示的小组 (可通过 Surge 参数设置)
-var targetGroup = $persistentStore.get("wc2026_panel_group") || "ALL";
-
-(function () {
-  var apiKey = $persistentStore.get("wc2026_api_key") || "";
-
-  if (apiKey) {
-    // 尝试从 API 获取实时积分榜
-    var url = "https://api.football-data.org/v4/competitions/WC/standings";
-    $httpClient.get({ url: url, headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
-      if (!error && data) {
-        try {
-          var json = JSON.parse(data);
-          renderApiStandings(json);
-          return;
-        } catch(e) {}
-      }
-      renderStaticStandings();
-    });
-  } else {
+if (apiKey) {
+  $httpClient.get({ url: "https://api.football-data.org/v4/competitions/WC/standings", headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
+    if (!error && data) {
+      try { renderApiStandings(JSON.parse(data)); return; } catch(e) {}
+    }
     renderStaticStandings();
-  }
-})();
+  });
+} else {
+  renderStaticStandings();
+}
 
-// ===== 渲染 API 实时积分榜 =====
 function renderApiStandings(json) {
-  if (!json.standings || json.standings.length === 0) {
-    renderStaticStandings();
-    return;
-  }
+  if (!json.standings || json.standings.length === 0) { renderStaticStandings(); return; }
 
-  var lines = [];
-  lines.push("🏆 小组积分榜 (实时)\n");
+  var lines = ["🏆 小组积分榜 (实时)\n"];
 
   for (var s = 0; s < json.standings.length; s++) {
     var standing = json.standings[s];
     if (standing.type !== "TOTAL") continue;
-    var group = standing.group || "";
-    var groupLetter = group.replace("GROUP_", "").replace("Group ", "");
+    var groupLetter = (standing.group || "").replace("GROUP_", "").replace("Group ", "");
 
-    if (targetGroup !== "ALL" && targetGroup !== groupLetter) continue;
+    if (panelGroup !== "ALL" && panelGroup !== groupLetter) continue;
 
     lines.push("━━━ " + groupLetter + " 组 ━━━");
-    lines.push("  球队      赛  胜  平  负  得  失  净  分");
+    lines.push("  球队        赛 胜 平 负  得 失 净  分");
 
     var table = standing.table || [];
     for (var t = 0; t < table.length; t++) {
       var team = table[t];
       var name = CN[team.team.name] || team.team.name;
       var flag = FLAGS[team.team.name] || "🏳️";
-      var played = String(team.playedGames).padStart(2, " ");
-      var won = String(team.won).padStart(2, " ");
-      var draw = String(team.draw).padStart(2, " ");
-      var lost = String(team.lost).padStart(2, " ");
-      var gf = String(team.goalsFor).padStart(2, " ");
-      var ga = String(team.goalsAgainst).padStart(2, " ");
-      var gd = (team.goalDifference >= 0 ? "+" : "") + String(team.goalDifference).padStart(2, " ");
-      var pts = String(team.points).padStart(2, " ");
-      lines.push("  " + flag + " " + padRight(name, 6) + " " +
-        played + " " + won + " " + draw + " " + lost + " " + gf + " " + ga + " " + gd + " " + pts);
+      var gd = (team.goalDifference >= 0 ? "+" : "") + team.goalDifference;
+      lines.push("  " + flag + " " + padR(name, 5) + "  " +
+        team.playedGames + "  " + team.won + "  " + team.draw + "  " + team.lost +
+        "  " + team.goalsFor + "  " + team.goalsAgainst + "  " + gd + "  " + team.points);
     }
     lines.push("");
   }
@@ -115,40 +99,37 @@ function renderApiStandings(json) {
   $done({
     title: "📊 世界杯积分榜",
     content: lines.join("\n"),
+    icon: "list.number", "icon-color": "#007AFF"
   });
 }
 
-// ===== 渲染静态分组信息 =====
 function renderStaticStandings() {
-  var lines = [];
-  lines.push("🏆 2026 世界杯 48 强分组\n");
+  var lines = ["🏆 2026 世界杯 48 强分组\n"];
 
   var groupKeys = Object.keys(GROUPS);
   for (var g = 0; g < groupKeys.length; g++) {
     var key = groupKeys[g];
-    if (targetGroup !== "ALL" && targetGroup !== key) continue;
+    if (panelGroup !== "ALL" && panelGroup !== key) continue;
 
-    var teams = GROUPS[key];
     lines.push("━ " + key + " 组 ━");
+    var teams = GROUPS[key];
     for (var t = 0; t < teams.length; t++) {
-      var flag = FLAGS[teams[t]] || "🏳️";
-      var cn = CN[teams[t]] || teams[t];
-      lines.push("  " + flag + " " + cn);
+      lines.push("  " + (FLAGS[teams[t]] || "🏳️") + " " + (CN[teams[t]] || teams[t]));
     }
     lines.push("");
   }
 
-  lines.push("💡 配置 API Key 查看实时积分");
-  lines.push("   注册: football-data.org");
-  lines.push("   设置: 在 Surge 参数中填写 Key");
+  lines.push("💡 填写 API Key 查看实时积分");
+  lines.push("   football-data.org 免费注册");
 
   $done({
     title: "📊 世界杯分组",
     content: lines.join("\n"),
+    icon: "list.number", "icon-color": "#007AFF"
   });
 }
 
-function padRight(str, len) {
+function padR(str, len) {
   while (str.length < len) str += " ";
   return str;
 }

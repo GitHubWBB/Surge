@@ -1,15 +1,20 @@
 /**
  * 2026 FIFA 世界杯 - 定时通知脚本
- *
- * Surge Cron 脚本功能：
- *   1. 比赛开始前 30 分钟推送提醒
- *   2. 比赛结束后推送比分结果
- *   3. 每日赛程摘要推送（早 8 点）
- *
- * 配置：在 Surge 模块中设置 cron 定时执行
- *   - 每 10 分钟检查一次比赛状态
- *   - 每日早 8:00 推送当日赛程
+ * Surge type=cron 脚本
+ * 功能：赛前30分钟提醒 + 赛果推送 + 每日8点赛程摘要
  */
+
+// ===== 参数解析 =====
+var apiKey = "";
+var remindBefore = 30;
+if (typeof $argument !== "undefined" && $argument) {
+  var _a = $argument.split("&");
+  for (var _i = 0; _i < _a.length; _i++) {
+    var _kv = _a[_i].split("=");
+    if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
+    if (_kv[0] === "remind_before") remindBefore = parseInt(decodeURIComponent(_kv[1] || "30"));
+  }
+}
 
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -41,213 +46,143 @@ var CN = {
 };
 
 var MATCHES = [
-  {id:1,g:"A",h:"Mexico",a:"South Africa",d:"2026-06-11T15:00"},
-  {id:2,g:"A",h:"South Korea",a:"Czechia",d:"2026-06-11T22:00"},
-  {id:3,g:"B",h:"Canada",a:"Bosnia & Herzegovina",d:"2026-06-12T15:00"},
-  {id:4,g:"D",h:"USA",a:"Paraguay",d:"2026-06-12T21:00"},
-  {id:5,g:"B",h:"Qatar",a:"Switzerland",d:"2026-06-13T15:00"},
-  {id:6,g:"C",h:"Brazil",a:"Morocco",d:"2026-06-13T18:00"},
-  {id:7,g:"C",h:"Haiti",a:"Scotland",d:"2026-06-13T21:00"},
-  {id:8,g:"D",h:"Australia",a:"Türkiye",d:"2026-06-14T00:00"},
-  {id:9,g:"E",h:"Germany",a:"Curaçao",d:"2026-06-14T13:00"},
-  {id:10,g:"F",h:"Netherlands",a:"Japan",d:"2026-06-14T16:00"},
-  {id:11,g:"E",h:"Ivory Coast",a:"Ecuador",d:"2026-06-14T19:00"},
-  {id:12,g:"F",h:"Sweden",a:"Tunisia",d:"2026-06-14T22:00"},
-  {id:13,g:"H",h:"Spain",a:"Cape Verde",d:"2026-06-15T12:00"},
-  {id:14,g:"G",h:"Belgium",a:"Egypt",d:"2026-06-15T15:00"},
-  {id:15,g:"H",h:"Saudi Arabia",a:"Uruguay",d:"2026-06-15T18:00"},
-  {id:16,g:"G",h:"Iran",a:"New Zealand",d:"2026-06-15T21:00"},
-  {id:17,g:"I",h:"France",a:"Senegal",d:"2026-06-16T15:00"},
-  {id:18,g:"I",h:"Iraq",a:"Norway",d:"2026-06-16T18:00"},
-  {id:19,g:"J",h:"Argentina",a:"Algeria",d:"2026-06-16T21:00"},
-  {id:20,g:"J",h:"Austria",a:"Jordan",d:"2026-06-17T00:00"},
-  {id:21,g:"K",h:"Portugal",a:"DR Congo",d:"2026-06-17T13:00"},
-  {id:22,g:"L",h:"England",a:"Croatia",d:"2026-06-17T16:00"},
-  {id:23,g:"L",h:"Ghana",a:"Panama",d:"2026-06-17T19:00"},
-  {id:24,g:"K",h:"Uzbekistan",a:"Colombia",d:"2026-06-17T22:00"},
-  {id:25,g:"A",h:"Czechia",a:"South Africa",d:"2026-06-18T12:00"},
-  {id:26,g:"B",h:"Switzerland",a:"Bosnia & Herzegovina",d:"2026-06-18T15:00"},
-  {id:27,g:"B",h:"Canada",a:"Qatar",d:"2026-06-18T18:00"},
-  {id:28,g:"A",h:"Mexico",a:"South Korea",d:"2026-06-18T21:00"},
-  {id:29,g:"D",h:"USA",a:"Australia",d:"2026-06-19T15:00"},
-  {id:30,g:"C",h:"Scotland",a:"Morocco",d:"2026-06-19T18:00"},
-  {id:31,g:"C",h:"Brazil",a:"Haiti",d:"2026-06-19T20:30"},
-  {id:32,g:"D",h:"Türkiye",a:"Paraguay",d:"2026-06-19T23:00"},
-  {id:33,g:"F",h:"Netherlands",a:"Sweden",d:"2026-06-20T13:00"},
-  {id:34,g:"E",h:"Germany",a:"Ivory Coast",d:"2026-06-20T16:00"},
-  {id:35,g:"E",h:"Ecuador",a:"Curaçao",d:"2026-06-20T20:00"},
-  {id:36,g:"F",h:"Tunisia",a:"Japan",d:"2026-06-21T00:00"},
-  {id:37,g:"H",h:"Spain",a:"Saudi Arabia",d:"2026-06-21T12:00"},
-  {id:38,g:"G",h:"Belgium",a:"Iran",d:"2026-06-21T15:00"},
-  {id:39,g:"H",h:"Uruguay",a:"Cape Verde",d:"2026-06-21T18:00"},
-  {id:40,g:"G",h:"New Zealand",a:"Egypt",d:"2026-06-21T21:00"},
-  {id:41,g:"J",h:"Argentina",a:"Austria",d:"2026-06-22T13:00"},
-  {id:42,g:"I",h:"France",a:"Iraq",d:"2026-06-22T17:00"},
-  {id:43,g:"I",h:"Norway",a:"Senegal",d:"2026-06-22T20:00"},
-  {id:44,g:"J",h:"Jordan",a:"Algeria",d:"2026-06-22T23:00"},
-  {id:45,g:"K",h:"Portugal",a:"Uzbekistan",d:"2026-06-23T13:00"},
-  {id:46,g:"L",h:"England",a:"Ghana",d:"2026-06-23T16:00"},
-  {id:47,g:"L",h:"Panama",a:"Croatia",d:"2026-06-23T19:00"},
-  {id:48,g:"K",h:"Colombia",a:"DR Congo",d:"2026-06-23T22:00"},
-  {id:49,g:"B",h:"Switzerland",a:"Canada",d:"2026-06-24T15:00"},
-  {id:50,g:"B",h:"Bosnia & Herzegovina",a:"Qatar",d:"2026-06-24T15:00"},
-  {id:51,g:"C",h:"Scotland",a:"Brazil",d:"2026-06-24T18:00"},
-  {id:52,g:"C",h:"Morocco",a:"Haiti",d:"2026-06-24T18:00"},
-  {id:53,g:"A",h:"Czechia",a:"Mexico",d:"2026-06-24T21:00"},
-  {id:54,g:"A",h:"South Africa",a:"South Korea",d:"2026-06-24T21:00"},
-  {id:55,g:"E",h:"Curaçao",a:"Ivory Coast",d:"2026-06-25T16:00"},
-  {id:56,g:"E",h:"Ecuador",a:"Germany",d:"2026-06-25T16:00"},
-  {id:57,g:"F",h:"Japan",a:"Sweden",d:"2026-06-25T19:00"},
-  {id:58,g:"F",h:"Tunisia",a:"Netherlands",d:"2026-06-25T19:00"},
-  {id:59,g:"D",h:"Türkiye",a:"USA",d:"2026-06-25T22:00"},
-  {id:60,g:"D",h:"Paraguay",a:"Australia",d:"2026-06-25T22:00"},
-  {id:61,g:"I",h:"Norway",a:"France",d:"2026-06-26T15:00"},
-  {id:62,g:"I",h:"Senegal",a:"Iraq",d:"2026-06-26T15:00"},
-  {id:63,g:"H",h:"Cape Verde",a:"Saudi Arabia",d:"2026-06-26T20:00"},
-  {id:64,g:"H",h:"Uruguay",a:"Spain",d:"2026-06-26T20:00"},
-  {id:65,g:"G",h:"Egypt",a:"Iran",d:"2026-06-26T23:00"},
-  {id:66,g:"G",h:"New Zealand",a:"Belgium",d:"2026-06-26T23:00"},
-  {id:67,g:"L",h:"Panama",a:"England",d:"2026-06-27T17:00"},
-  {id:68,g:"L",h:"Croatia",a:"Ghana",d:"2026-06-27T17:00"},
-  {id:69,g:"K",h:"Colombia",a:"Portugal",d:"2026-06-27T19:30"},
-  {id:70,g:"K",h:"DR Congo",a:"Uzbekistan",d:"2026-06-27T19:30"},
-  {id:71,g:"J",h:"Algeria",a:"Austria",d:"2026-06-27T22:00"},
-  {id:72,g:"J",h:"Jordan",a:"Argentina",d:"2026-06-27T22:00"},
+  {id:1,g:"A",h:"Mexico",a:"South Africa",d:"2026-06-11T15:00"},{id:2,g:"A",h:"South Korea",a:"Czechia",d:"2026-06-11T22:00"},
+  {id:3,g:"B",h:"Canada",a:"Bosnia & Herzegovina",d:"2026-06-12T15:00"},{id:4,g:"D",h:"USA",a:"Paraguay",d:"2026-06-12T21:00"},
+  {id:5,g:"B",h:"Qatar",a:"Switzerland",d:"2026-06-13T15:00"},{id:6,g:"C",h:"Brazil",a:"Morocco",d:"2026-06-13T18:00"},
+  {id:7,g:"C",h:"Haiti",a:"Scotland",d:"2026-06-13T21:00"},{id:8,g:"D",h:"Australia",a:"Türkiye",d:"2026-06-14T00:00"},
+  {id:9,g:"E",h:"Germany",a:"Curaçao",d:"2026-06-14T13:00"},{id:10,g:"F",h:"Netherlands",a:"Japan",d:"2026-06-14T16:00"},
+  {id:11,g:"E",h:"Ivory Coast",a:"Ecuador",d:"2026-06-14T19:00"},{id:12,g:"F",h:"Sweden",a:"Tunisia",d:"2026-06-14T22:00"},
+  {id:13,g:"H",h:"Spain",a:"Cape Verde",d:"2026-06-15T12:00"},{id:14,g:"G",h:"Belgium",a:"Egypt",d:"2026-06-15T15:00"},
+  {id:15,g:"H",h:"Saudi Arabia",a:"Uruguay",d:"2026-06-15T18:00"},{id:16,g:"G",h:"Iran",a:"New Zealand",d:"2026-06-15T21:00"},
+  {id:17,g:"I",h:"France",a:"Senegal",d:"2026-06-16T15:00"},{id:18,g:"I",h:"Iraq",a:"Norway",d:"2026-06-16T18:00"},
+  {id:19,g:"J",h:"Argentina",a:"Algeria",d:"2026-06-16T21:00"},{id:20,g:"J",h:"Austria",a:"Jordan",d:"2026-06-17T00:00"},
+  {id:21,g:"K",h:"Portugal",a:"DR Congo",d:"2026-06-17T13:00"},{id:22,g:"L",h:"England",a:"Croatia",d:"2026-06-17T16:00"},
+  {id:23,g:"L",h:"Ghana",a:"Panama",d:"2026-06-17T19:00"},{id:24,g:"K",h:"Uzbekistan",a:"Colombia",d:"2026-06-17T22:00"},
+  {id:25,g:"A",h:"Czechia",a:"South Africa",d:"2026-06-18T12:00"},{id:26,g:"B",h:"Switzerland",a:"Bosnia & Herzegovina",d:"2026-06-18T15:00"},
+  {id:27,g:"B",h:"Canada",a:"Qatar",d:"2026-06-18T18:00"},{id:28,g:"A",h:"Mexico",a:"South Korea",d:"2026-06-18T21:00"},
+  {id:29,g:"D",h:"USA",a:"Australia",d:"2026-06-19T15:00"},{id:30,g:"C",h:"Scotland",a:"Morocco",d:"2026-06-19T18:00"},
+  {id:31,g:"C",h:"Brazil",a:"Haiti",d:"2026-06-19T20:30"},{id:32,g:"D",h:"Türkiye",a:"Paraguay",d:"2026-06-19T23:00"},
+  {id:33,g:"F",h:"Netherlands",a:"Sweden",d:"2026-06-20T13:00"},{id:34,g:"E",h:"Germany",a:"Ivory Coast",d:"2026-06-20T16:00"},
+  {id:35,g:"E",h:"Ecuador",a:"Curaçao",d:"2026-06-20T20:00"},{id:36,g:"F",h:"Tunisia",a:"Japan",d:"2026-06-21T00:00"},
+  {id:37,g:"H",h:"Spain",a:"Saudi Arabia",d:"2026-06-21T12:00"},{id:38,g:"G",h:"Belgium",a:"Iran",d:"2026-06-21T15:00"},
+  {id:39,g:"H",h:"Uruguay",a:"Cape Verde",d:"2026-06-21T18:00"},{id:40,g:"G",h:"New Zealand",a:"Egypt",d:"2026-06-21T21:00"},
+  {id:41,g:"J",h:"Argentina",a:"Austria",d:"2026-06-22T13:00"},{id:42,g:"I",h:"France",a:"Iraq",d:"2026-06-22T17:00"},
+  {id:43,g:"I",h:"Norway",a:"Senegal",d:"2026-06-22T20:00"},{id:44,g:"J",h:"Jordan",a:"Algeria",d:"2026-06-22T23:00"},
+  {id:45,g:"K",h:"Portugal",a:"Uzbekistan",d:"2026-06-23T13:00"},{id:46,g:"L",h:"England",a:"Ghana",d:"2026-06-23T16:00"},
+  {id:47,g:"L",h:"Panama",a:"Croatia",d:"2026-06-23T19:00"},{id:48,g:"K",h:"Colombia",a:"DR Congo",d:"2026-06-23T22:00"},
+  {id:49,g:"B",h:"Switzerland",a:"Canada",d:"2026-06-24T15:00"},{id:50,g:"B",h:"Bosnia & Herzegovina",a:"Qatar",d:"2026-06-24T15:00"},
+  {id:51,g:"C",h:"Scotland",a:"Brazil",d:"2026-06-24T18:00"},{id:52,g:"C",h:"Morocco",a:"Haiti",d:"2026-06-24T18:00"},
+  {id:53,g:"A",h:"Czechia",a:"Mexico",d:"2026-06-24T21:00"},{id:54,g:"A",h:"South Africa",a:"South Korea",d:"2026-06-24T21:00"},
+  {id:55,g:"E",h:"Curaçao",a:"Ivory Coast",d:"2026-06-25T16:00"},{id:56,g:"E",h:"Ecuador",a:"Germany",d:"2026-06-25T16:00"},
+  {id:57,g:"F",h:"Japan",a:"Sweden",d:"2026-06-25T19:00"},{id:58,g:"F",h:"Tunisia",a:"Netherlands",d:"2026-06-25T19:00"},
+  {id:59,g:"D",h:"Türkiye",a:"USA",d:"2026-06-25T22:00"},{id:60,g:"D",h:"Paraguay",a:"Australia",d:"2026-06-25T22:00"},
+  {id:61,g:"I",h:"Norway",a:"France",d:"2026-06-26T15:00"},{id:62,g:"I",h:"Senegal",a:"Iraq",d:"2026-06-26T15:00"},
+  {id:63,g:"H",h:"Cape Verde",a:"Saudi Arabia",d:"2026-06-26T20:00"},{id:64,g:"H",h:"Uruguay",a:"Spain",d:"2026-06-26T20:00"},
+  {id:65,g:"G",h:"Egypt",a:"Iran",d:"2026-06-26T23:00"},{id:66,g:"G",h:"New Zealand",a:"Belgium",d:"2026-06-26T23:00"},
+  {id:67,g:"L",h:"Panama",a:"England",d:"2026-06-27T17:00"},{id:68,g:"L",h:"Croatia",a:"Ghana",d:"2026-06-27T17:00"},
+  {id:69,g:"K",h:"Colombia",a:"Portugal",d:"2026-06-27T19:30"},{id:70,g:"K",h:"DR Congo",a:"Uzbekistan",d:"2026-06-27T19:30"},
+  {id:71,g:"J",h:"Algeria",a:"Austria",d:"2026-06-27T22:00"},{id:72,g:"J",h:"Jordan",a:"Argentina",d:"2026-06-27T22:00"},
 ];
 
 function toBJ(etStr) {
   var p = etStr.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
-  var utcMs = Date.UTC(+p[1], +p[2]-1, +p[3], +p[4], +p[5]);
-  return new Date(utcMs + 12 * 3600000);
+  return new Date(Date.UTC(+p[1], +p[2]-1, +p[3], +p[4], +p[5]) + 12 * 3600000);
 }
 
-// ===== 通知记录 (避免重复推送) =====
-var notified = JSON.parse($persistentStore.get("wc2026_notified") || "{}");
+// ===== 通知去重 =====
+var notified = {};
+try { notified = JSON.parse($persistentStore.read("wc2026_notified") || "{}"); } catch(e) { notified = {}; }
 
-function markNotified(matchId, type) {
-  var key = matchId + "_" + type;
+function markNotified(key) {
   notified[key] = Date.now();
-  $persistentStore.set(JSON.stringify(notified), "wc2026_notified");
+  $persistentStore.write(JSON.stringify(notified), "wc2026_notified");
 }
 
-function isNotified(matchId, type) {
-  return notified[matchId + "_" + type] !== undefined;
+function isNotified(key) {
+  return notified[key] !== undefined;
 }
 
 // ===== 主逻辑 =====
-(function () {
-  var now = new Date();
-  var hour = now.getHours();
-  var apiKey = $persistentStore.get("wc2026_api_key") || "";
-  var remindMinutes = parseInt($persistentStore.get("wc2026_remind_before") || "30");
+var now = new Date();
+var hour = now.getHours();
+var todayKey = "daily_" + now.toDateString();
 
-  // ====== 1. 每日早 8 点赛程摘要 ======
-  if (hour === 8 && now.getMinutes() < 10 && !isNotified("daily_" + now.toDateString(), "summary")) {
-    var todayStr = now.getFullYear() + "-" +
-      String(now.getMonth() + 1).padStart(2, "0") + "-" +
-      String(now.getDate()).padStart(2, "0");
-    var todayMatches = [];
-    for (var i = 0; i < MATCHES.length; i++) {
-      var bj = toBJ(MATCHES[i].d);
-      var ds = bj.getFullYear() + "-" +
-        String(bj.getMonth() + 1).padStart(2, "0") + "-" +
-        String(bj.getDate()).padStart(2, "0");
-      if (ds === todayStr) {
-        var hh = String(bj.getHours()).padStart(2, "0");
-        var mm = String(bj.getMinutes()).padStart(2, "0");
-        todayMatches.push(hh + ":" + mm + " " +
-          (FLAGS[MATCHES[i].h] || "🏳️") + (CN[MATCHES[i].h] || MATCHES[i].h) + " vs " +
-          (FLAGS[MATCHES[i].a] || "🏳️") + (CN[MATCHES[i].a] || MATCHES[i].a));
-      }
+// 1. 每日早8点赛程摘要
+if (hour === 8 && now.getMinutes() < 10 && !isNotified(todayKey)) {
+  var todayStr = now.getFullYear() + "-" + String(now.getMonth()+1).padStart(2,"0") + "-" + String(now.getDate()).padStart(2,"0");
+  var todayMatches = [];
+  for (var i = 0; i < MATCHES.length; i++) {
+    var bj = toBJ(MATCHES[i].d);
+    var ds = bj.getFullYear() + "-" + String(bj.getMonth()+1).padStart(2,"0") + "-" + String(bj.getDate()).padStart(2,"0");
+    if (ds === todayStr) {
+      var hh = String(bj.getHours()).padStart(2, "0");
+      var mm = String(bj.getMinutes()).padStart(2, "0");
+      todayMatches.push(hh + ":" + mm + " " + (FLAGS[MATCHES[i].h]||"🏳️") + (CN[MATCHES[i].h]||MATCHES[i].h) + " vs " + (FLAGS[MATCHES[i].a]||"🏳️") + (CN[MATCHES[i].a]||MATCHES[i].a));
     }
-    if (todayMatches.length > 0) {
-      $notification.post(
-        "⚽ 今日世界杯赛程",
-        "今日共 " + todayMatches.length + " 场比赛",
-        todayMatches.join("\n"),
-        "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026"
-      );
-    } else {
-      $notification.post(
-        "⚽ 世界杯日报",
-        "今日无比赛安排",
-        "小组赛: 6/12-6/28 | 淘汰赛: 6/28起\n决赛: 7/19 新泽西 MetLife Stadium",
-        "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026"
-      );
-    }
-    markNotified("daily_" + now.toDateString(), "summary");
-    $done();
-    return;
   }
-
-  // ====== 2. 赛前提醒 (每 10 分钟检查) ======
+  if (todayMatches.length > 0) {
+    $notification.post("⚽ 今日世界杯赛程", "今日共 " + todayMatches.length + " 场比赛", todayMatches.join("\n"));
+  } else {
+    $notification.post("⚽ 世界杯日报", "今日无比赛安排", "小组赛: 6/12-6/28 | 决赛: 7/20 03:00");
+  }
+  markNotified(todayKey);
+  $done();
+} else {
+  // 2. 赛前提醒 + 3. 赛果推送
   for (var i = 0; i < MATCHES.length; i++) {
     var m = MATCHES[i];
     var bjTime = toBJ(m.d);
     var diffMs = bjTime.getTime() - now.getTime();
     var diffMin = diffMs / 60000;
 
-    // 赛前提醒窗口: remindMinutes ~ (remindMinutes - 10) 分钟
-    if (diffMin > 0 && diffMin <= remindMinutes && diffMin > (remindMinutes - 10)) {
-      if (!isNotified(m.id, "pre")) {
-        var hFlag = FLAGS[m.h] || "🏳️";
-        var aFlag = FLAGS[m.a] || "🏳️";
-        var hCn = CN[m.h] || m.h;
-        var aCn = CN[m.a] || m.a;
+    // 赛前提醒窗口
+    if (diffMin > 0 && diffMin <= remindBefore && diffMin > (remindBefore - 10)) {
+      var preKey = m.id + "_pre";
+      if (!isNotified(preKey)) {
         var hh = String(bjTime.getHours()).padStart(2, "0");
         var mm = String(bjTime.getMinutes()).padStart(2, "0");
-
         $notification.post(
           "⚽ 比赛即将开始",
-          hFlag + " " + hCn + " vs " + aCn + " " + aFlag,
-          "⏰ " + hh + ":" + mm + " 开球 | " + m.g + "组\n还有约 " + Math.round(diffMin) + " 分钟",
-          "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026"
+          (FLAGS[m.h]||"🏳️") + " " + (CN[m.h]||m.h) + " vs " + (CN[m.a]||m.a) + " " + (FLAGS[m.a]||"🏳️"),
+          "⏰ " + hh + ":" + mm + " 开球 | " + m.g + "组 | 约" + Math.round(diffMin) + "分钟后"
         );
-        markNotified(m.id, "pre");
+        markNotified(preKey);
       }
     }
   }
 
-  // ====== 3. 比赛结束比分推送 ======
+  // 赛果推送
   if (apiKey) {
-    var today = now.getFullYear() + "-" +
-      String(now.getMonth() + 1).padStart(2, "0") + "-" +
-      String(now.getDate()).padStart(2, "0");
-    var url = "https://api.football-data.org/v4/competitions/WC/matches?dateFrom=" + today + "&dateTo=" + today + "&status=FINISHED";
-    $httpClient.get({ url: url, headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
+    var td = now.getFullYear() + "-" + String(now.getMonth()+1).padStart(2,"0") + "-" + String(now.getDate()).padStart(2,"0");
+    $httpClient.get({ url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom=" + td + "&dateTo=" + td + "&status=FINISHED", headers: { "X-Auth-Token": apiKey } }, function(error, response, data) {
       if (!error && data) {
         try {
           var json = JSON.parse(data);
           if (json.matches) {
             for (var k = 0; k < json.matches.length; k++) {
-              var apiMatch = json.matches[k];
-              var mid = "api_" + apiMatch.id;
-              if (!isNotified(mid, "result")) {
-                var home = apiMatch.homeTeam.name;
-                var away = apiMatch.awayTeam.name;
-                var hScore = apiMatch.score.fullTime.home;
-                var aScore = apiMatch.score.fullTime.away;
-                var hF = FLAGS[home] || "🏳️";
-                var aF = FLAGS[away] || "🏳️";
+              var am = json.matches[k];
+              var mid = "api_" + am.id;
+              if (!isNotified(mid)) {
+                var home = am.homeTeam.name;
+                var away = am.awayTeam.name;
+                var hScore = am.score.fullTime.home;
+                var aScore = am.score.fullTime.away;
 
-                // 获取进球球员
                 var goalInfo = "";
-                if (apiMatch.goals && apiMatch.goals.length > 0) {
-                  var goalScorers = [];
-                  for (var g = 0; g < apiMatch.goals.length; g++) {
-                    var goal = apiMatch.goals[g];
-                    goalScorers.push(goal.scorer.name + " " + goal.minute + "'");
+                if (am.goals && am.goals.length > 0) {
+                  var gs = [];
+                  for (var g = 0; g < Math.min(am.goals.length, 6); g++) {
+                    gs.push(am.goals[g].scorer.name + " " + am.goals[g].minute + "'");
                   }
-                  goalInfo = "\n⚽ " + goalScorers.join(", ");
+                  goalInfo = "\n⚽ " + gs.join(", ");
                 }
 
                 $notification.post(
                   "⚽ 比赛结束",
-                  hF + " " + (CN[home] || home) + " " + hScore + " - " + aScore + " " + (CN[away] || away) + " " + aF,
-                  "全场比分已出" + goalInfo,
-                  "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026"
+                  (FLAGS[home]||"🏳️") + " " + (CN[home]||home) + " " + hScore + "-" + aScore + " " + (CN[away]||away) + " " + (FLAGS[away]||"🏳️"),
+                  "全场比分已出" + goalInfo
                 );
-                markNotified(mid, "result");
+                markNotified(mid);
               }
             }
           }
@@ -256,29 +191,22 @@ function isNotified(matchId, type) {
       $done();
     });
   } else {
-    // 无 API Key，基于时间判断比赛结束
+    // 无 API Key，基于时间判断
     for (var i = 0; i < MATCHES.length; i++) {
       var m = MATCHES[i];
-      var bjTime = toBJ(m.d);
-      var elapsed = now.getTime() - bjTime.getTime();
-      // 比赛开始 2 小时后视为结束
+      var elapsed = now.getTime() - toBJ(m.d).getTime();
       if (elapsed > 2 * 3600000 && elapsed < 2.5 * 3600000) {
-        if (!isNotified(m.id, "ended")) {
-          var hFlag = FLAGS[m.h] || "🏳️";
-          var aFlag = FLAGS[m.a] || "🏳️";
-          var hCn = CN[m.h] || m.h;
-          var aCn = CN[m.a] || m.a;
-
+        var endKey = m.id + "_ended";
+        if (!isNotified(endKey)) {
           $notification.post(
             "⚽ 比赛已结束",
-            hFlag + " " + hCn + " vs " + aCn + " " + aFlag,
-            m.g + "组比赛已结束\n💡 配置 API Key 可查看比分和进球",
-            "https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026"
+            (FLAGS[m.h]||"🏳️") + " " + (CN[m.h]||m.h) + " vs " + (CN[m.a]||m.a) + " " + (FLAGS[m.a]||"🏳️"),
+            m.g + "组比赛已结束 | 填写 API Key 可查看比分"
           );
-          markNotified(m.id, "ended");
+          markNotified(endKey);
         }
       }
     }
     $done();
   }
-})();
+}
