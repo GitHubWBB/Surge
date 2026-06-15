@@ -27,256 +27,208 @@ BEGIN:VEVENT
 UID:wc2026-match-001@qoderwork.com
 DTSTART:20260611T190000Z
 DTEND:20260611T210000Z
-SUMMARY:⚽ 🇲🇽 Mexico vs 🇿🇦 South Africa | 小组赛 A组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇲🇽 Mexi
- co vs 🇿🇦 South Africa\n\n⏰ 北京时间: 2026-06-12 03:00\n⏰ UT
- C: 2026-06-11 19:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Mexico\n\n
- 📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  🇰🇷 
- South Korea\n  🇨🇿 Czech Republic
+SUMMARY:⚽ 🇲🇽 Mexico 2:0 South Africa 🇿🇦 | 小组赛 A组 [
+ 完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n✅ 🇲🇽 
+ Mexico 2 : 0 South Africa 🇿🇦\n\n⚽ 进球:\n  9' 🇲🇽 Uriel Qu
+ inones\n  67' 🇲🇽 Raul Jimenez\n\n⏰ 北京时间: 2026-06-12 03:00
+ \n⏰ UTC: 2026-06-11 19:00 UTC\n\n📍 Estadio Azteca\, Mexico City\, Me
+ xico\n\n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  
+ 🇷 South Korea\n  🇨🇿 Czech Republic
 LOCATION:Estadio Azteca\, Mexico City\, Mexico
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇲🇽 Mexico vs 🇿🇦 South Africa | 小组赛 A组 
- starts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-002@qoderwork.com
 DTSTART:20260612T020000Z
 DTEND:20260612T040000Z
-SUMMARY:⚽ 🇰🇷 South Korea vs 🇨🇿 Czech Republic | 小组赛 A
- 
-DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n🇰🇷 Sout
- h Korea vs 🇨🇿 Czech Republic\n\n⏰ 北京时间: 2026-06-12 10:00\
- n⏰ UTC: 2026-06-12 02:00 UTC\n\n📍 Estadio Akron\, Guadalajara\, Mexi
- co\n\n📋 A组球队:\n  🇲🇽 Mexico\n  🇿🇦 South Africa\n  
- 🇷 South Korea\n  🇨🇿 Czech Republic
+SUMMARY:⚽ 🇰🇷 South Korea 2:1 Czech Republic 🇨🇿 | 小组赛 A
+ 组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 A组 (Group A)\n\n✅ 🇰🇷 
+ South Korea 2 : 1 Czech Republic 🇨🇿\n\n⚽ 进球:\n  59' 🇨🇿 
+ Ladislav Krejci\n  67' 🇰🇷 Hwang In-beom\n  80' 🇰🇷 Oh Hyeon-gy
+ u\n\n⏰ 北京时间: 2026-06-12 10:00\n⏰ UTC: 2026-06-12 02:00 UTC\n\
+ n📍 Estadio Akron\, Guadalajara\, Mexico\n\n📋 A组球队:\n  🇲
+  Mexico\n  🇿🇦 South Africa\n  🇰🇷 South Korea\n  🇨🇿 Cze
+ ch Republic
 LOCATION:Estadio Akron\, Guadalajara\, Mexico
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group A
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇰🇷 South Korea vs 🇨🇿 Czech Republic | 小组
-  A组 starts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-003@qoderwork.com
 DTSTART:20260612T190000Z
 DTEND:20260612T210000Z
-SUMMARY:⚽ 🇨🇦 Canada vs 🇧🇦 Bosnia and Herzegovina | 小组赛
-  B组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇨🇦 Cana
- da vs 🇧🇦 Bosnia and Herzegovina\n\n⏰ 北京时间: 2026-06-13 03:
- 00\n⏰ UTC: 2026-06-12 19:00 UTC\n\n📍 BMO Field\, Toronto\, Canada\n\
- n📋 B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n
-   🇶🇦 Qatar\n  🇨🇭 Switzerland
+SUMMARY:⚽ 🇨🇦 Canada 1:1 Bosnia and Herzegovina 🇧🇦 | 小组
+  B组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n✅ 🇨🇦 
+ Canada 1 : 1 Bosnia and Herzegovina 🇧🇦\n\n⚽ 进球:\n  21' 🇧
+  Josip Lukic\n  78' 🇨🇦 Cyle Larin\n\n⏰ 北京时间: 2026-06-13
+  03:00\n⏰ UTC: 2026-06-12 19:00 UTC\n\n📍 BMO Field\, Toronto\, Canad
+ a\n\n📋 B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovi
+ na\n  🇶🇦 Qatar\n  🇨🇭 Switzerland
 LOCATION:BMO Field\, Toronto\, Canada
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇨🇦 Canada vs 🇧🇦 Bosnia and Herzegovina | 小
- 赛 B组 starts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-004@qoderwork.com
 DTSTART:20260613T010000Z
 DTEND:20260613T030000Z
-SUMMARY:⚽ 🇺🇸 USA vs 🇵🇾 Paraguay | 小组赛 D组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇺🇸 USA 
- vs 🇵🇾 Paraguay\n\n⏰ 北京时间: 2026-06-13 09:00\n⏰ UTC: 2026
- -06-13 01:00 UTC\n\n📍 SoFi Stadium\, Los Angeles\, USA\n\n📋 D组球
- 队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹
-  Turkey
+SUMMARY:⚽ 🇺🇸 USA 4:1 Paraguay 🇵🇾 | 小组赛 D组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n✅ 🇺🇸 
+ USA 4 : 1 Paraguay 🇵🇾\n\n⚽ 进球:\n  7' 🇵🇾 Damian Bobadill
+ a (own goal)\n  31' 🇺🇸 Folarin Balogun\n  50' 🇺🇸 Folarin Balo
+ gun\n  73' 🇵🇾 Mauricio\n  98' 🇺🇸 Gio Reyna\n\n⏰ 北京时
+ : 2026-06-13 09:00\n⏰ UTC: 2026-06-13 01:00 UTC\n\n📍 SoFi Stadium\,
+  Los Angeles\, USA\n\n📋 D组球队:\n  🇺🇸 USA\n  🇵🇾 Paragu
+ ay\n  🇦🇺 Australia\n  🇹🇷 Turkey
 LOCATION:SoFi Stadium\, Los Angeles\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇺🇸 USA vs 🇵🇾 Paraguay | 小组赛 D组 starts 
- in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-005@qoderwork.com
 DTSTART:20260613T190000Z
 DTEND:20260613T210000Z
-SUMMARY:⚽ 🇧🇷 Brazil vs 🇲🇦 Morocco | 小组赛 C组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇧🇷 Braz
- il vs 🇲🇦 Morocco\n\n⏰ 北京时间: 2026-06-14 03:00\n⏰ UTC: 20
- 26-06-13 19:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\, USA\n\n
-  C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭🇹 Haiti\n 
-  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
+SUMMARY:⚽ 🇧🇷 Brazil 1:1 Morocco 🇲🇦 | 小组赛 C组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n✅ 🇧🇷 
+ Brazil 1 : 1 Morocco 🇲🇦\n\n⚽ 进球:\n  21' 🇲🇦 Ismail Sebba
+ ri\n  32' 🇧🇷 Vinicius Junior\n\n⏰ 北京时间: 2026-06-14 03:00\
+ n⏰ UTC: 2026-06-13 19:00 UTC\n\n📍 MetLife Stadium\, East Rutherford\
+ , USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭
+  Haiti\n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
 LOCATION:MetLife Stadium\, East Rutherford\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇧🇷 Brazil vs 🇲🇦 Morocco | 小组赛 C组 start
- s in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-006@qoderwork.com
 DTSTART:20260614T020000Z
 DTEND:20260614T040000Z
-SUMMARY:⚽ 🇭🇹 Haiti vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland | 小
- 赛 C组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n🇭🇹 Hait
- i vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland\n\n⏰ 北京时间: 2026-06-1
- 4 10:00\n⏰ UTC: 2026-06-14 02:00 UTC\n\n📍 Gillette Stadium\, Foxboro
- ugh\, USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  
+SUMMARY:⚽ 🇭🇹 Haiti 0:1 Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿 | 小
+ 组赛 C组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 C组 (Group C)\n\n✅ 🇭🇹 
+ Haiti 0 : 1 Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿\n\n⚽ 进球:\n  28' 
+ 󠁧󠁢󠁳󠁣󠁴󠁿 John McGinn\n\n⏰ 北京时间: 2026-06-14 1
+ 0:00\n⏰ UTC: 2026-06-14 02:00 UTC\n\n📍 Gillette Stadium\, Foxborough
+ \, USA\n\n📋 C组球队:\n  🇧🇷 Brazil\n  🇲🇦 Morocco\n  🇭
  🇹 Haiti\n  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland
 LOCATION:Gillette Stadium\, Foxborough\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group C
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇭🇹 Haiti vs 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland | 
- 小组赛 C组 starts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-007@qoderwork.com
 DTSTART:20260614T020000Z
 DTEND:20260614T040000Z
-SUMMARY:⚽ 🇦🇺 Australia vs 🇹🇷 Turkey | 小组赛 D组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n🇦🇺 Aust
- ralia vs 🇹🇷 Turkey\n\n⏰ 北京时间: 2026-06-14 10:00\n⏰ UTC: 
- 2026-06-14 02:00 UTC\n\n📍 BC Place\, Vancouver\, Canada\n\n📋 D组
- 队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Australia\n  🇹
-  Turkey
+SUMMARY:⚽ 🇦🇺 Australia 2:0 Turkey 🇹🇷 | 小组赛 D组 [已
+ ]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 D组 (Group D)\n\n✅ 🇦🇺 
+ Australia 2 : 0 Turkey 🇹🇷\n\n⚽ 进球:\n  28' 🇦🇺 Nestory Ir
+ ankunda\n  75' 🇦🇺 Connor Metcalfe\n\n⏰ 北京时间: 2026-06-14 1
+ 0:00\n⏰ UTC: 2026-06-14 02:00 UTC\n\n📍 BC Place\, Vancouver\, Canada
+ \n\n📋 D组球队:\n  🇺🇸 USA\n  🇵🇾 Paraguay\n  🇦🇺 Aus
+ tralia\n  🇹🇷 Turkey
 LOCATION:BC Place\, Vancouver\, Canada
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group D
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇦🇺 Australia vs 🇹🇷 Turkey | 小组赛 D组 sta
- rts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-008@qoderwork.com
 DTSTART:20260614T170000Z
 DTEND:20260614T190000Z
-SUMMARY:⚽ 🇶🇦 Qatar vs 🇨🇭 Switzerland | 小组赛 B组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n🇶🇦 Qata
- r vs 🇨🇭 Switzerland\n\n⏰ 北京时间: 2026-06-15 01:00\n⏰ UTC:
-  2026-06-14 17:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, USA\n\n📋 
- B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovina\n  🇶
- 🇦 Qatar\n  🇨🇭 Switzerland
+SUMMARY:⚽ 🇶🇦 Qatar 1:1 Switzerland 🇨🇭 | 小组赛 B组 [已
+ ]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 B组 (Group B)\n\n✅ 🇶🇦 
+ Qatar 1 : 1 Switzerland 🇨🇭\n\n⚽ 进球:\n  17' 🇨🇭 Breel Emb
+ olo\n  94' 🇶🇦 Boualem Khoukhi\n\n⏰ 北京时间: 2026-06-15 01:00
+ \n⏰ UTC: 2026-06-14 17:00 UTC\n\n📍 Levi's Stadium\, Santa Clara\, US
+ A\n\n📋 B组球队:\n  🇨🇦 Canada\n  🇧🇦 Bosnia and Herzegovi
+ na\n  🇶🇦 Qatar\n  🇨🇭 Switzerland
 LOCATION:Levi's Stadium\, Santa Clara\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group B
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇶🇦 Qatar vs 🇨🇭 Switzerland | 小组赛 B组 st
- arts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-009@qoderwork.com
 DTSTART:20260614T190000Z
 DTEND:20260614T210000Z
-SUMMARY:⚽ 🇩🇪 Germany vs 🇨🇼 Curacao | 小组赛 E组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇩🇪 Germ
- any vs 🇨🇼 Curacao\n\n⏰ 北京时间: 2026-06-15 03:00\n⏰ UTC: 2
- 026-06-14 19:00 UTC\n\n📍 NRG Stadium\, Houston\, USA\n\n📋 E组球
- :\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory Coast\n  
- 🇨 Ecuador
+SUMMARY:⚽ 🇩🇪 Germany 7:1 Curacao 🇨🇼 | 小组赛 E组 [已完
+ ]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n✅ 🇩🇪 
+ Germany 7 : 1 Curacao 🇨🇼\n\n⚽ 进球:\n  6' 🇩🇪 Lukas Nmecha
+ \n  21' 🇨🇼 Livano Comenencia\n  38' 🇩🇪 Nico Schlotterbeck\n  
+ 47' 🇩🇪 Kai Havertz\n  47' 🇩🇪 Jamal Musiala\n  68' 🇩🇪 Br
+ own\n  78' 🇩🇪 Deniz Undav\n  88' 🇩🇪 Kai Havertz\n\n⏰ 北京
+ 时间: 2026-06-15 03:00\n⏰ UTC: 2026-06-14 19:00 UTC\n\n📍 NRG Stadi
+ um\, Houston\, USA\n\n📋 E组球队:\n  🇩🇪 Germany\n  🇨🇼 Cu
+ racao\n  🇨🇮 Ivory Coast\n  🇪🇨 Ecuador
 LOCATION:NRG Stadium\, Houston\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇩🇪 Germany vs 🇨🇼 Curacao | 小组赛 E组 star
- ts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-010@qoderwork.com
 DTSTART:20260614T220000Z
 DTEND:20260615T000000Z
-SUMMARY:⚽ 🇨🇮 Ivory Coast vs 🇪🇨 Ecuador | 小组赛 E组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n🇨🇮 Ivor
- y Coast vs 🇪🇨 Ecuador\n\n⏰ 北京时间: 2026-06-15 06:00\n⏰ UT
- C: 2026-06-14 22:00 UTC\n\n📍 Lincoln Financial Field\, Philadelphia\, 
- USA\n\n📋 E组球队:\n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨
-  Ivory Coast\n  🇪🇨 Ecuador
+SUMMARY:⚽ 🇨🇮 Ivory Coast 1:0 Ecuador 🇪🇨 | 小组赛 E组 [
+ 完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 E组 (Group E)\n\n✅ 🇨🇮 
+ Ivory Coast 1 : 0 Ecuador 🇪🇨\n\n⚽ 进球:\n  90' 🇨🇮 Amad Di
+ allo\n\n⏰ 北京时间: 2026-06-15 06:00\n⏰ UTC: 2026-06-14 22:00 UTC
+ \n\n📍 Lincoln Financial Field\, Philadelphia\, USA\n\n📋 E组球队:
+ \n  🇩🇪 Germany\n  🇨🇼 Curacao\n  🇨🇮 Ivory Coast\n  🇪
+  Ecuador
 LOCATION:Lincoln Financial Field\, Philadelphia\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group E
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇨🇮 Ivory Coast vs 🇪🇨 Ecuador | 小组赛 E组 
- starts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-011@qoderwork.com
 DTSTART:20260615T020000Z
 DTEND:20260615T040000Z
-SUMMARY:⚽ 🇳🇱 Netherlands vs 🇯🇵 Japan | 小组赛 F组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇳🇱 Neth
- erlands vs 🇯🇵 Japan\n\n⏰ 北京时间: 2026-06-15 10:00\n⏰ UTC:
-  2026-06-15 02:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n📋 F组
- 球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n 
-  🇯🇵 Japan
+SUMMARY:⚽ 🇳🇱 Netherlands 2:2 Japan 🇯🇵 | 小组赛 F组 [已
+ ]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n✅ 🇳🇱 
+ Netherlands 2 : 2 Japan 🇯🇵\n\n⚽ 进球:\n  51' 🇳🇱 Virgil va
+ n Dijk\n  57' 🇯🇵 Keito Nakamura\n  64' 🇳🇱 Crysencio Summervil
+ le\n  89' 🇯🇵 Daichi Kamada\n\n⏰ 北京时间: 2026-06-15 10:00\n
+  UTC: 2026-06-15 02:00 UTC\n\n📍 AT&T Stadium\, Arlington\, USA\n\n
+  F组球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tun
+ isia\n  🇯🇵 Japan
 LOCATION:AT&T Stadium\, Arlington\, USA
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇳🇱 Netherlands vs 🇯🇵 Japan | 小组赛 F组 st
- arts in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-012@qoderwork.com
 DTSTART:20260615T050000Z
 DTEND:20260615T070000Z
-SUMMARY:⚽ 🇸🇪 Sweden vs 🇹🇳 Tunisia | 小组赛 F组
-DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n🇸🇪 Swed
- en vs 🇹🇳 Tunisia\n\n⏰ 北京时间: 2026-06-15 13:00\n⏰ UTC: 20
- 26-06-15 05:00 UTC\n\n📍 Estadio BBVA\, Monterrey\, Mexico\n\n📋 F组
- 球队:\n  🇳🇱 Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n 
-  🇯🇵 Japan
+SUMMARY:⚽ 🇸🇪 Sweden 5:1 Tunisia 🇹🇳 | 小组赛 F组 [已完]
+DESCRIPTION:2026 FIFA World Cup\n小组赛 F组 (Group F)\n\n✅ 🇸🇪 
+ Sweden 5 : 1 Tunisia 🇹🇳\n\n⚽ 进球:\n  7' 🇸🇪 Yasin Ayari\n
+   30' 🇸🇪 Alexander Isak\n  43' 🇹🇳 Omar Rekik\n  59' 🇸🇪 
+ Viktor Gyokeres\n  84' 🇸🇪 Mattias Svanberg\n  96' 🇸🇪 Yasin Ay
+ ari\n\n⏰ 北京时间: 2026-06-15 13:00\n⏰ UTC: 2026-06-15 05:00 UTC\
+ n\n📍 Estadio BBVA\, Monterrey\, Mexico\n\n📋 F组球队:\n  🇳🇱
+  Netherlands\n  🇸🇪 Sweden\n  🇹🇳 Tunisia\n  🇯🇵 Japan
 LOCATION:Estadio BBVA\, Monterrey\, Mexico
 CATEGORIES:Sports\,FIFA World Cup 2026\,Group F
 STATUS:CONFIRMED
 TRANSP:OPAQUE
-BEGIN:VALARM
-TRIGGER:-PT30M
-ACTION:DISPLAY
-DESCRIPTION:⚽ 🇸🇪 Sweden vs 🇹🇳 Tunisia | 小组赛 F组 start
- s in 30 minutes!
-END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wc2026-match-013@qoderwork.com
