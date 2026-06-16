@@ -135,7 +135,7 @@ for (var ci = 0; ci < keys.length; ci++) {
 if (keys.length > 0) $persistentStore.write(JSON.stringify(notified), "wc2026_notified");
 
 // ===== 主逻辑 =====
-var now = new Date();
+var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
 
 if (apiKey) {
   // ===== API 模式：从 API 获取今天+明天数据，统一处理 =====
@@ -188,12 +188,12 @@ function processApiMatches(matches, todayS) {
         lines.push(fmt(bj) + " " + displayName(ht) + " vs " + displayName(at) + " [" + grp + "]");
       }
       $notification.post(
-        "⚽ 今日世界杯赛程",
+        "今日赛程",
         "今日共 " + todayMatches.length + " 场比赛",
         lines.join("\n")
       );
     } else {
-      $notification.post("⚽ 世界杯日报", "今日无比赛安排", "小组赛: 6/12-6/28 | 决赛: 7/20 03:00");
+      $notification.post("世界杯日报", "今日无比赛安排", "小组赛: 6/12-6/28 | 决赛: 7/20 03:00");
     }
     markNotified(todayKey);
     return;
@@ -212,7 +212,7 @@ function processApiMatches(matches, todayS) {
         var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
         var grp = (m.group||"").replace("GROUP_","");
         $notification.post(
-          "⚽ 比赛即将开始",
+          "比赛即将开始",
           displayName(ht) + " vs " + displayName(at),
           "⏰ " + fmt(bj) + " 开球 | " + grp + "组 | 约" + Math.round(diffMin) + "分钟后"
         );
@@ -239,11 +239,11 @@ function processApiMatches(matches, todayS) {
       for (var g = 0; g < Math.min(m.goals.length, 6); g++) {
         gs.push(m.goals[g].scorer.name + " " + m.goals[g].minute + "'");
       }
-      goalInfo = "\n⚽ " + gs.join(", ");
+      goalInfo = "\n进球: " + gs.join(", ");
     }
 
     $notification.post(
-      "⚽ 比赛结束 | " + grp + "组",
+      "比赛结束 | " + grp + "组",
       displayName(ht) + " " + hScore + "-" + aScore + " " + displayName(at),
       "全场比分已出" + goalInfo
     );
@@ -273,9 +273,9 @@ function runStatic() {
         var bj = toBJ(m.d);
         lines.push(fmt(bj) + " " + displayName(m.h) + " vs " + displayName(m.a) + " [" + m.g + "]");
       }
-      $notification.post("⚽ 今日世界杯赛程", "今日共 " + todayMatches.length + " 场比赛", lines.join("\n"));
+      $notification.post("今日赛程", "今日共 " + todayMatches.length + " 场比赛", lines.join("\n"));
     } else {
-      $notification.post("⚽ 世界杯日报", "今日无比赛安排", "小组赛: 6/12-6/28 | 决赛: 7/20 03:00");
+      $notification.post("世界杯日报", "今日无比赛安排", "小组赛: 6/12-6/28 | 决赛: 7/20 03:00");
     }
     markNotified(todayKey);
     return;
@@ -293,7 +293,7 @@ function runStatic() {
       if (!isNotified(preKey)) {
         var grp = m.g;
         $notification.post(
-          "⚽ 比赛即将开始",
+          "比赛即将开始",
           displayName(m.h) + " vs " + displayName(m.a),
           "⏰ " + fmt(bjTime2) + " 开球 | " + grp + "组 | 约" + Math.round(diffMin) + "分钟后"
         );
@@ -310,7 +310,7 @@ function runStatic() {
       var endKey = m.id + "_ended";
       if (!isNotified(endKey)) {
         $notification.post(
-          "⚽ 比赛已结束",
+          "比赛已结束",
           displayName(m.h) + " vs " + displayName(m.a),
           m.g + "组比赛已结束 | 配置 API Key 可查看比分"
         );

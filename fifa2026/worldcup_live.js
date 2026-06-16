@@ -41,8 +41,8 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克斯坦","Colombia":"哥伦比亚",
 };
 
-// 直接用 API 获取实时比赛数据
-var now = new Date();
+// 直接用 API 获取实时比赛数据（时间统一北京时间）
+var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
 var todayS = now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
 var tmrw = new Date(now.getTime()+86400000);
 var tmrwS = tmrw.getFullYear()+"-"+String(tmrw.getMonth()+1).padStart(2,"0")+"-"+String(tmrw.getDate()).padStart(2,"0");

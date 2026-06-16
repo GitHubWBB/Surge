@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯.分组详情
+ * ⚽世界杯.分组排名
  * Surge type=generic | 12组完整积分榜
  * 数据来源: football-data.org API
  */
@@ -90,7 +90,7 @@ function renderApi(json) {
   lines.push("✓ = 小组前两名出线");
 
   $done({
-    title: "⚽世界杯.分组详情",
+    title: "⚽世界杯.分组排名",
     content: lines.join("\n"),
     icon: "list.number", "icon-color": "#007AFF"
   });
@@ -122,10 +122,10 @@ function renderStatic() {
     }
     lines.push("");
   }
-  lines.push("💡 API Key 已配置，正在获取积分数据...");
+  lines.push("💡 比赛进行中，积分即将更新...");
 
   $done({
-    title: "⚽世界杯.分组详情",
+    title: "⚽世界杯.分组排名",
     content: lines.join("\n"),
     icon: "list.number", "icon-color": "#007AFF"
   });

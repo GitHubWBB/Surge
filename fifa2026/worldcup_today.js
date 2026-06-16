@@ -85,7 +85,7 @@ function toBJ(s) {
 }
 function ds(d) { return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 
-var now = new Date();
+var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
 var todayS = ds(now);
 var tmrw = new Date(now.getTime() + 86400000);
 var tmrwS = ds(tmrw);

@@ -50,7 +50,7 @@ if (apiKey) {
 
 function renderApi(json) {
   if (!json.scorers || json.scorers.length===0) { renderStatic(); return; }
-  var lines = ["⚽ 射手榜 TOP "+Math.min(json.scorers.length,20)+"\n"];
+  var lines = ["射手榜 TOP "+Math.min(json.scorers.length,20)+"\n"];
   var sc = json.scorers;
   for (var i=0;i<Math.min(sc.length,20);i++) {
     var s = sc[i];
@@ -62,19 +62,19 @@ function renderApi(json) {
     var penStr = p>0?" (点"+p+")":"";
     var rank = String(i+1);
     if(rank.length<2) rank=" "+rank;
-    lines.push(rank+". "+flag+cn+" "+name+"  ⚽"+g+" 🅰️"+a+penStr);
+    lines.push(rank+". "+flag+cn+" "+name+"  进"+g+" 助"+a+penStr);
   }
   $done({title:"⚽世界杯.射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
 }
 
 function renderStatic() {
-  var lines = ["⚽ 射手榜\n","🔜 比赛进行中，射手榜即将更新\n","🏅 热门射手:"];
-  lines.push("  🇫🇷 姆巴佩 Mbappé");
-  lines.push("  🇦🇷 阿尔瓦雷斯 Álvarez");
-  lines.push("  🇧🇷 维尼修斯 Vinícius Jr");
-  lines.push("  🏴󠁧󠁢󠁥󠁮󠁧󠁿 凯恩 Kane");
-  lines.push("  🇩🇪 穆西亚拉 Musiala");
-  lines.push("  🇪🇸 亚马尔 Yamal");
-  lines.push("  🇵🇹 C·罗纳尔多 Ronaldo");
+  var lines = ["射手榜\n","比赛进行中，射手榜即将更新\n","热门射手:"];
+  lines.push("  🇫🇷 法国 姆巴佩 Mbappé");
+  lines.push("  🇦🇷 阿根廷 阿尔瓦雷斯 Álvarez");
+  lines.push("  🇧🇷 巴西 维尼修斯 Vinícius Jr");
+  lines.push("  🏴󠁧󠁢󠁥󠁮󠁧󠁿 英格兰 凯恩 Kane");
+  lines.push("  🇩🇪 德国 穆西亚拉 Musiala");
+  lines.push("  🇪🇸 西班牙 亚马尔 Yamal");
+  lines.push("  🇵🇹 葡萄牙 C·罗纳尔多 Ronaldo");
   $done({title:"⚽世界杯.射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
 }

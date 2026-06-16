@@ -10,7 +10,7 @@
 [Panel]
 今日赛程 = script-name=worldcup-today, update-interval=120
 实时比分 = script-name=worldcup-live, update-interval=60
-分组详情 = script-name=worldcup-groups, update-interval=300
+分组排名 = script-name=worldcup-groups, update-interval=300
 射手榜 = script-name=worldcup-scorers, update-interval=600
 
 [Script]
