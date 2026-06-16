@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯.今日赛程
+ * ⚽世界杯·今日赛程
  * Surge type=generic | 显示今天+明天的比赛
  */
 var apiKey = "";
@@ -10,7 +10,7 @@ if (typeof $argument !== "undefined" && $argument) {
     if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
   }
 }
-var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde"};
+var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde","United States":"USA","United States of America":"USA"};
 function norm(n) { return API_MAP[n] || n; }
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -83,9 +83,12 @@ function toBJ(s) {
   var p = s.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]) + 12*3600000);
 }
-function ds(d) { return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function ds(d) { return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0"); }
 
-var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
+var now = new Date();
+if (now.getUTCHours() + 8 - now.getHours() !== 0 && now.getUTCHours() + 8 - now.getHours() !== 24 && now.getUTCHours() + 8 - now.getHours() !== -16) {
+  now = new Date(Date.now() + 8*3600000);
+}
 var todayS = ds(now);
 var tmrw = new Date(now.getTime() + 86400000);
 var tmrwS = ds(tmrw);
@@ -93,8 +96,8 @@ var tmrwS = ds(tmrw);
 var todayM = [], tmrwM = [];
 for (var i = 0; i < MATCHES.length; i++) {
   var m = MATCHES[i], bj = toBJ(m.d), d = ds(bj);
-  var hh = String(bj.getHours()).padStart(2,"0"), mm = String(bj.getMinutes()).padStart(2,"0");
-  var item = {m:m, time:hh+":"+mm, sort:bj.getHours()*60+bj.getMinutes(), ts:bj.getTime()};
+  var hh = String(bj.getUTCHours()).padStart(2,"0"), mm = String(bj.getUTCMinutes()).padStart(2,"0");
+  var item = {m:m, time:hh+":"+mm, sort:bj.getUTCHours()*60+bj.getUTCMinutes(), ts:bj.getTime()};
   if (d === todayS) todayM.push(item);
   else if (d === tmrwS) tmrwM.push(item);
 }
@@ -129,18 +132,18 @@ function fmtLine(item, scores) {
 
 function render(t, tm, sc) {
   if (t.length===0 && tm.length===0) {
-    $done({title:"⚽世界杯.今日赛程", content:"今日和明日均无比赛\n\n📅 小组赛 6/12-6/28\n🏆 决赛 7/20 03:00", icon:"soccerball", "icon-color":"#8E8E93"});
+    $done({title:"⚽世界杯·今日赛程", content:"今日和明日均无比赛\n\n📅 小组赛 6/12-6/28\n🏆 决赛 7/20 03:00", icon:"soccerball", "icon-color":"#8E8E93"});
     return;
   }
   var lines = [];
   if (t.length > 0) {
     lines.push("📅 今日 "+t.length+" 场");
-    for (var i=0;i<t.length;i++) { lines.push(fmtLine(t[i],sc)); if(i<t.length-1) lines.push(""); }
+    for (var i=0;i<t.length;i++) lines.push(fmtLine(t[i],sc));
   }
   if (tm.length > 0) {
     if (lines.length > 0) lines.push("");
     lines.push("📅 明日 "+tm.length+" 场");
-    for (var i=0;i<tm.length;i++) { lines.push(fmtLine(tm[i],sc)); if(i<tm.length-1) lines.push(""); }
+    for (var i=0;i<tm.length;i++) lines.push(fmtLine(tm[i],sc));
   }
-  $done({title:"⚽世界杯.今日赛程", content:lines.join("\n"), icon:"soccerball", "icon-color":"#34C759"});
+  $done({title:"⚽世界杯·今日赛程", content:lines.join("\n"), icon:"soccerball", "icon-color":"#34C759"});
 }

@@ -16,7 +16,7 @@ if (typeof $argument !== "undefined" && $argument) {
   }
 }
 
-var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde"};
+var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde","United States":"USA","United States of America":"USA"};
 function norm(n) { return API_MAP[n] || n; }
 
 var FLAGS = {
@@ -93,19 +93,19 @@ function toBJ(etStr) {
   return new Date(Date.UTC(+p[1], +p[2]-1, +p[3], +p[4], +p[5]) + 12 * 3600000);
 }
 
-// UTC -> 北京时间
+// UTC -> 北京时间对象（UTC时间戳+8h）
 function bjTime(utcStr) {
-  return new Date(new Date(utcStr).getTime() + 8 * 3600000);
+  return new Date(new Date(utcStr).getTime() + 8*3600000);
 }
 
-// 格式化时间为 HH:mm
+// 格式化时间为 HH:mm（用 UTC 方法，不依赖设备时区）
 function fmt(bj) {
-  return String(bj.getHours()).padStart(2,"0") + ":" + String(bj.getMinutes()).padStart(2,"0");
+  return String(bj.getUTCHours()).padStart(2,"0") + ":" + String(bj.getUTCMinutes()).padStart(2,"0");
 }
 
-// 格式化日期为 YYYY-MM-DD
+// 格式化日期为 YYYY-MM-DD（用 UTC 方法，不依赖设备时区）
 function ds(d) {
-  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0");
 }
 
 // 显示名称
@@ -135,7 +135,11 @@ for (var ci = 0; ci < keys.length; ci++) {
 if (keys.length > 0) $persistentStore.write(JSON.stringify(notified), "wc2026_notified");
 
 // ===== 主逻辑 =====
-var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
+var now = new Date();
+if (now.getUTCHours() + 8 - now.getHours() !== 0 && now.getUTCHours() + 8 - now.getHours() !== 24 && now.getUTCHours() + 8 - now.getHours() !== -16) {
+  now = new Date(Date.now() + 8*3600000);
+}
+// now 始终是"北京时间 Date 对象"，用 getUTC* 方法读取
 
 if (apiKey) {
   // ===== API 模式：从 API 获取今天+明天数据，统一处理 =====
@@ -163,8 +167,8 @@ if (apiKey) {
 }
 
 function processApiMatches(matches, todayS) {
-  var hour = now.getHours();
-  var todayKey = "daily_" + now.toDateString();
+  var hour = now.getUTCHours();
+  var todayKey = "daily_" + now.getUTCFullYear() + now.getUTCMonth() + now.getUTCDate();
 
   // 分今天的比赛
   var todayMatches = [], tmrwMatches = [];
@@ -177,7 +181,7 @@ function processApiMatches(matches, todayS) {
   }
 
   // 1. 每日早8点赛程摘要
-  if (hour === 8 && now.getMinutes() < 10 && !isNotified(todayKey)) {
+  if (hour === 8 && now.getUTCMinutes() < 10 && !isNotified(todayKey)) {
     if (todayMatches.length > 0) {
       var lines = [];
       for (var i = 0; i < todayMatches.length; i++) {
@@ -253,11 +257,11 @@ function processApiMatches(matches, todayS) {
 
 // ===== 无 API 时的备用逻辑 =====
 function runStatic() {
-  var hour = now.getHours();
-  var todayKey = "daily_" + now.toDateString();
+  var hour = now.getUTCHours();
+  var todayKey = "daily_" + now.getUTCFullYear() + now.getUTCMonth() + now.getUTCDate();
 
   // 每日早8点赛程摘要
-  if (hour === 8 && now.getMinutes() < 10 && !isNotified(todayKey)) {
+  if (hour === 8 && now.getUTCMinutes() < 10 && !isNotified(todayKey)) {
     var todayStr = ds(now);
     var todayMatches = [];
     for (var i = 0; i < MATCHES.length; i++) {

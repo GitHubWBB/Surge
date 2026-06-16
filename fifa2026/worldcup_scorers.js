@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯.射手榜
+ * ⚽世界杯·射手榜
  * Surge type=generic | 进球/助攻排行
  */
 var apiKey = "";
@@ -10,7 +10,7 @@ if (typeof $argument !== "undefined" && $argument) {
     if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
   }
 }
-var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde"};
+var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde","United States":"USA","United States of America":"USA"};
 function norm(n) { return API_MAP[n] || n; }
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -64,7 +64,7 @@ function renderApi(json) {
     if(rank.length<2) rank=" "+rank;
     lines.push(rank+". "+flag+cn+" "+name+"  进"+g+" 助"+a+penStr);
   }
-  $done({title:"⚽世界杯.射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
+  $done({title:"⚽世界杯·射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
 }
 
 function renderStatic() {
@@ -76,5 +76,5 @@ function renderStatic() {
   lines.push("  🇩🇪 德国 穆西亚拉 Musiala");
   lines.push("  🇪🇸 西班牙 亚马尔 Yamal");
   lines.push("  🇵🇹 葡萄牙 C·罗纳尔多 Ronaldo");
-  $done({title:"⚽世界杯.射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
+  $done({title:"⚽世界杯·射手榜", content:lines.join("\n"), icon:"figure.soccer", "icon-color":"#FF9500"});
 }

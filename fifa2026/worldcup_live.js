@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯.实时比分
+ * ⚽世界杯·实时比分
  * Surge type=generic | 进行中/即将开始/已结束
  */
 var apiKey = "";
@@ -10,7 +10,7 @@ if (typeof $argument !== "undefined" && $argument) {
     if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
   }
 }
-var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde"};
+var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde","United States":"USA","United States of America":"USA"};
 function norm(n) { return API_MAP[n] || n; }
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -41,11 +41,14 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克斯坦","Colombia":"哥伦比亚",
 };
 
-// 直接用 API 获取实时比赛数据（时间统一北京时间）
-var now = new Date(Date.now() + (480 + new Date().getTimezoneOffset()) * 60000);
-var todayS = now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+// 直接用 API 获取实时比赛数据（自动检测时区）
+var now = new Date();
+if (now.getUTCHours() + 8 - now.getHours() !== 0 && now.getUTCHours() + 8 - now.getHours() !== 24 && now.getUTCHours() + 8 - now.getHours() !== -16) {
+  now = new Date(Date.now() + 8*3600000);
+}
+var todayS = now.getUTCFullYear()+"-"+String(now.getUTCMonth()+1).padStart(2,"0")+"-"+String(now.getUTCDate()).padStart(2,"0");
 var tmrw = new Date(now.getTime()+86400000);
-var tmrwS = tmrw.getFullYear()+"-"+String(tmrw.getMonth()+1).padStart(2,"0")+"-"+String(tmrw.getDate()).padStart(2,"0");
+var tmrwS = tmrw.getUTCFullYear()+"-"+String(tmrw.getUTCMonth()+1).padStart(2,"0")+"-"+String(tmrw.getUTCDate()).padStart(2,"0");
 
 if (apiKey) {
   $httpClient.get({url:"https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+todayS+"&dateTo="+tmrwS, headers:{"X-Auth-Token":apiKey}}, function(err,resp,data) {
@@ -62,7 +65,10 @@ if (apiKey) {
 
 function bjStr(utc) {
   var d = new Date(utc);
-  return new Date(d.getTime()+8*3600000); // UTC -> Beijing +8h
+  // 用 UTC 方法 + 8h，不依赖设备本地时区
+  var h = (d.getUTCHours() + 8) % 24;
+  var m = d.getUTCMinutes();
+  return {h: h, m: m, getTime: function(){ return d.getTime(); }};
 }
 
 function renderApi(matches) {
@@ -70,7 +76,7 @@ function renderApi(matches) {
   for (var i=0; i<matches.length; i++) {
     var m = matches[i];
     var bj = bjStr(m.utcDate);
-    var hh = String(bj.getHours()).padStart(2,"0"), mm = String(bj.getMinutes()).padStart(2,"0");
+    var hh = String(bj.h).padStart(2,"0"), mm = String(bj.m).padStart(2,"0");
     var t = hh+":"+mm;
     var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
     var hf = FLAGS[ht]||"🏳️", af = FLAGS[at]||"🏳️";
@@ -78,15 +84,15 @@ function renderApi(matches) {
     var grp = (m.group||"").replace("GROUP_","");
 
     if (m.status === "IN_PLAY" || m.status === "PAUSED") {
-      var hs = m.score.halfTime.home !== null ? m.score.halfTime.home : (m.score.fullTime.home !== null ? m.score.fullTime.home : "?");
-      var as2 = m.score.halfTime.away !== null ? m.score.halfTime.away : (m.score.fullTime.away !== null ? m.score.fullTime.away : "?");
+      var hs = m.score.fullTime.home !== null ? m.score.fullTime.home : (m.score.halfTime.home !== null ? m.score.halfTime.home : "?");
+      var as2 = m.score.fullTime.away !== null ? m.score.fullTime.away : (m.score.halfTime.away !== null ? m.score.halfTime.away : "?");
       live.push("🔴 "+hf+hc+" "+hs+"-"+as2+" "+af+ac+" ["+grp+"] "+t);
     } else if (m.status === "FINISHED") {
       var hs = m.score.fullTime.home, as2 = m.score.fullTime.away;
       finished.push("✅ "+hf+hc+" "+hs+"-"+as2+" "+af+ac+" ["+grp+"]");
     } else if (m.status === "TIMED" || m.status === "SCHEDULED") {
       var mins = Math.round((bj.getTime()-now.getTime())/60000);
-      var tag = mins > 0 && mins < 120 ? " ("+mins+"min)" : "";
+      var tag = mins > 0 && mins < 120 ? " ("+mins+"分钟)" : "";
       upcoming.push("⏰ "+t+" "+hf+hc+" vs "+af+ac+" ["+grp+"]"+tag);
     }
   }
@@ -99,7 +105,7 @@ function renderApi(matches) {
   if (lines.length === 0) { renderEmpty(); return; }
 
   $done({
-    title: "⚽世界杯.实时比分",
+    title: "⚽世界杯·实时比分",
     content: lines.join("\n").trim(),
     icon: "sportscourt.fill", "icon-color": "#FF3B30"
   });
@@ -107,7 +113,7 @@ function renderApi(matches) {
 
 function renderEmpty() {
   $done({
-    title: "⚽世界杯.实时比分",
+    title: "⚽世界杯·实时比分",
     content: "⚽ 今日暂无比赛\n\n📅 小组赛 6/12-6/28\n🏆 决赛 7/20 03:00",
     icon: "sportscourt.fill", "icon-color": "#8E8E93"
   });

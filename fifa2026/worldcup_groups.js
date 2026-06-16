@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯.分组排名
+ * ⚽世界杯·分组排名
  * Surge type=generic | 12组完整积分榜
  * 数据来源: football-data.org API
  */
@@ -11,7 +11,7 @@ if (typeof $argument !== "undefined" && $argument) {
     if (_kv[0] === "api_key") apiKey = decodeURIComponent(_kv[1] || "");
   }
 }
-var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde"};
+var API_MAP = {"Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia & Herzegovina","Cape Verde Islands":"Cape Verde","United States":"USA","United States of America":"USA"};
 function norm(n) { return API_MAP[n] || n; }
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
@@ -90,7 +90,7 @@ function renderApi(json) {
   lines.push("✓ = 小组前两名出线");
 
   $done({
-    title: "⚽世界杯.分组排名",
+    title: "⚽世界杯·分组排名",
     content: lines.join("\n"),
     icon: "list.number", "icon-color": "#007AFF"
   });
@@ -125,7 +125,7 @@ function renderStatic() {
   lines.push("💡 比赛进行中，积分即将更新...");
 
   $done({
-    title: "⚽世界杯.分组排名",
+    title: "⚽世界杯·分组排名",
     content: lines.join("\n"),
     icon: "list.number", "icon-color": "#007AFF"
   });
