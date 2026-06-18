@@ -1,0 +1,319 @@
+# ============================================================
+# Surge AI Services Rule Set
+# 用途：AI 相关服务科学上网规则集
+# 策略：在 [Rule] 段引用时使用你的 AI 代理策略名替换 AI-Services
+# 引用：RULE-SET,https://raw.githubusercontent.com/GitHubWBB/Surge/main/rule/AI-Services.list,AI-Services
+# 更新：2026-06-18
+# 覆盖：35 个 AI 平台
+# ============================================================
+
+# ============================================================
+# 1. OpenAI / ChatGPT / Sora
+# ============================================================
+DOMAIN-KEYWORD,openai
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,chatgpt.com
+DOMAIN-SUFFIX,chat.com
+DOMAIN-SUFFIX,ai.com
+DOMAIN-SUFFIX,sora.com
+DOMAIN-SUFFIX,oaistatic.com
+DOMAIN-SUFFIX,oaicdn.com
+DOMAIN-SUFFIX,oaiusercontent.com
+DOMAIN-SUFFIX,openaicom.imgix.net
+DOMAIN-SUFFIX,chatgpt.livekit.cloud
+DOMAIN-SUFFIX,host.livekit.cloud
+DOMAIN-SUFFIX,turn.livekit.cloud
+DOMAIN-SUFFIX,openaiapi-site.azureedge.net
+DOMAIN-SUFFIX,openaicom-api-site.azureedge.net
+DOMAIN-SUFFIX,featuregates.org
+DOMAIN-SUFFIX,featureassets.org
+DOMAIN-SUFFIX,prodregistryv2.org
+DOMAIN-SUFFIX,openaimerge.com
+DOMAIN-SUFFIX,auth0.com
+DOMAIN-SUFFIX,client-api.arkoselabs.com
+DOMAIN-SUFFIX,events.statsigapi.net
+DOMAIN-SUFFIX,statsigapi.net
+DOMAIN-SUFFIX,launchdarkly.com
+DOMAIN-SUFFIX,observeit.net
+DOMAIN-SUFFIX,identrust.com
+DOMAIN-SUFFIX,segment.io
+DOMAIN-SUFFIX,intercom.io
+DOMAIN-SUFFIX,intercomcdn.com
+DOMAIN-SUFFIX,algolia.net
+DOMAIN,browser-intake-datadoghq.com
+DOMAIN,chat.openai.com.cdn.cloudflare.net
+DOMAIN,openai-api.arkoselabs.com
+DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
+DOMAIN,openaicomproductionae4b.blob.core.windows.net
+DOMAIN,production-openaicom-storage.azureedge.net
+DOMAIN,static.cloudflareinsights.com
+DOMAIN,gateway.ai.cloudflare.com
+
+# ============================================================
+# 2. Microsoft Copilot / Bing Copilot
+# ============================================================
+DOMAIN,copilot.microsoft.com
+DOMAIN,sydney.bing.com
+DOMAIN,www.bing.com
+DOMAIN,r.bing.com
+DOMAIN,api.msn.com
+DOMAIN,assets.msn.com
+DOMAIN,api.statsig.com
+DOMAIN,location.microsoft.com
+DOMAIN,odc.officeapps.live.com
+DOMAIN,self.events.data.microsoft.com
+DOMAIN,gateway.bingviz.microsoft.net
+DOMAIN,gateway.bingviz.microsoftapp.net
+DOMAIN,in.appcenter.ms
+DOMAIN,config.edge.skype.com
+DOMAIN-SUFFIX,edgeservices.bing.com
+DOMAIN-SUFFIX,api.microsoftapp.net
+DOMAIN-SUFFIX,bing-shopping.microsoft-falcon.io
+DOMAIN-SUFFIX,services.bingapis.com
+DOMAIN-SUFFIX,challenges.cloudflare.com
+
+# ============================================================
+# 3. GitHub Copilot
+# ============================================================
+DOMAIN-SUFFIX,githubcopilot.com
+DOMAIN-SUFFIX,ghe.com
+DOMAIN-SUFFIX,githubusercontent.com
+DOMAIN-SUFFIX,githubassets.com
+DOMAIN-SUFFIX,ghcr.io
+DOMAIN,default.exp-tas.com
+DOMAIN,copilot-proxy.githubusercontent.com
+DOMAIN,copilot-telemetry.githubusercontent.com
+DOMAIN,origin-tracker.githubusercontent.com
+DOMAIN,api.github.com
+DOMAIN,scanning-api.github.com
+DOMAIN,api.mcp.github.com
+DOMAIN,copilot-reports.github.com
+DOMAIN,dc.services.visualstudio.com
+
+# ============================================================
+# 4. GitHub Models
+# ============================================================
+# GitHub Models 运行在 GitHub.com 生态内，上述 GitHub Copilot 规则已覆盖
+# 无需额外规则
+
+# ============================================================
+# 5. Google Gemini / Bard
+# ============================================================
+DOMAIN-SUFFIX,gemini.google
+DOMAIN-SUFFIX,bard.google.com
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,generativeai.google
+DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,makersuite.google.com
+DOMAIN-SUFFIX,notebooklm.google
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,cloudcode-pa.googleapis.com
+DOMAIN-SUFFIX,geller-pa.googleapis.com
+DOMAIN-SUFFIX,apis.google.com
+DOMAIN-SUFFIX,aistudiocdn.com
+DOMAIN,ai.google.dev
+DOMAIN,generativelanguage.googleapis.com
+DOMAIN,aida.googleapis.com
+DOMAIN,alkalicore-pa.clients6.google.com
+DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN,aisandbox-pa.googleapis.com
+DOMAIN,daily-cloudcode-pa.googleapis.com
+DOMAIN,robinfrontend-pa.googleapis.com
+DOMAIN,jules.google.com
+DOMAIN-KEYWORD,generativelanguage
+DOMAIN-KEYWORD,colab
+DOMAIN-KEYWORD,developerprofiles
+URL-REGEX,https://www\.google\.com/.*continue=https://gemini\.google\.com.+
+
+# ============================================================
+# 6. Google Antigravity (Google DeepMind AI IDE)
+# ============================================================
+DOMAIN,antigravity.google
+DOMAIN,antigravity-unleash.goog
+
+# ============================================================
+# 7. Anthropic / Claude
+# ============================================================
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claudeusercontent.com
+DOMAIN,cdn.usefathom.com
+DOMAIN,servd-anthropic-website.b-cdn.net
+IP-CIDR,160.79.104.0/23,no-resolve
+IP-CIDR6,2607:6bc0::/48,no-resolve
+
+# ============================================================
+# 8. JetBrains AI / Grazie
+# ============================================================
+DOMAIN-SUFFIX,jetbrains.ai
+DOMAIN-SUFFIX,grazie.ai
+DOMAIN-SUFFIX,grazie.aws.intellij.net
+DOMAIN,api.jetbrains.ai
+DOMAIN,api.app.prod.grazie.aws.intellij.net
+
+# ============================================================
+# 9. Meta AI / Llama
+# ============================================================
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,llama.com
+DOMAIN,imagine.meta.com
+DOMAIN,llama.meta.com
+DOMAIN,ai.meta.com
+
+# ============================================================
+# 10. Perplexity AI
+# ============================================================
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,pplx.ai
+DOMAIN-SUFFIX,perplexity.com
+
+# ============================================================
+# 11. Mistral AI / Le Chat
+# ============================================================
+DOMAIN-SUFFIX,mistral.ai
+DOMAIN,chat.mistral.ai
+DOMAIN,console.mistral.ai
+DOMAIN,api.mistral.ai
+DOMAIN,docs.mistral.ai
+DOMAIN-SUFFIX,clipdrop.co
+
+# ============================================================
+# 12. Grok AI / xAI
+# ============================================================
+DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,x.ai
+DOMAIN,api.x.ai
+DOMAIN,console.x.ai
+
+# ============================================================
+# 13. Trae AI (ByteDance AI IDE)
+# ============================================================
+DOMAIN-SUFFIX,trae.ai
+DOMAIN,trae-api-sg.mchost.guru
+DOMAIN,byteoversea.com
+DOMAIN,lf3-static.bytednsdoc.com
+DOMAIN,bytegate-sg.byteintlapi.com
+DOMAIN,abtestvm-sg.bytedance.com
+DOMAIN,tron-sg.bytelemon.com
+DOMAIN,sf16-short-sg.bytedapm.com
+
+# ============================================================
+# 14. OpenRouter
+# ============================================================
+DOMAIN,openrouter.ai
+
+# ============================================================
+# 15. TokenFlux
+# ============================================================
+DOMAIN-SUFFIX,tokenflux.ai
+
+# ============================================================
+# 16. Groq
+# ============================================================
+DOMAIN-SUFFIX,groq.com
+
+# ============================================================
+# 17. Together AI
+# ============================================================
+DOMAIN-SUFFIX,together.ai
+DOMAIN-SUFFIX,api.together.xyz
+
+# ============================================================
+# 18. Fireworks AI
+# ============================================================
+DOMAIN-SUFFIX,fireworks.ai
+
+# ============================================================
+# 19. Hyperbolic
+# ============================================================
+DOMAIN-SUFFIX,hyperbolic.xyz
+
+# ============================================================
+# 20. Jina AI
+# ============================================================
+DOMAIN-SUFFIX,jina.ai
+
+# ============================================================
+# 21. GPUStack
+# ============================================================
+DOMAIN-SUFFIX,gpustack.ai
+
+# ============================================================
+# 22. VoyageAI
+# ============================================================
+DOMAIN-SUFFIX,voyageai.com
+
+# ============================================================
+# 23. Google Vertex AI
+# ============================================================
+DOMAIN-SUFFIX,aiplatform.googleapis.com
+
+# ============================================================
+# 24. Poe (Quora)
+# ============================================================
+DOMAIN-SUFFIX,poe.com
+
+# ============================================================
+# 25. Cerebras AI
+# ============================================================
+DOMAIN-SUFFIX,cerebras.ai
+
+# ============================================================
+# 26. Vercel AI SDK
+# ============================================================
+DOMAIN-SUFFIX,ai-sdk.dev
+DOMAIN,sdk.vercel.ai
+
+# ============================================================
+# 27. Hugging Face
+# ============================================================
+DOMAIN-SUFFIX,huggingface.co
+
+# ============================================================
+# 28. NVIDIA AI
+# ============================================================
+DOMAIN,build.nvidia.com
+DOMAIN,integrate.api.nvidia.com
+
+# ============================================================
+# 29. Kiro (AWS AI IDE)
+# ============================================================
+DOMAIN-SUFFIX,kiro.dev
+
+# ============================================================
+# 30. MiniMax International
+# ============================================================
+DOMAIN-SUFFIX,minimaxi.com
+
+# ============================================================
+# 31. 智谱国际 (Zhipu AI International)
+# ============================================================
+DOMAIN-SUFFIX,z.ai
+DOMAIN-SUFFIX,bigmodel.cn
+DOMAIN-SUFFIX,zhipuai.cn
+
+# ============================================================
+# 32. 小米国际 (Xiaomi MiMo AI)
+# ============================================================
+DOMAIN-SUFFIX,xiaomimimo.com
+
+# ============================================================
+# 33. Dify AI (额外补充)
+# ============================================================
+DOMAIN-SUFFIX,dify.ai
+
+# ============================================================
+# 34. Apple Intelligence (额外补充)
+# ============================================================
+DOMAIN,apple-relay.apple.com
+DOMAIN,apple-relay.cloudflare.com
+DOMAIN,apple-relay.fastly-edge.com
+DOMAIN,cp4.cloudflare.com
+DOMAIN,guzzoni.apple.com
+DOMAIN-SUFFIX,smoot.apple.com
+
+# ============================================================
+# END
+# ============================================================

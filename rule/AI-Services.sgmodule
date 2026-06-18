@@ -1,0 +1,8 @@
+#!name = AI Services Proxy
+#!desc = AI 相关服务科学上网模块，覆盖 OpenAI、Claude、Gemini、Copilot 等 35 个 AI 平台
+#!author = GitHubWBB
+#!homepage = https://github.com/GitHubWBB/Surge
+#!system = macOS || iOS
+
+[Rule]
+RULE-SET,https://raw.githubusercontent.com/GitHubWBB/Surge/main/rule/AI-Services.list,AI-Services
