@@ -1,7 +1,6 @@
 /**
- * ⚽世界杯·统计信息 v3
- * Surge type=generic | 完全匹配Bing格式 | 进球/助攻/黄牌/红牌
- * API: football-data.org 进球+助攻 | 黄牌+红牌: 静态Bing数据
+ * ⚽世界杯·统计信息 v4
+ * Surge type=generic | 进球榜+助攻榜 | API实时 + 静态Bing备用
  */
 var apiKey = "";
 if (typeof $argument !== "undefined" && $argument) {
@@ -20,7 +19,7 @@ function norm(n) { return API_MAP[n] || n; }
 
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
-  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"CH",
+  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"[CH]",
   "USA":"🇺🇸","Paraguay":"🇵🇾","Brazil":"🇧🇷","Morocco":"🇲🇦",
   "Haiti":"🇭🇹","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australia":"🇦🇺","Turkiye":"🇹🇷",
   "Germany":"🇩🇪","Curacao":"🇨🇼","Netherlands":"🇳🇱","Japan":"🇯🇵",
@@ -88,71 +87,6 @@ var STATIC_ASSISTS = [
   {n:"克里斯蒂安 普利希奇",t:"USA",v:1}
 ];
 
-// 黄牌 (Bing完整数据)
-var STATIC_YELLOW = [
-  {n:"莫科埃纳，特博霍",t:"South Africa",v:2},
-  {n:"弗兰克 凯西",t:"Ivory Coast",v:1},
-  {n:"迭戈，戈麦斯",t:"Paraguay",v:1},
-  {n:"托马斯，阿劳霍",t:"Portugal",v:1},
-  {n:"阿尔米隆，米格尔",t:"Paraguay",v:1},
-  {n:"恩科西纳蒂 西比西",t:"South Africa",v:1},
-  {n:"杰克逊 波罗佐",t:"Ecuador",v:1},
-  {n:"德福杰洛尔斯 吕克",t:"Canada",v:1},
-  {n:"贝纳多，席尔瓦",t:"Portugal",v:1},
-  {n:"罗杰·伊巴内斯·达·席尔瓦",t:"Brazil",v:1},
-  {n:"卡斯特纳 提磨蒂",t:"Belgium",v:1},
-  {n:"艾丁 哲科",t:"Bosnia",v:1},
-  {n:"迪迪克 阿玛",t:"Bosnia",v:1},
-  {n:"姆本巴 尚塞尔",t:"DR Congo",v:1},
-  {n:"马哈茂德 阿布纳达",t:"Qatar",v:1},
-  {n:"阿提亚，马尔万",t:"Egypt",v:1},
-  {n:"基赫 李",t:"South Korea",v:1},
-  {n:"让里克纳，贝勒加德",t:"Haiti",v:1},
-  {n:"塞科 福法纳",t:"Ivory Coast",v:1},
-  {n:"孟菲斯 德帕伊",t:"Netherlands",v:1},
-  {n:"约沃 卢基奇",t:"Bosnia",v:1},
-  {n:"卡塞雷斯 何塞",t:"Paraguay",v:1},
-  {n:"柯蒂斯，芬德利",t:"Scotland",v:1},
-  {n:"扎伊德 塔希纳",t:"Iraq",v:1},
-  {n:"尼古拉 卡蒂奇",t:"Bosnia",v:1},
-  {n:"泰勒 亚当斯",t:"USA",v:1},
-  {n:"米奇 范德文",t:"Netherlands",v:1},
-  {n:"古铁雷斯 布莱恩",t:"Mexico",v:1},
-  {n:"卡洛斯 哈维",t:"Panama",v:1},
-  {n:"拉迪斯拉夫Krejci",t:"Czechia",v:1},
-  {n:"丹尼斯 扎卡里亚",t:"Switzerland",v:1},
-  {n:"拉尼 赫迪拉",t:"Tunisia",v:1},
-  {n:"克利森西奥 萨默维尔",t:"Netherlands",v:1},
-  {n:"阿克冈，雅努斯",t:"Turkiye",v:1},
-  {n:"塞萨尔 布莱克曼",t:"Panama",v:1},
-  {n:"佩德里",t:"Spain",v:1},
-  {n:"艾伦 希基",t:"Scotland",v:1},
-  {n:"塔伦特 姆巴塔",t:"South Africa",v:1},
-  {n:"约翰 莫希卡",t:"Colombia",v:1},
-  {n:"尼尔森 塞梅多",t:"Portugal",v:1},
-  {n:"马塞尔 萨比策",t:"Austria",v:1},
-  {n:"阿卜杜勒莱",t:"Saudi Arabia",v:1},
-  {n:"肯尼 麦克利安",t:"Scotland",v:1},
-  {n:"科尼利厄斯 德里克",t:"Canada",v:1},
-  {n:"卡塞米罗",t:"Brazil",v:1},
-  {n:"约翰斯顿 阿里斯特尔",t:"Canada",v:1},
-  {n:"艾哈迈德 阿布 埃尔福图",t:"Egypt",v:1},
-  {n:"马克西姆 德·库珀",t:"Belgium",v:1},
-  {n:"埃赫桑 哈吉-萨菲",t:"Iran",v:1},
-  {n:"尼科 伊尔维迪",t:"Switzerland",v:1},
-  {n:"厄尔梅丁 德米罗维奇",t:"Bosnia",v:1}
-];
-
-// 红牌 (Bing完整数据)
-var STATIC_RED = [
-  {n:"塞萨尔省蒙特斯",t:"Mexico",v:1},
-  {n:"马西波",t:"Qatar",v:1},
-  {n:"霍姆 艾哈迈德",t:"Qatar",v:1},
-  {n:"塔里克，穆哈雷维奇",t:"Bosnia",v:1},
-  {n:"西特霍尔 斯菲弗罗",t:"South Africa",v:1},
-  {n:"提姆巴 次瓦内",t:"South Africa",v:1}
-];
-
 // ===== API球员中文名映射 =====
 var CN_PLAYER = {
   "Jonathan David":"戴维 乔纳森","Lionel Messi":"莱昂内尔 梅西",
@@ -207,34 +141,22 @@ function renderApiStats(json) {
   }
 
   var lines = [];
-  var goalLines = renderSection("⚽进球", goals, "");
+  var goalLines = renderSection("⚽进球", goals, "球");
   for (var i=0;i<goalLines.length;i++) lines.push(goalLines[i]);
   lines.push("");
-  var assistLines = renderSection("🅰️助攻", assists, "");
+  var assistLines = renderSection("🅰️助攻", assists, "次");
   for (var i=0;i<assistLines.length;i++) lines.push(assistLines[i]);
-  lines.push("");
-  var yellowLines = renderSection("🟨黄牌", STATIC_YELLOW, "");
-  for (var i=0;i<yellowLines.length;i++) lines.push(yellowLines[i]);
-  lines.push("");
-  var redLines = renderSection("🟥红牌", STATIC_RED, "");
-  for (var i=0;i<redLines.length;i++) lines.push(redLines[i]);
 
   $done({title:"⚽世界杯·统计信息", content:lines.join("\n"), icon:"chart.bar.fill", "icon-color":"#FF9500"});
 }
 
 function renderStatic() {
   var lines = [];
-  var g = renderSection("⚽进球", STATIC_GOALS, "");
+  var g = renderSection("⚽进球", STATIC_GOALS, "球");
   for (var i=0;i<g.length;i++) lines.push(g[i]);
   lines.push("");
-  var a = renderSection("🅰️助攻", STATIC_ASSISTS, "");
+  var a = renderSection("🅰️助攻", STATIC_ASSISTS, "次");
   for (var i=0;i<a.length;i++) lines.push(a[i]);
-  lines.push("");
-  var y = renderSection("🟨黄牌", STATIC_YELLOW, "");
-  for (var i=0;i<y.length;i++) lines.push(y[i]);
-  lines.push("");
-  var r = renderSection("🟥红牌", STATIC_RED, "");
-  for (var i=0;i<r.length;i++) lines.push(r[i]);
 
   $done({title:"⚽世界杯·统计信息", content:lines.join("\n"), icon:"chart.bar.fill", "icon-color":"#FF9500"});
 }

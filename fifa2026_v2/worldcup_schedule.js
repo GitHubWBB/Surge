@@ -19,7 +19,7 @@ function norm(n) { return API_MAP[n] || n; }
 
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
-  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"CH",
+  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"[CH]",
   "USA":"🇺🇸","Paraguay":"🇵🇾","Brazil":"🇧🇷","Morocco":"🇲🇦",
   "Haiti":"🇭🇹","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australia":"🇦🇺","Turkiye":"🇹🇷",
   "Germany":"🇩🇪","Curacao":"🇨🇼","Netherlands":"🇳🇱","Japan":"🇯🇵",
@@ -222,16 +222,16 @@ function renderStatic() {
       var realSt = m.st;
       if (realSt !== "F" && elapsed > 2*3600000 && m.hs !== null) realSt = "F";
       if (realSt === "U" && elapsed > -300000 && elapsed < 7200000 && m.hs === null && elapsed > 0) realSt = "L";
-      // 格式: [X组] 状态 时间 主队 vs/比分 客队
+      // 格式: 状态 [X组] 时间 主队 vs/比分 客队
       if (realSt === "F") {
-        lines.push("["+m.g+"组] ✅ "+hF+hC+" "+m.hs+"-"+m.as+" "+aF+aC);
+        lines.push("✅ ["+m.g+"组] "+hF+hC+" "+m.hs+"-"+m.as+" "+aF+aC);
       } else if (realSt === "L") {
         var scoreStr = m.hs !== null ? " "+m.hs+"-"+m.as+" " : " vs ";
-        lines.push("["+m.g+"组] ⚡ "+time+" "+hF+hC+scoreStr+aF+aC);
+        lines.push("🚶 ["+m.g+"组] "+time+" "+hF+hC+scoreStr+aF+aC);
       } else {
         var mins = Math.round((matchMs - nowMs) / 60000);
         var tag = (mins > 0 && mins <= 180) ? " ("+mins+"分钟后)" : "";
-        lines.push("["+m.g+"组] ⏰ "+time+" "+hF+hC+" vs "+aF+aC+tag);
+        lines.push("⏰ ["+m.g+"组] "+time+" "+hF+hC+" vs "+aF+aC+tag);
       }
     }
     if (dk < dayKeys.length - 1 && days[dayKeys[dk+1]]) lines.push("");
