@@ -14,7 +14,9 @@ if (typeof $argument !== "undefined" && $argument) {
 var API_MAP = {
   "Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia",
   "Cape Verde Islands":"Cape Verde","United States":"USA",
-  "United States of America":"USA","Korea DPR":"South Korea"
+  "United States of America":"USA","Korea DPR":"South Korea",
+  "Turkey":"Turkiye","Congo DR":"DR Congo","Curaçao":"Curacao",
+  "Bosnia-H.":"Bosnia","Czech Republic":"Czechia"
 };
 function norm(n) { return API_MAP[n] || n; }
 
@@ -47,9 +49,9 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克","Colombia":"哥伦比亚"
 };
 
-// ===== 静态积分榜 (Bing 数据快照 6/20) =====
+// ===== 静态积分榜 (API快照 6/19 MD2进行中) =====
 var STATIC = {
-  A:[{t:"Mexico",p:1,w:1,d:0,l:0,gf:2,ga:0,gd:2,pt:3},{t:"South Korea",p:1,w:1,d:0,l:0,gf:2,ga:1,gd:1,pt:3},{t:"Czechia",p:2,w:0,d:1,l:1,gf:2,ga:3,gd:-1,pt:1},{t:"South Africa",p:2,w:0,d:1,l:1,gf:1,ga:3,gd:-2,pt:1}],
+  A:[{t:"Mexico",p:2,w:2,d:0,l:0,gf:3,ga:0,gd:3,pt:6},{t:"South Korea",p:2,w:1,d:0,l:1,gf:2,ga:2,gd:0,pt:3},{t:"Czechia",p:2,w:0,d:1,l:1,gf:2,ga:3,gd:-1,pt:1},{t:"South Africa",p:2,w:0,d:1,l:1,gf:1,ga:3,gd:-2,pt:1}],
   B:[{t:"Canada",p:2,w:1,d:1,l:0,gf:7,ga:1,gd:6,pt:4},{t:"Switzerland",p:2,w:1,d:1,l:0,gf:5,ga:2,gd:3,pt:4},{t:"Bosnia",p:2,w:0,d:1,l:1,gf:2,ga:5,gd:-3,pt:1},{t:"Qatar",p:2,w:0,d:1,l:1,gf:1,ga:7,gd:-6,pt:1}],
   C:[{t:"Scotland",p:1,w:1,d:0,l:0,gf:1,ga:0,gd:1,pt:3},{t:"Morocco",p:1,w:0,d:1,l:0,gf:1,ga:1,gd:0,pt:1},{t:"Brazil",p:1,w:0,d:1,l:0,gf:1,ga:1,gd:0,pt:1},{t:"Haiti",p:1,w:0,d:0,l:1,gf:0,ga:1,gd:-1,pt:0}],
   D:[{t:"USA",p:1,w:1,d:0,l:0,gf:4,ga:1,gd:3,pt:3},{t:"Australia",p:1,w:1,d:0,l:0,gf:2,ga:0,gd:2,pt:3},{t:"Turkiye",p:1,w:0,d:0,l:1,gf:0,ga:2,gd:-2,pt:0},{t:"Paraguay",p:1,w:0,d:0,l:1,gf:1,ga:4,gd:-3,pt:0}],
