@@ -16,7 +16,9 @@ if (typeof $argument !== "undefined" && $argument) {
 var API_MAP = {
   "Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia",
   "Cape Verde Islands":"Cape Verde","United States":"USA",
-  "United States of America":"USA"
+  "United States of America":"USA","Turkey":"Turkiye",
+  "Congo DR":"DR Congo","Curaçao":"Curacao",
+  "Bosnia-H.":"Bosnia","Czech Republic":"Czechia"
 };
 function norm(n) { return API_MAP[n] || n; }
 
@@ -118,9 +120,10 @@ var now = getBJNow();
 var todayS = fmtBJ(now);
 
 if (apiKey) {
+  var yestS = fmtBJ(new Date(now.getTime() - 86400000));
   var tmrwS = fmtBJ(new Date(now.getTime() + 86400000));
   $httpClient.get({
-    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+todayS+"&dateTo="+tmrwS,
+    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+yestS+"&dateTo="+tmrwS,
     headers: {"X-Auth-Token": apiKey}
   }, function(error, response, data) {
     if (error || !data) { runStatic(); $done(); return; }
@@ -198,14 +201,16 @@ function processApiMatches(matches) {
     var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
     var hs = m.score.fullTime.home, as = m.score.fullTime.away;
     var grp = (m.group||"").replace("GROUP_","");
-    // 进球详情
+    // 进球详情（API可能不返回goals字段）
     var goalInfo = "";
     if (m.goals && m.goals.length > 0) {
       var gs = [];
       for (var g = 0; g < Math.min(m.goals.length, 8); g++) {
-        gs.push(m.goals[g].scorer.name + " " + m.goals[g].minute + "'");
+        if (m.goals[g].scorer && m.goals[g].minute) {
+          gs.push(m.goals[g].scorer.name + " " + m.goals[g].minute + "'");
+        }
       }
-      goalInfo = "\n⚽ " + gs.join(" | ");
+      if (gs.length > 0) goalInfo = "\n⚽ " + gs.join(" | ");
     }
     $notification.post(
       "⚽ 比赛结束 | "+grp+"组",
