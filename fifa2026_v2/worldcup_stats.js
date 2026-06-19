@@ -1,6 +1,6 @@
 /**
- * ⚽世界杯·统计信息 v5
- * Surge type=generic | 进球榜+助攻榜 | API实时(50人) + 静态备用
+ * ⚽世界杯·统计信息 v6
+ * Surge type=generic | 进球榜(API实时) + 助攻榜(ESPN数据) | 全中文
  */
 var apiKey = "";
 if (typeof $argument !== "undefined" && $argument) {
@@ -14,7 +14,7 @@ var API_MAP = {
   "Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia",
   "Cape Verde Islands":"Cape Verde","United States":"USA",
   "United States of America":"USA","Curaçao":"Curacao",
-  "Czech Republic":"Czechia"
+  "Czech Republic":"Czechia","Bosnia-H.":"Bosnia"
 };
 function norm(n) { return API_MAP[n] || n; }
 
@@ -47,17 +47,15 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克","Colombia":"哥伦比亚"
 };
 
-// ===== 完整球员中文名映射（覆盖API全部50+人） =====
+// ===== 球员中文名映射 =====
 var CN_PLAYER = {
-  // 3球
+  // 进球榜
   "Lionel Messi":"梅西","Jonathan David":"乔纳森·戴维",
-  // 2球
   "Cyle Larin":"拉林","Folarin Balogun":"巴洛贡",
   "Kai Havertz":"哈弗茨","Yasin Ayari":"阿亚里",
   "Elijah Just":"吉斯特","Kylian Mbappé":"姆巴佩",
   "Erling Haaland":"哈兰德","Harry Kane":"凯恩",
   "Johan Manzambi":"曼赞比",
-  // 1球
   "Julián Quiñones":"基尼奥内斯","Raúl Jiménez":"希门尼斯",
   "Ladislav Krejčí":"克雷伊奇","In-beom Hwang":"黄仁范",
   "Hyun-Gyu Oh":"吴贤揆","Jovo Lukić":"卢基奇",
@@ -66,6 +64,7 @@ var CN_PLAYER = {
   "Ismael Saibari":"赛巴里","Vinicius Junior":"维尼修斯",
   "John McGinn":"麦金","Nestory Irankunda":"伊兰昆达",
   "Connor Metcalfe":"梅特卡夫","Felix Nmecha":"恩梅查",
+  "Felix Kalu Nmecha":"恩梅查",
   "Livano Comenencia":"科梅嫩西亚","Nico Schlotterbeck":"施洛特贝克",
   "Jamal Musiala":"穆西亚拉","Nathaniel Brown":"布朗",
   "Deniz Undav":"温达夫","Virgil van Dijk":"范戴克",
@@ -77,59 +76,63 @@ var CN_PLAYER = {
   "Maximiliano Araújo":"阿劳霍","Ramin Rezaeian":"雷扎伊安",
   "Mohammad Mohebi":"莫赫比","Bradley Barcola":"巴尔科拉",
   "Ibrahim Mbaye":"姆巴耶","Aymen Hussein":"侯赛因",
-  "Leo Østigård":"奥斯蒂高",
-  // 助攻为主的球员
-  "Joshua Kimmich":"基米希","Ryan Gravenberch":"格拉芬贝赫",
-  "Chris Wood":"伍德","Chris Richards":"理查兹",
-  "Alphonso Davies":"戴维斯","Hirving Lozano":"洛萨诺",
-  "Brahim Díaz":"布拉欣·迪亚斯",
-  "Nicolás González":"尼古拉斯·冈萨雷斯",
-  "Rodrigo De Paul":"德保罗","Elliot Anderson":"安德森",
-  "Kang-in Lee":"李刚仁","Koki Ogawa":"小川航基",
-  "Bruno Guimarães":"布鲁诺","Takefusa Kubo":"久保建英",
-  "David Promise":"普罗米斯","Christian Pulisic":"普利希奇",
-  "Petar Sučić":"苏契奇","Michael Olise":"奥利塞",
-  "Ivan Perišić":"佩里西奇","Cuna Hernandez":"库纳·埃尔南德斯",
-  "Roberto Alvarado":"阿尔瓦拉多","Hakim Ziyech":"齐耶赫",
-  "Javier De Paul":"德保罗","Leroy Sané":"萨内",
-  "Florian Wirtz":"维尔茨"
+  "Leo Østigård":"奥斯蒂高","Luis Díaz":"路易斯·迪亚斯",
+  "Ruben Vargas":"鲁文·巴尔加斯",
+  // 助攻榜（ESPN数据中API未覆盖的球员）
+  "Chris Wood":"克里斯·伍德","Joshua Kimmich":"基米希",
+  "Ryan Gravenberch":"格拉芬贝赫","Petar Sučić":"苏契奇",
+  "Amir Al-Ammari":"阿尔-阿马里","Florian Wirtz":"维尔茨",
+  "Hannibal Mejbri":"汉尼拔","Noor Al-Rawabdeh":"拉瓦布德",
+  "Michael Olise":"奥利塞","Wilfried Singo":"辛戈",
+  "Lee Kang-In":"李刚仁","Alex Freeman":"弗里曼",
+  "Elliot Anderson":"安德森","Roberto Alvarado":"阿尔瓦拉多",
+  "Vladimír Coufal":"曹法尔","Adrien Rabiot":"拉比奥",
+  "Rodrigo De Paul":"德保罗","Ivan Perišić":"佩里西奇",
+  "Julio Enciso":"恩西索","Paul Okon-Engstler":"奥孔",
+  "Sead Kolašinac":"科拉希纳茨","Malik Tillman":"蒂尔曼",
+  "Martin Ødegaard":"厄德高","Gustavo Puerta":"普埃尔塔",
+  "Bruno Guimarães":"布鲁诺","Érik Lira":"利拉",
+  "Mohamed Salah":"萨拉赫","Takefusa Kubo":"久保建英",
+  "Arthur Masuaku":"马苏亚库","David Møller Wolfe":"沃尔夫",
+  "Declan Rice":"赖斯","Pedro Neto":"内托",
+  "Brahim Díaz":"布拉希姆·迪亚斯","Xaver Schlager":"施拉格尔",
+  "Christian Pulisic":"普利希奇","Nicolás González":"尼古拉斯·冈萨雷斯",
+  "Promise David":"普罗米斯","Lucas Bergvall":"贝里瓦尔",
+  "Bukayo Saka":"萨卡","Koki Ogawa":"小川航基",
+  "Cucho Hernández":"库乔·埃尔南德斯","Iliman Ndiaye":"恩迪亚耶",
+  "Mouhib Chamakh":"沙马赫"
 };
 
-// ===== 静态备用数据 (Bing快照 6/19) =====
-var STATIC_GOALS = [
-  {n:"梅西",t:"Argentina",v:3},{n:"乔纳森·戴维",t:"Canada",v:3},
-  {n:"拉林",t:"Canada",v:2},{n:"巴洛贡",t:"USA",v:2},
-  {n:"哈弗茨",t:"Germany",v:2},{n:"阿亚里",t:"Sweden",v:2},
-  {n:"吉斯特",t:"New Zealand",v:2},{n:"姆巴佩",t:"France",v:2},
-  {n:"哈兰德",t:"Norway",v:2},{n:"凯恩",t:"England",v:2},
-  {n:"曼赞比",t:"Switzerland",v:2},
-  {n:"基尼奥内斯",t:"Colombia",v:1},{n:"希门尼斯",t:"Mexico",v:1},
-  {n:"克雷伊奇",t:"Czechia",v:1},{n:"黄仁范",t:"South Korea",v:1},
-  {n:"吴贤揆",t:"South Korea",v:1},{n:"卢基奇",t:"Bosnia",v:1},
-  {n:"毛里西奥",t:"Paraguay",v:1},{n:"雷纳",t:"USA",v:1},
-  {n:"恩博洛",t:"Switzerland",v:1},{n:"胡赫",t:"Qatar",v:1},
-  {n:"赛巴里",t:"Morocco",v:1},{n:"维尼修斯",t:"Brazil",v:1},
-  {n:"麦金",t:"Scotland",v:1},{n:"伊兰昆达",t:"Australia",v:1},
-  {n:"梅特卡夫",t:"Australia",v:1},{n:"恩梅查",t:"Germany",v:1},
-  {n:"科梅嫩西亚",t:"Curacao",v:1},{n:"施洛特贝克",t:"Germany",v:1},
-  {n:"穆西亚拉",t:"Germany",v:1},{n:"布朗",t:"Germany",v:1},
-  {n:"温达夫",t:"Germany",v:1},{n:"范戴克",t:"Netherlands",v:1},
-  {n:"中村敬斗",t:"Japan",v:1},{n:"萨默维尔",t:"Netherlands",v:1},
-  {n:"镰田大地",t:"Japan",v:1},{n:"迪亚洛",t:"Ivory Coast",v:1},
-  {n:"伊萨克",t:"Sweden",v:1},{n:"雷基克",t:"Tunisia",v:1},
-  {n:"久凯赖什",t:"Sweden",v:1},{n:"斯万贝里",t:"Sweden",v:1},
-  {n:"阿舒尔",t:"Egypt",v:1},{n:"阿姆里",t:"Saudi Arabia",v:1},
-  {n:"阿劳霍",t:"Uruguay",v:1},{n:"雷扎伊安",t:"Iran",v:1},
-  {n:"莫赫比",t:"Iran",v:1},{n:"巴尔科拉",t:"France",v:1},
-  {n:"姆巴耶",t:"Senegal",v:1},{n:"侯赛因",t:"Iraq",v:1},
-  {n:"奥斯蒂高",t:"Norway",v:1}
-];
+// ===== 静态助攻榜 (ESPN 6/19) =====
 var STATIC_ASSISTS = [
-  {n:"温达夫",t:"Germany",v:2},{n:"伊萨克",t:"Sweden",v:2},
-  {n:"基米希",t:"Germany",v:1},{n:"格拉芬贝赫",t:"Netherlands",v:1},
-  {n:"伍德",t:"New Zealand",v:1},{n:"黄仁范",t:"South Korea",v:1},
-  {n:"恩博洛",t:"Switzerland",v:1},{n:"布朗",t:"Germany",v:1},
-  {n:"久凯赖什",t:"Sweden",v:1},{n:"雷扎伊安",t:"Iran",v:1}
+  {n:"克里斯·伍德",t:"New Zealand",v:2},
+  {n:"伊萨克",t:"Sweden",v:2},
+  {n:"基米希",t:"Germany",v:2},
+  {n:"格拉芬贝赫",t:"Netherlands",v:2},
+  {n:"温达夫",t:"Germany",v:2},
+  {n:"苏契奇",t:"Croatia",v:1},{n:"阿尔-阿马里",t:"Iraq",v:1},
+  {n:"维尔茨",t:"Germany",v:1},{n:"汉尼拔",t:"Tunisia",v:1},
+  {n:"拉瓦布德",t:"Jordan",v:1},{n:"奥利塞",t:"France",v:1},
+  {n:"辛戈",t:"Ivory Coast",v:1},{n:"李刚仁",t:"South Korea",v:1},
+  {n:"久凯赖什",t:"Sweden",v:1},{n:"弗里曼",t:"USA",v:1},
+  {n:"安德森",t:"England",v:1},{n:"雷扎伊安",t:"Iran",v:1},
+  {n:"阿尔瓦拉多",t:"Mexico",v:1},{n:"曹法尔",t:"Czechia",v:1},
+  {n:"拉比奥",t:"France",v:1},{n:"德保罗",t:"Argentina",v:1},
+  {n:"佩里西奇",t:"Croatia",v:1},{n:"恩西索",t:"Paraguay",v:1},
+  {n:"路易斯·迪亚斯",t:"Colombia",v:1},{n:"奥孔",t:"Australia",v:1},
+  {n:"黄仁范",t:"South Korea",v:1},{n:"科拉希纳茨",t:"Bosnia",v:1},
+  {n:"蒂尔曼",t:"USA",v:1},{n:"厄德高",t:"Norway",v:1},
+  {n:"普埃尔塔",t:"Colombia",v:1},{n:"布鲁诺",t:"Brazil",v:1},
+  {n:"利拉",t:"Mexico",v:1},{n:"萨拉赫",t:"Egypt",v:1},
+  {n:"久保建英",t:"Japan",v:1},{n:"马苏亚库",t:"DR Congo",v:1},
+  {n:"沃尔夫",t:"Norway",v:1},{n:"布朗",t:"Germany",v:1},
+  {n:"赖斯",t:"England",v:1},{n:"内托",t:"Portugal",v:1},
+  {n:"布拉希姆·迪亚斯",t:"Morocco",v:1},{n:"施拉格尔",t:"Austria",v:1},
+  {n:"普利希奇",t:"USA",v:1},{n:"尼古拉斯·冈萨雷斯",t:"Argentina",v:1},
+  {n:"普罗米斯",t:"Canada",v:1},{n:"贝里瓦尔",t:"Sweden",v:1},
+  {n:"萨卡",t:"England",v:1},{n:"小川航基",t:"Japan",v:1},
+  {n:"库乔·埃尔南德斯",t:"Colombia",v:1},{n:"恩迪亚耶",t:"Senegal",v:1},
+  {n:"沙马赫",t:"Tunisia",v:1}
 ];
 
 // ===== 渲染 =====
@@ -137,11 +140,11 @@ function fmtLine(flag, country, name, val, unit) {
   return " " + flag + country + " " + name + " " + val + unit;
 }
 
-function renderApi(json) {
+function renderGoalsApi(json) {
   if (!json.scorers || json.scorers.length === 0) { renderStatic(); return; }
   var sc = json.scorers;
 
-  // 进球榜：按进球数降序
+  // 进球榜
   var goals = [];
   for (var i = 0; i < sc.length; i++) {
     if ((sc[i].goals || 0) > 0) {
@@ -152,18 +155,6 @@ function renderApi(json) {
   }
   goals.sort(function(a,b){ return b.v - a.v; });
 
-  // 助攻榜：筛选有助攻的球员，按助攻数降序
-  var assists = [];
-  for (var i = 0; i < sc.length; i++) {
-    if ((sc[i].assists || 0) > 0) {
-      var name = CN_PLAYER[sc[i].player.name] || sc[i].player.name;
-      var tn = norm(sc[i].team.name);
-      assists.push({n:name, t:tn, v:sc[i].assists});
-    }
-  }
-  assists.sort(function(a,b){ return b.v - a.v; });
-
-  // 组装输出
   var lines = [];
   lines.push("━━ ⚽ 进球榜 (" + goals.length + "人) ━━");
   for (var i = 0; i < goals.length; i++) {
@@ -173,9 +164,10 @@ function renderApi(json) {
     lines.push(fmtLine(flag, cn, g.n, g.v, "球"));
   }
   lines.push("");
-  lines.push("━━ 🅰️ 助攻榜 (" + assists.length + "人) ━━");
-  for (var i = 0; i < assists.length; i++) {
-    var a = assists[i];
+  // 助攻榜始终使用ESPN静态数据（API助攻覆盖不完整）
+  lines.push("━━ 🅰️ 助攻榜 (" + STATIC_ASSISTS.length + "人) ━━");
+  for (var i = 0; i < STATIC_ASSISTS.length; i++) {
+    var a = STATIC_ASSISTS[i];
     var flag = FLAGS[a.t] || "🏳️";
     var cn = CN[a.t] || a.t;
     lines.push(fmtLine(flag, cn, a.n, a.v, "次"));
@@ -185,6 +177,36 @@ function renderApi(json) {
 }
 
 function renderStatic() {
+  // 进球+助攻都使用静态数据
+  var STATIC_GOALS = [
+    {n:"梅西",t:"Argentina",v:3},{n:"乔纳森·戴维",t:"Canada",v:3},
+    {n:"拉林",t:"Canada",v:2},{n:"巴洛贡",t:"USA",v:2},
+    {n:"哈弗茨",t:"Germany",v:2},{n:"阿亚里",t:"Sweden",v:2},
+    {n:"吉斯特",t:"New Zealand",v:2},{n:"姆巴佩",t:"France",v:2},
+    {n:"哈兰德",t:"Norway",v:2},{n:"凯恩",t:"England",v:2},
+    {n:"曼赞比",t:"Switzerland",v:2},
+    {n:"基尼奥内斯",t:"Colombia",v:1},{n:"希门尼斯",t:"Mexico",v:1},
+    {n:"克雷伊奇",t:"Czechia",v:1},{n:"黄仁范",t:"South Korea",v:1},
+    {n:"吴贤揆",t:"South Korea",v:1},{n:"卢基奇",t:"Bosnia",v:1},
+    {n:"毛里西奥",t:"Paraguay",v:1},{n:"雷纳",t:"USA",v:1},
+    {n:"恩博洛",t:"Switzerland",v:1},{n:"胡赫",t:"Qatar",v:1},
+    {n:"赛巴里",t:"Morocco",v:1},{n:"维尼修斯",t:"Brazil",v:1},
+    {n:"麦金",t:"Scotland",v:1},{n:"伊兰昆达",t:"Australia",v:1},
+    {n:"梅特卡夫",t:"Australia",v:1},{n:"恩梅查",t:"Germany",v:1},
+    {n:"科梅嫩西亚",t:"Curacao",v:1},{n:"施洛特贝克",t:"Germany",v:1},
+    {n:"穆西亚拉",t:"Germany",v:1},{n:"布朗",t:"Germany",v:1},
+    {n:"温达夫",t:"Germany",v:1},{n:"范戴克",t:"Netherlands",v:1},
+    {n:"中村敬斗",t:"Japan",v:1},{n:"萨默维尔",t:"Netherlands",v:1},
+    {n:"镰田大地",t:"Japan",v:1},{n:"迪亚洛",t:"Ivory Coast",v:1},
+    {n:"伊萨克",t:"Sweden",v:1},{n:"雷基克",t:"Tunisia",v:1},
+    {n:"久凯赖什",t:"Sweden",v:1},{n:"斯万贝里",t:"Sweden",v:1},
+    {n:"阿舒尔",t:"Egypt",v:1},{n:"阿姆里",t:"Saudi Arabia",v:1},
+    {n:"阿劳霍",t:"Uruguay",v:1},{n:"雷扎伊安",t:"Iran",v:1},
+    {n:"莫赫比",t:"Iran",v:1},{n:"巴尔科拉",t:"France",v:1},
+    {n:"姆巴耶",t:"Senegal",v:1},{n:"侯赛因",t:"Iraq",v:1},
+    {n:"奥斯蒂高",t:"Norway",v:1},{n:"路易斯·迪亚斯",t:"Colombia",v:1},
+    {n:"鲁文·巴尔加斯",t:"Switzerland",v:1}
+  ];
   var lines = [];
   lines.push("━━ ⚽ 进球榜 (" + STATIC_GOALS.length + "人) ━━");
   for (var i = 0; i < STATIC_GOALS.length; i++) {
@@ -207,11 +229,11 @@ function renderStatic() {
 // ===== 主入口 =====
 if (apiKey) {
   $httpClient.get({
-    url: "https://api.football-data.org/v4/competitions/WC/scorers?limit=50",
+    url: "https://api.football-data.org/v4/competitions/WC/scorers?limit=100",
     headers: {"X-Auth-Token": apiKey}
   }, function(err, resp, data) {
     if (!err && data) {
-      try { renderApi(JSON.parse(data)); return; } catch(e) {}
+      try { renderGoalsApi(JSON.parse(data)); return; } catch(e) {}
     }
     renderStatic();
   });
