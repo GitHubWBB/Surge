@@ -13,7 +13,9 @@ if (typeof $argument !== "undefined" && $argument) {
 var API_MAP = {
   "Korea Republic":"South Korea","Bosnia-Herzegovina":"Bosnia",
   "Cape Verde Islands":"Cape Verde","United States":"USA",
-  "United States of America":"USA"
+  "United States of America":"USA","Korea DPR":"South Korea",
+  "Turkey":"Turkiye","Congo DR":"DR Congo","Curaçao":"Curacao",
+  "Bosnia-H.":"Bosnia","Czech Republic":"Czechia"
 };
 function norm(n) { return API_MAP[n] || n; }
 
