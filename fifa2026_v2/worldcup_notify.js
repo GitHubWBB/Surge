@@ -1,9 +1,7 @@
 /**
- * 2026 FIFA 世界杯 - 定时通知脚本 v2
- * Surge type=cron | 赛前提醒 + 赛果推送 + 每日赛程摘要
+ * 2026 FIFA 世界杯 - 定时通知 v3
+ * Surge type=cron | API模式: 赛前30分钟 + 赛后比分+进球详情
  */
-
-// ===== 参数解析 =====
 var apiKey = "";
 var remindBefore = 30;
 if (typeof $argument !== "undefined" && $argument) {
@@ -24,7 +22,7 @@ function norm(n) { return API_MAP[n] || n; }
 
 var FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
-  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"🇨🇭",
+  "Canada":"🇨🇦","Bosnia":"🇧🇦","Qatar":"🇶🇦","Switzerland":"CH",
   "USA":"🇺🇸","Paraguay":"🇵🇾","Brazil":"🇧🇷","Morocco":"🇲🇦",
   "Haiti":"🇭🇹","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australia":"🇦🇺","Turkiye":"🇹🇷",
   "Germany":"🇩🇪","Curacao":"🇨🇼","Netherlands":"🇳🇱","Japan":"🇯🇵",
@@ -51,9 +49,8 @@ var CN = {
   "Ghana":"加纳","Panama":"巴拿马","Uzbekistan":"乌兹别克","Colombia":"哥伦比亚"
 };
 
-// ===== 全部72场小组赛（北京时间） =====
+// 全部72场小组赛（北京时间）
 var MATCHES = [
-  // MD1
   {id:1,g:"A",h:"Mexico",a:"South Africa",d:"2026-06-12T03:00"},{id:2,g:"A",h:"South Korea",a:"Czechia",d:"2026-06-12T09:00"},
   {id:3,g:"B",h:"Canada",a:"Bosnia",d:"2026-06-13T03:00"},{id:4,g:"D",h:"USA",a:"Paraguay",d:"2026-06-13T09:00"},
   {id:5,g:"D",h:"Australia",a:"Turkiye",d:"2026-06-14T00:00"},{id:6,g:"B",h:"Qatar",a:"Switzerland",d:"2026-06-14T03:00"},
@@ -66,7 +63,6 @@ var MATCHES = [
   {id:19,g:"J",h:"Argentina",a:"Algeria",d:"2026-06-17T09:00"},{id:20,g:"J",h:"Austria",a:"Jordan",d:"2026-06-17T12:00"},
   {id:21,g:"K",h:"Portugal",a:"DR Congo",d:"2026-06-18T01:00"},{id:22,g:"L",h:"England",a:"Croatia",d:"2026-06-18T04:00"},
   {id:23,g:"L",h:"Ghana",a:"Panama",d:"2026-06-18T07:00"},{id:24,g:"K",h:"Uzbekistan",a:"Colombia",d:"2026-06-18T10:00"},
-  // MD2
   {id:25,g:"A",h:"Czechia",a:"South Africa",d:"2026-06-19T00:00"},{id:26,g:"B",h:"Switzerland",a:"Bosnia",d:"2026-06-19T03:00"},
   {id:27,g:"B",h:"Canada",a:"Qatar",d:"2026-06-19T06:00"},{id:28,g:"A",h:"Mexico",a:"South Korea",d:"2026-06-19T09:00"},
   {id:29,g:"D",h:"USA",a:"Australia",d:"2026-06-20T03:00"},{id:30,g:"C",h:"Scotland",a:"Morocco",d:"2026-06-20T06:00"},
@@ -77,7 +73,6 @@ var MATCHES = [
   {id:39,g:"H",h:"Uruguay",a:"Cape Verde",d:"2026-06-22T06:00"},{id:40,g:"G",h:"New Zealand",a:"Egypt",d:"2026-06-22T09:00"},
   {id:41,g:"J",h:"Argentina",a:"Austria",d:"2026-06-23T01:00"},{id:42,g:"I",h:"France",a:"Iraq",d:"2026-06-23T05:00"},
   {id:43,g:"I",h:"Norway",a:"Senegal",d:"2026-06-23T08:00"},{id:44,g:"J",h:"Jordan",a:"Algeria",d:"2026-06-23T11:00"},
-  // MD3
   {id:45,g:"K",h:"Portugal",a:"Uzbekistan",d:"2026-06-25T01:00"},{id:46,g:"L",h:"England",a:"Ghana",d:"2026-06-25T04:00"},
   {id:47,g:"L",h:"Panama",a:"Croatia",d:"2026-06-25T07:00"},{id:48,g:"A",h:"Czechia",a:"Mexico",d:"2026-06-25T09:00"},
   {id:49,g:"A",h:"South Africa",a:"South Korea",d:"2026-06-25T09:00"},{id:50,g:"K",h:"Colombia",a:"DR Congo",d:"2026-06-25T10:00"},
@@ -94,7 +89,6 @@ var MATCHES = [
   {id:71,g:"J",h:"Algeria",a:"Austria",d:"2026-06-29T10:00"},{id:72,g:"J",h:"Jordan",a:"Argentina",d:"2026-06-29T10:00"}
 ];
 
-// ===== 工具函数 =====
 function parseBJ(s) {
   var p = s.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]) - 8*3600000);
@@ -106,40 +100,25 @@ function getBJNow() {
 function fmtBJ(d) {
   return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0");
 }
-function fmtTime(bjStr) {
-  var p = bjStr.match(/T(\d{2}):(\d{2})/);
-  return p[1]+":"+p[2];
-}
-function getDateStr(s) { return s.substring(0,10); }
-function displayName(eng) {
-  return (FLAGS[eng]||"🏳️")+" "+(CN[eng]||eng);
-}
+function fmtTime(s) { return s.substring(11,16); }
+function displayName(eng) { return (FLAGS[eng]||"🏳️")+" "+(CN[eng]||eng); }
 
 // ===== 通知去重 =====
 var notified = {};
-try { notified = JSON.parse($persistentStore.read("wc2026v2_notified") || "{}"); } catch(e) { notified = {}; }
-function markNotified(key) {
-  notified[key] = Date.now();
-  $persistentStore.write(JSON.stringify(notified), "wc2026v2_notified");
-}
+try { notified = JSON.parse($persistentStore.read("wc2026v3_notified") || "{}"); } catch(e) { notified = {}; }
+function markNotified(key) { notified[key] = Date.now(); $persistentStore.write(JSON.stringify(notified), "wc2026v3_notified"); }
 function isNotified(key) { return notified[key] !== undefined; }
-
-// 清理7天以上记录
 var cutoff = Date.now() - 7*86400000;
 var nKeys = Object.keys(notified);
-for (var ci = 0; ci < nKeys.length; ci++) {
-  if (notified[nKeys[ci]] < cutoff) delete notified[nKeys[ci]];
-}
-if (nKeys.length > 0) $persistentStore.write(JSON.stringify(notified), "wc2026v2_notified");
+for (var ci = 0; ci < nKeys.length; ci++) { if (notified[nKeys[ci]] < cutoff) delete notified[nKeys[ci]]; }
+if (nKeys.length > 0) $persistentStore.write(JSON.stringify(notified), "wc2026v3_notified");
 
 // ===== 主逻辑 =====
 var now = getBJNow();
 var todayS = fmtBJ(now);
 
 if (apiKey) {
-  // API 模式
-  var tmrw = new Date(now.getTime() + 86400000);
-  var tmrwS = fmtBJ(tmrw);
+  var tmrwS = fmtBJ(new Date(now.getTime() + 86400000));
   $httpClient.get({
     url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+todayS+"&dateTo="+tmrwS,
     headers: {"X-Auth-Token": apiKey}
@@ -149,9 +128,7 @@ if (apiKey) {
       var json = JSON.parse(data);
       if (!json.matches || json.matches.length === 0) { runStatic(); $done(); return; }
       processApiMatches(json.matches);
-    } catch(e) {
-      runStatic();
-    }
+    } catch(e) { runStatic(); }
     $done();
   });
 } else {
@@ -159,18 +136,16 @@ if (apiKey) {
   $done();
 }
 
-// ===== API 模式处理 =====
+// ===== API 模式 =====
 function processApiMatches(matches) {
   var hour = now.getUTCHours();
-  var todayKey = "daily_" + now.getUTCFullYear() + now.getUTCMonth() + now.getUTCDate();
+  var todayKey = "daily_" + todayS;
 
-  // 过滤北京时间今天的比赛
+  // 过滤今天北京时间的比赛
   var todayMatches = [];
   for (var i = 0; i < matches.length; i++) {
-    var utcD = new Date(matches[i].utcDate);
-    var bjD = new Date(utcD.getTime() + 8*3600000);
-    var ds = fmtBJ(bjD);
-    if (ds === todayS) todayMatches.push(matches[i]);
+    var bjD = new Date(new Date(matches[i].utcDate).getTime() + 8*3600000);
+    if (fmtBJ(bjD) === todayS) todayMatches.push(matches[i]);
   }
 
   // 1. 每日8点赛程摘要
@@ -180,64 +155,61 @@ function processApiMatches(matches) {
       for (var i = 0; i < todayMatches.length; i++) {
         var m = todayMatches[i];
         var bjD = new Date(new Date(m.utcDate).getTime() + 8*3600000);
-        var hh = String(bjD.getUTCHours()).padStart(2,"0");
-        var mm = String(bjD.getUTCMinutes()).padStart(2,"0");
+        var hh = String(bjD.getUTCHours()).padStart(2,"0")+":"+String(bjD.getUTCMinutes()).padStart(2,"0");
         var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
         var grp = (m.group||"").replace("GROUP_","");
-        lines.push(hh+":"+mm+" "+displayName(ht)+" vs "+displayName(at)+" ["+grp+"]");
+        lines.push("["+grp+"组] "+hh+" "+displayName(ht)+" vs "+displayName(at));
       }
-      $notification.post("⚽ 今日赛程", "今日共 "+todayMatches.length+" 场比赛", lines.join("\n"));
+      $notification.post("⚽ 今日赛程", "今日 "+todayMatches.length+" 场", lines.join("\n"));
     } else {
-      $notification.post("⚽ 世界杯日报", "今日无比赛安排", "小组赛: 6/14-6/29 | 决赛: 7/20 03:00");
+      $notification.post("⚽ 世界杯日报", "今日无比赛", "小组赛 6/12-6/29 | 决赛 7/20");
     }
     markNotified(todayKey);
     return;
   }
 
-  // 2. 赛前提醒
+  // 2. 赛前30分钟提醒
   for (var i = 0; i < todayMatches.length; i++) {
     var m = todayMatches[i];
     var bjD = new Date(new Date(m.utcDate).getTime() + 8*3600000);
-    var diffMs = bjD.getTime() - now.getTime();
-    var diffMin = diffMs / 60000;
+    var diffMin = (bjD.getTime() - now.getTime()) / 60000;
     if (diffMin > 0 && diffMin <= remindBefore && diffMin > (remindBefore - 10)) {
       var preKey = m.id + "_pre";
       if (!isNotified(preKey)) {
         var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
-        var hh = String(bjD.getUTCHours()).padStart(2,"0");
-        var mm = String(bjD.getUTCMinutes()).padStart(2,"0");
         var grp = (m.group||"").replace("GROUP_","");
+        var hh = String(bjD.getUTCHours()).padStart(2,"0")+":"+String(bjD.getUTCMinutes()).padStart(2,"0");
         $notification.post(
-          "⚽ 比赛即将开始",
+          "⚽ 即将开赛 | "+grp+"组",
           displayName(ht)+" vs "+displayName(at),
-          "⏰ "+hh+":"+mm+" 开球 | "+grp+"组 | 约"+Math.round(diffMin)+"分钟后"
+          "⏰ "+hh+" 开球 | 约"+Math.round(diffMin)+"分钟后"
         );
         markNotified(preKey);
       }
     }
   }
 
-  // 3. 赛果推送
+  // 3. 赛后比分+进球详情通知
   for (var i = 0; i < matches.length; i++) {
     var m = matches[i];
     if (m.status !== "FINISHED") continue;
     var mid = "api_" + m.id;
     if (isNotified(mid)) continue;
     var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
-    var hScore = m.score.fullTime.home;
-    var aScore = m.score.fullTime.away;
+    var hs = m.score.fullTime.home, as = m.score.fullTime.away;
     var grp = (m.group||"").replace("GROUP_","");
+    // 进球详情
     var goalInfo = "";
     if (m.goals && m.goals.length > 0) {
       var gs = [];
-      for (var g = 0; g < Math.min(m.goals.length, 6); g++) {
+      for (var g = 0; g < Math.min(m.goals.length, 8); g++) {
         gs.push(m.goals[g].scorer.name + " " + m.goals[g].minute + "'");
       }
-      goalInfo = "\n进球: " + gs.join(", ");
+      goalInfo = "\n⚽ " + gs.join(" | ");
     }
     $notification.post(
       "⚽ 比赛结束 | "+grp+"组",
-      displayName(ht)+" "+hScore+"-"+aScore+" "+displayName(at),
+      displayName(ht)+" "+hs+" - "+as+" "+displayName(at),
       "全场比分"+goalInfo
     );
     markNotified(mid);
@@ -247,52 +219,45 @@ function processApiMatches(matches) {
 // ===== 静态模式 =====
 function runStatic() {
   var hour = now.getUTCHours();
-  var todayKey = "daily_" + now.getUTCFullYear() + now.getUTCMonth() + now.getUTCDate();
+  var todayKey = "daily_" + todayS;
 
-  // 找今天的比赛
   var todayMatches = [];
   for (var i = 0; i < MATCHES.length; i++) {
-    if (getDateStr(MATCHES[i].d) === todayS) {
-      todayMatches.push(MATCHES[i]);
-    }
+    if (MATCHES[i].d.substring(0,10) === todayS) todayMatches.push(MATCHES[i]);
   }
 
-  // 1. 每日8点赛程摘要
   if (hour === 8 && now.getUTCMinutes() < 10 && !isNotified(todayKey)) {
     if (todayMatches.length > 0) {
       var lines = [];
       for (var i = 0; i < todayMatches.length; i++) {
         var m = todayMatches[i];
-        lines.push(fmtTime(m.d)+" "+displayName(m.h)+" vs "+displayName(m.a)+" ["+m.g+"]");
+        lines.push("["+m.g+"组] "+fmtTime(m.d)+" "+displayName(m.h)+" vs "+displayName(m.a));
       }
-      $notification.post("⚽ 今日赛程", "今日共 "+todayMatches.length+" 场比赛", lines.join("\n"));
+      $notification.post("⚽ 今日赛程", "今日 "+todayMatches.length+" 场", lines.join("\n"));
     } else {
-      $notification.post("⚽ 世界杯日报", "今日无比赛安排", "小组赛: 6/14-6/29 | 决赛: 7/20 03:00");
+      $notification.post("⚽ 世界杯日报", "今日无比赛", "小组赛 6/12-6/29 | 决赛 7/20");
     }
     markNotified(todayKey);
     return;
   }
 
-  // 2. 赛前提醒
   for (var i = 0; i < MATCHES.length; i++) {
     var m = MATCHES[i];
-    var matchUTC = parseBJ(m.d);
-    var diffMs = matchUTC.getTime() - now.getTime();
-    var diffMin = diffMs / 60000;
+    var matchMs = parseBJ(m.d).getTime();
+    var diffMin = (matchMs - now.getTime()) / 60000;
     if (diffMin > 0 && diffMin <= remindBefore && diffMin > (remindBefore - 10)) {
       var preKey = m.id + "_pre";
       if (!isNotified(preKey)) {
         $notification.post(
-          "⚽ 比赛即将开始",
+          "⚽ 即将开赛 | "+m.g+"组",
           displayName(m.h)+" vs "+displayName(m.a),
-          "⏰ "+fmtTime(m.d)+" 开球 | "+m.g+"组 | 约"+Math.round(diffMin)+"分钟后"
+          "⏰ "+fmtTime(m.d)+" 开球 | 约"+Math.round(diffMin)+"分钟后"
         );
         markNotified(preKey);
       }
     }
   }
 
-  // 3. 赛果估算
   for (var i = 0; i < MATCHES.length; i++) {
     var m = MATCHES[i];
     var elapsed = now.getTime() - parseBJ(m.d).getTime();
@@ -300,9 +265,9 @@ function runStatic() {
       var endKey = m.id + "_ended";
       if (!isNotified(endKey)) {
         $notification.post(
-          "⚽ 比赛已结束",
+          "⚽ 比赛已结束 | "+m.g+"组",
           displayName(m.h)+" vs "+displayName(m.a),
-          m.g+"组比赛已结束 | 配置 API Key 可查看比分"
+          "配置 API Key 可查看比分和进球详情"
         );
         markNotified(endKey);
       }
