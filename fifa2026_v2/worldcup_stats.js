@@ -253,7 +253,7 @@ if (apiKey) {
     url: "https://api.football-data.org/v4/competitions/WC/scorers?limit=100",
     headers: {"X-Auth-Token": apiKey}
   }, function(err, resp, data) {
-    if (!err && data) {
+    if (!err && data && resp && resp.statusCode === 200) {
       try { renderGoalsApi(JSON.parse(data)); return; } catch(e) {}
     }
     renderStatic();

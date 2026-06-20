@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯·分组排名
+ * ⚽世界杯·分组排名 v2
  * Surge type=generic | 12组完整积分榜，API实时 + 静态备用
  */
 var apiKey = "";
@@ -128,7 +128,7 @@ if (apiKey) {
     url:"https://api.football-data.org/v4/competitions/WC/standings",
     headers:{"X-Auth-Token":apiKey}
   }, function(err,resp,data) {
-    if (!err && data) {
+    if (!err && data && resp && resp.statusCode === 200) {
       try { renderApi(JSON.parse(data)); return; } catch(e) {}
     }
     renderStatic();
