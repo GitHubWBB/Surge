@@ -134,8 +134,7 @@ function parseBJ(s) {
   return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]) - 8*3600000);
 }
 function getBJNow() {
-  var n = new Date();
-  return new Date(n.getTime() + 8*3600000);
+  return new Date(Date.now() + 8*3600000);
 }
 function fmtDate(d) {
   return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0");
