@@ -159,7 +159,7 @@ if (apiKey) {
     url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+yestS+"&dateTo="+fmtDate(new Date(now.getTime()+2*86400000)),
     headers: {"X-Auth-Token": apiKey}
   }, function(err, resp, data) {
-    if (!err && data) {
+    if (!err && data && resp && resp.statusCode === 200) {
       try { mergeApiData(JSON.parse(data)); } catch(e) {}
     }
     renderStatic();

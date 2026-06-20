@@ -1,6 +1,6 @@
 /**
- * 2026 FIFA 世界杯 - 定时通知 v3
- * Surge type=cron | API模式: 赛前30分钟 + 赛后比分+进球详情
+ * 2026 FIFA 世界杯 - 定时通知 v4
+ * Surge type=cron | API模式: 赛前30分钟 + 赛后比分+进球详情 | 时区修复+API错误处理
  */
 var apiKey = "";
 var remindBefore = 30;
@@ -95,9 +95,13 @@ function parseBJ(s) {
   var p = s.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]) - 8*3600000);
 }
+function parseUtc(s) {
+  var p = s.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!p) return new Date(0);
+  return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]));
+}
 function getBJNow() {
-  var n = new Date();
-  return new Date(n.getTime() + 8*3600000);
+  return new Date(Date.now() + 8*3600000);
 }
 function fmtBJ(d) {
   return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0");
@@ -119,7 +123,17 @@ if (nKeys.length > 0) $persistentStore.write(JSON.stringify(notified), "wc2026v3
 var now = getBJNow();
 var todayS = fmtBJ(now);
 
-if (apiKey) {
+// API Key 校验
+if (!apiKey || apiKey.length < 10) {
+  // 每6小时提醒一次 Key 缺失
+  var missingKey = "apikey_missing";
+  if (!isNotified(missingKey)) {
+    $notification.post("⚽ 世界杯通知", "未配置 API Key", "请在 Surge 模块设置中填入 football-data.org API Key，当前使用静态模式");
+    markNotified(missingKey);
+  }
+  runStatic();
+  $done();
+} else {
   var yestS = fmtBJ(new Date(now.getTime() - 86400000));
   var tmrwS = fmtBJ(new Date(now.getTime() + 86400000));
   $httpClient.get({
@@ -127,6 +141,26 @@ if (apiKey) {
     headers: {"X-Auth-Token": apiKey}
   }, function(error, response, data) {
     if (error || !data) { runStatic(); $done(); return; }
+
+    // 检查 HTTP 状态码
+    var status = response.statusCode || 0;
+    if (status === 429) {
+      // 限速：静默降级，不打扰用户
+      runStatic(); $done(); return;
+    }
+    if (status === 403 || status === 401) {
+      // Key 无效或过期：每12小时提醒一次
+      var badKey = "apikey_invalid";
+      if (!isNotified(badKey)) {
+        $notification.post("⚽ 世界杯通知", "API Key 无效或已过期", "HTTP "+status+" — 请检查 football-data.org API Key 设置");
+        markNotified(badKey);
+      }
+      runStatic(); $done(); return;
+    }
+    if (status !== 200) {
+      runStatic(); $done(); return;
+    }
+
     try {
       var json = JSON.parse(data);
       if (!json.matches || json.matches.length === 0) { runStatic(); $done(); return; }
@@ -134,9 +168,6 @@ if (apiKey) {
     } catch(e) { runStatic(); }
     $done();
   });
-} else {
-  runStatic();
-  $done();
 }
 
 // ===== API 模式 =====
@@ -147,7 +178,7 @@ function processApiMatches(matches) {
   // 过滤今天北京时间的比赛
   var todayMatches = [];
   for (var i = 0; i < matches.length; i++) {
-    var bjD = new Date(new Date(matches[i].utcDate).getTime() + 8*3600000);
+    var bjD = new Date(parseUtc(matches[i].utcDate).getTime() + 8*3600000);
     if (fmtBJ(bjD) === todayS) todayMatches.push(matches[i]);
   }
 
@@ -157,7 +188,7 @@ function processApiMatches(matches) {
       var lines = [];
       for (var i = 0; i < todayMatches.length; i++) {
         var m = todayMatches[i];
-        var bjD = new Date(new Date(m.utcDate).getTime() + 8*3600000);
+        var bjD = new Date(parseUtc(m.utcDate).getTime() + 8*3600000);
         var hh = String(bjD.getUTCHours()).padStart(2,"0")+":"+String(bjD.getUTCMinutes()).padStart(2,"0");
         var ht = norm(m.homeTeam.name), at = norm(m.awayTeam.name);
         var grp = (m.group||"").replace("GROUP_","");
@@ -174,7 +205,7 @@ function processApiMatches(matches) {
   // 2. 赛前30分钟提醒
   for (var i = 0; i < todayMatches.length; i++) {
     var m = todayMatches[i];
-    var bjD = new Date(new Date(m.utcDate).getTime() + 8*3600000);
+    var bjD = new Date(parseUtc(m.utcDate).getTime() + 8*3600000);
     var diffMin = (bjD.getTime() - now.getTime()) / 60000;
     if (diffMin > 0 && diffMin <= remindBefore && diffMin > (remindBefore - 10)) {
       var preKey = m.id + "_pre";
