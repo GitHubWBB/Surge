@@ -229,7 +229,11 @@ function renderStatic() {
       if (realSt === "U" && elapsed > 300000) realSt = "L";
       // 格式: 状态 [X组] 时间 主队 vs/比分 客队
       if (realSt === "F") {
-        lines.push("✅ ["+m.g+"组] "+hF+hC+" "+m.hs+"-"+m.as+" "+aF+aC);
+        if (m.hs !== null) {
+          lines.push("✅ ["+m.g+"组] "+hF+hC+" "+m.hs+"-"+m.as+" "+aF+aC);
+        } else {
+          lines.push("✅ ["+m.g+"组] "+time+" "+hF+hC+" vs "+aF+aC+" (已结束)");
+        }
       } else if (realSt === "L") {
         var scoreStr = m.hs !== null ? " "+m.hs+"-"+m.as+" " : " vs ";
         lines.push("🚶 ["+m.g+"组] "+time+" "+hF+hC+scoreStr+aF+aC);

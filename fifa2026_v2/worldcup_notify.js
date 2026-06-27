@@ -141,10 +141,8 @@ if (!apiKey || apiKey.length < 10) {
   runStatic();
   $done();
 } else {
-  var yestS = fmtBJ(new Date(now.getTime() - 86400000));
-  var tmrwS = fmtBJ(new Date(now.getTime() + 86400000));
   $httpClient.get({
-    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+yestS+"&dateTo="+tmrwS,
+    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+fmtBJ(new Date(now.getTime()-2*86400000))+"&dateTo="+fmtBJ(new Date(now.getTime()+2*86400000)),
     headers: {"X-Auth-Token": apiKey}
   }, function(error, response, data) {
     if (error || !data) { runStatic(); $done(); return; }
