@@ -1,5 +1,5 @@
 /**
- * ⚽世界杯·最近赛程 v3
+ * ⚽世界杯·最近赛程 v4
  * Surge type=generic | API实时比分 + 静态备用 | 昨天/今天/明天
  */
 var apiKey = "";
@@ -153,9 +153,8 @@ var tmrwS = fmtDate(new Date(now.getTime() + 86400000));
 var nowMs = now.getTime();
 
 if (apiKey) {
-  var tmrw = new Date(now.getTime() + 86400000);
   $httpClient.get({
-    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+yestS+"&dateTo="+fmtDate(new Date(now.getTime()+2*86400000)),
+    url: "https://api.football-data.org/v4/competitions/WC/matches?dateFrom="+fmtDate(new Date(now.getTime()-2*86400000))+"&dateTo="+fmtDate(new Date(now.getTime()+2*86400000)),
     headers: {"X-Auth-Token": apiKey}
   }, function(err, resp, data) {
     if (!err && data && resp && resp.statusCode === 200) {
@@ -186,8 +185,13 @@ function mergeApiData(json) {
       M[i].as = api.score.fullTime.away;
     } else if (api.status === "IN_PLAY" || api.status === "PAUSED") {
       M[i].st = "L";
-      if (api.score.fullTime.home !== null) M[i].hs = api.score.fullTime.home;
-      if (api.score.fullTime.away !== null) M[i].as = api.score.fullTime.away;
+      if (api.score && api.score.fullTime && api.score.fullTime.home !== null) {
+        M[i].hs = api.score.fullTime.home;
+        M[i].as = api.score.fullTime.away;
+      } else if (api.score && api.score.halfTime && api.score.halfTime.home !== null) {
+        M[i].hs = api.score.halfTime.home;
+        M[i].as = api.score.halfTime.away;
+      }
     }
   }
 }
@@ -221,8 +225,8 @@ function renderStatic() {
       var matchMs = parseBJ(m.d).getTime();
       var elapsed = nowMs - matchMs;
       var realSt = m.st;
-      if (realSt !== "F" && elapsed > 2*3600000 && m.hs !== null) realSt = "F";
-      if (realSt === "U" && elapsed > -300000 && elapsed < 7200000 && m.hs === null && elapsed > 0) realSt = "L";
+      if (realSt !== "F" && elapsed > 2.5*3600000) realSt = "F";
+      if (realSt === "U" && elapsed > 300000) realSt = "L";
       // 格式: 状态 [X组] 时间 主队 vs/比分 客队
       if (realSt === "F") {
         lines.push("✅ ["+m.g+"组] "+hF+hC+" "+m.hs+"-"+m.as+" "+aF+aC);
