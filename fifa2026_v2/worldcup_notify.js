@@ -1,6 +1,6 @@
 /**
- * 2026 FIFA 世界杯 - 定时通知 v4
- * Surge type=cron | API模式: 赛前30分钟 + 赛后比分+进球详情 | 时区修复+API错误处理
+ * 2026 FIFA 世界杯 - 定时通知 v5
+ * Surge type=cron | API模式: 赛前30分钟 + 赛后比分+进球详情 | 时区偏移修复+API错误处理
  */
 var apiKey = "";
 var remindBefore = 30;
@@ -98,7 +98,14 @@ function parseBJ(s) {
 function parseUtc(s) {
   var p = s.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
   if (!p) return new Date(0);
-  return new Date(Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]));
+  var ms = Date.UTC(+p[1],+p[2]-1,+p[3],+p[4],+p[5]);
+  // 处理时区偏移：将 +HH:MM / -HH:MM 转为 UTC
+  var tz = s.match(/([+-])(\d{2}):(\d{2})/);
+  if (tz) {
+    var offMs = (+tz[2]*3600 + +tz[3]*60) * 1000;
+    ms -= (tz[1]==="+" ? offMs : -offMs);
+  }
+  return new Date(ms);
 }
 function getBJNow() {
   return new Date(Date.now() + 8*3600000);
